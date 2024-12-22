@@ -1,6 +1,7 @@
 param location string
 param environment string
 param projectName string
+param logicAppPrincipalId string
 
 resource openAiAccount 'Microsoft.CognitiveServices/accounts@2024-10-01' = {
   name: '${projectName}-${environment}-openai'
@@ -52,3 +53,16 @@ resource embeddingDeployment 'Microsoft.CognitiveServices/accounts/deployments@2
     gpt4Deployment
   ]
 }
+
+
+resource openAiContributorRoleAssignment 'Microsoft.Authorization/roleAssignments@2020-04-01-preview' = {
+  name: guid(openAiAccount.name, logicAppPrincipalId, 'b24988ac-6180-42a0-ab88-20f7382dd24c') // Contributor role ID
+  scope: openAiAccount
+  properties: {
+    roleDefinitionId: subscriptionResourceId('Microsoft.Authorization/roleDefinitions', 'b24988ac-6180-42a0-ab88-20f7382dd24c') // Contributor role ID
+    principalId: logicAppPrincipalId
+  }
+}
+
+
+output id string = openAiAccount.id
