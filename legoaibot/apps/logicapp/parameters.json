@@ -1,0 +1,22 @@
+{
+    "AISearch_Index_Name": {
+        "type": "String",
+        "value": "legoaibot-index-v1"
+    },
+    "AISearch_Schema_DocumentName": {
+        "type": "String",
+        "value": "doc"
+    },
+    "AISearch_Schema_ID": {
+        "type": "String",
+        "value": "vector"
+    },
+    "Blob_Path": {
+        "type": "String",
+        "value": "legoaibotdoc"
+    },
+    "OpenAI_TextEmbedding_Deployment_Identifier": {
+        "type": "String",
+        "value": "embedding"
+    }
+}

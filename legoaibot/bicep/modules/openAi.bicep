@@ -56,10 +56,10 @@ resource embeddingDeployment 'Microsoft.CognitiveServices/accounts/deployments@2
 
 
 resource openAiContributorRoleAssignment 'Microsoft.Authorization/roleAssignments@2020-04-01-preview' = {
-  name: guid(openAiAccount.name, logicAppPrincipalId, 'b24988ac-6180-42a0-ab88-20f7382dd24c') // Contributor role ID
+  name: guid(openAiAccount.name, logicAppPrincipalId, 'b05e14b8-7c5a-4b66-9b30-1b1a7f2b5cbc') // Cognitive Services OpenAI Contributor role ID
   scope: openAiAccount
   properties: {
-    roleDefinitionId: subscriptionResourceId('Microsoft.Authorization/roleDefinitions', 'b24988ac-6180-42a0-ab88-20f7382dd24c') // Contributor role ID
+    roleDefinitionId: subscriptionResourceId('Microsoft.Authorization/roleDefinitions', 'b05e14b8-7c5a-4b66-9b30-1b1a7f2b5cbc') 
     principalId: logicAppPrincipalId
   }
 }

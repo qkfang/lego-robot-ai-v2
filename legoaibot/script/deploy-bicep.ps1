@@ -1,7 +1,7 @@
 # Variables
 $resourceGroupName = "rg-legoaibot"
-$templateFile = "main.bicep"
-$parameterFile = "main.parameters.json"
+$templateFile = "../bicep/main.bicep"
+$parameterFile = "../bicep/main.parameters.json"
 
 # Login to Azure
 # az login

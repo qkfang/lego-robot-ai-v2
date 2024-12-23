@@ -2,6 +2,15 @@ param location string = resourceGroup().location
 param projectName string = 'legoaibot'
 param environment string = 'dev'
 
+resource appInsights 'Microsoft.Insights/components@2020-02-02' = {
+  name: '${projectName}-appinsights'
+  location: location
+  kind: 'web'
+  properties: {
+    Application_Type: 'web'
+  }
+}
+
 // deploy azure ai search
 module aiSearch 'modules/aiSearch.bicep' = {
   name: 'aiSearch'
@@ -47,6 +56,7 @@ module logicApp 'modules/logicApp.bicep' = {
     environment: environment
     projectName: projectName
     storageAccountConnectionString: 'DefaultEndpointsProtocol=https;AccountName=${storageAccount.name};EndpointSuffix=core.windows.net;AccountKey=${listKeys(storageAccount.id, '2021-04-01').keys[0].value}'
+    appInsightsId: appInsights.id
   }
 }
 

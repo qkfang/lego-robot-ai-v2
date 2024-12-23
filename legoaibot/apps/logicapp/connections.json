@@ -1,0 +1,52 @@
+{
+  "managedApiConnections": {},
+  "serviceProviderConnections": {
+      "AzureBlob": {
+          "displayName": "blob",
+          "parameterSetName": "connectionString",
+          "parameterValues": {
+              "connectionString": "@appsetting('AzureBlob_connectionString')"
+          },
+          "serviceProvider": {
+              "id": "/serviceProviders/AzureBlob"
+          }
+      },
+      "azureaisearch-1": {
+          "displayName": "ais1",
+          "parameterSetName": "ConnectionString",
+          "parameterValues": {
+              "searchServiceAdminKey": "@appsetting('azureaisearch_searchServiceAdminKey')",
+              "searchServiceEndpoint": "@appsetting('azureaisearch_searchServiceEndpoint')"
+          },
+          "serviceProvider": {
+              "id": "/serviceProviders/azureaisearch"
+          }
+      },
+      "azureaisearch": {
+          "displayName": "ais",
+          "parameterSetName": "ManagedServiceIdentity",
+          "parameterValues": {
+              "authProvider": {
+                  "Type": "ManagedServiceIdentity"
+              },
+              "searchServiceEndpoint": "@appsetting('aisearch_searchServiceEndpoint')"
+          },
+          "serviceProvider": {
+              "id": "/serviceProviders/azureaisearch"
+          }
+      },
+      "openai": {
+          "displayName": "aoai",
+          "parameterSetName": "ManagedServiceIdentity",
+          "parameterValues": {
+              "authProvider": {
+                  "Type": "ManagedServiceIdentity"
+              },
+              "openAIEndpoint": "@appsetting('openai_openAIEndpoint')"
+          },
+          "serviceProvider": {
+              "id": "/serviceProviders/openai"
+          }
+      }
+  }
+}
