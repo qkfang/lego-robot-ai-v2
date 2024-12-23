@@ -11,17 +11,6 @@
               "id": "/serviceProviders/AzureBlob"
           }
       },
-      "azureaisearch-1": {
-          "displayName": "ais1",
-          "parameterSetName": "ConnectionString",
-          "parameterValues": {
-              "searchServiceAdminKey": "@appsetting('azureaisearch_searchServiceAdminKey')",
-              "searchServiceEndpoint": "@appsetting('azureaisearch_searchServiceEndpoint')"
-          },
-          "serviceProvider": {
-              "id": "/serviceProviders/azureaisearch"
-          }
-      },
       "azureaisearch": {
           "displayName": "ais",
           "parameterSetName": "ManagedServiceIdentity",

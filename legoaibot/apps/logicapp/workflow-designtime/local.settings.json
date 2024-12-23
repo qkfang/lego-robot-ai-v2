@@ -1,0 +1,9 @@
+{
+  "IsEncrypted": false,
+  "Values": {
+    "APP_KIND": "workflowapp",
+    "FUNCTIONS_WORKER_RUNTIME": "node",
+    "ProjectDirectoryPath": "d:\\gh-repo\\lego-robot-ai-v2\\legoaibot\\apps\\logicapp",
+    "AzureWebJobsSecretStorageType": "Files"
+  }
+}

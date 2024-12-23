@@ -55,6 +55,7 @@ module logicApp 'modules/logicApp.bicep' = {
     location: location
     environment: environment
     projectName: projectName
+    storageAccountName: storageAccount.name
     storageAccountConnectionString: 'DefaultEndpointsProtocol=https;AccountName=${storageAccount.name};EndpointSuffix=core.windows.net;AccountKey=${listKeys(storageAccount.id, '2021-04-01').keys[0].value}'
     appInsightsId: appInsights.id
   }
@@ -63,10 +64,10 @@ module logicApp 'modules/logicApp.bicep' = {
 
 // Assign Contributor role to Logic App for AI Search, OpenAI, and Storage Account
 resource logicAppContributorRoleAssignment 'Microsoft.Authorization/roleAssignments@2020-04-01-preview' = {
-  name: guid(subscription().id, logicApp.name, 'b24988ac-6180-42a0-ab88-20f7382dd24c') // Contributor role ID
+  name: guid(subscription().id, logicApp.name, 'ba92f5b4-2d11-453d-a403-e96b0029c9fe') // Contributor role ID
   scope: storageAccount
   properties: {
-    roleDefinitionId: subscriptionResourceId('Microsoft.Authorization/roleDefinitions', 'b24988ac-6180-42a0-ab88-20f7382dd24c') // Contributor role ID
+    roleDefinitionId: subscriptionResourceId('Microsoft.Authorization/roleDefinitions', 'ba92f5b4-2d11-453d-a403-e96b0029c9fe') // Contributor role ID
     principalId: logicApp.outputs.principalId
   }
 }
