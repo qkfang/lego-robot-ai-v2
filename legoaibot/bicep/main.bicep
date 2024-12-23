@@ -3,7 +3,7 @@ param projectName string = 'legoaibot'
 param environment string = 'dev'
 
 resource appInsights 'Microsoft.Insights/components@2020-02-02' = {
-  name: '${projectName}-appinsights'
+  name: '${projectName}-${environment}-appinsights'
   location: location
   kind: 'web'
   properties: {
@@ -26,7 +26,7 @@ module aiSearch 'modules/aiSearch.bicep' = {
 module openAi 'modules/openAi.bicep' = {
   name: 'openAi'
   params: {
-    location: location
+    location: 'eastus2'
     environment: environment
     projectName: projectName
     logicAppPrincipalId: logicApp.outputs.principalId
@@ -55,7 +55,6 @@ module logicApp 'modules/logicApp.bicep' = {
     location: location
     environment: environment
     projectName: projectName
-    storageAccountName: storageAccount.name
     storageAccountConnectionString: 'DefaultEndpointsProtocol=https;AccountName=${storageAccount.name};EndpointSuffix=core.windows.net;AccountKey=${listKeys(storageAccount.id, '2021-04-01').keys[0].value}'
     appInsightsId: appInsights.id
   }
@@ -69,5 +68,28 @@ resource logicAppContributorRoleAssignment 'Microsoft.Authorization/roleAssignme
   properties: {
     roleDefinitionId: subscriptionResourceId('Microsoft.Authorization/roleDefinitions', 'ba92f5b4-2d11-453d-a403-e96b0029c9fe') // Contributor role ID
     principalId: logicApp.outputs.principalId
+  }
+}
+
+
+param cosmosDatabaseName string = 'mobile'
+param cosmosContainerName string = 'reports'
+module cosmodDb 'modules/cosmosdb.bicep' = {
+  name: 'sql'
+  params: {
+    location: 'eastus2'
+    accountName: '${projectName}-${environment}-cosmos'
+    databaseName: cosmosDatabaseName
+    containerName: cosmosContainerName
+  }
+}
+
+
+module aiService 'modules/aiService.bicep' = {
+  name: 'aiService'
+  params: {
+    location: location
+    speechServiceName: '${projectName}-${environment}-speech'
+    translatorServiceName: '${projectName}-${environment}-trans'
   }
 }

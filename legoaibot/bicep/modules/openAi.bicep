@@ -24,7 +24,7 @@ resource gpt4Deployment 'Microsoft.CognitiveServices/accounts/deployments@2024-1
   parent: openAiAccount
   name: 'gpt-4o'
   sku: {
-    name: 'Standard'
+    name: 'GlobalStandard'
     capacity: 120
   }
   properties: {
@@ -44,13 +44,33 @@ resource embeddingDeployment 'Microsoft.CognitiveServices/accounts/deployments@2
   }
   properties: {
     model: {
-      name: 'text-embedding-ada-002'
-      version: '2'
+      name: 'text-embedding-3-small'
+      version: '1'
       format: 'OpenAI' 
     }
   }
   dependsOn: [
     gpt4Deployment
+  ]
+}
+
+
+resource gpt4oRT 'Microsoft.CognitiveServices/accounts/deployments@2024-10-01' = {
+  parent: openAiAccount
+  name: 'gpt-4o-rt'
+  sku: {
+    name: 'GlobalStandard'
+    capacity: 5
+  }
+  properties: {
+    model: {
+      name: 'gpt-4o-realtime-preview'
+      version: '2024-10-01'
+      format: 'OpenAI' 
+    }
+  }
+  dependsOn: [
+    embeddingDeployment
   ]
 }
 

@@ -1,7 +1,6 @@
 param location string
 param projectName string
 param environment string
-param storageAccountName string
 param storageAccountConnectionString string
 param appInsightsId string
 
