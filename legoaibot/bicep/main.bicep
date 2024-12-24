@@ -47,6 +47,13 @@ resource storageAccount 'Microsoft.Storage/storageAccounts@2021-04-01' = {
   }
 }
 
+// Create a blob container called legoaibotdoc
+resource blobContainer 'Microsoft.Storage/storageAccounts/blobServices/containers@2021-04-01' = {
+  name: '${storageAccount.name}/default/legoaibotdoc'
+  properties: {
+    publicAccess: 'None'
+  }
+}
 
 // deploy azure logic app
 module logicApp 'modules/logicApp.bicep' = {

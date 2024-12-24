@@ -24,13 +24,27 @@ resource searchService 'Microsoft.Search/searchServices@2024-06-01-preview' = {
     }
     disabledDataExfiltrationOptions: []
   }
+  
 }
 
+
+// var indexProperties = json(loadTextContent('legoaibot-index-v1.json'))
+
+// resource legoaibotIndex 'Microsoft.Search/searchServices/indexes@2024-06-01-Preview' = {
+//   name: 'legoaibot-index-v1'
+//   parent: searchService
+//   properties: {
+//     fields: indexProperties.fields
+//     vectorSearch: indexProperties.vectorSearch
+//   }
+// }
+
+
 resource aiSearchContributorRoleAssignment 'Microsoft.Authorization/roleAssignments@2022-04-01' = {
-  name: guid(searchService.name, logicAppPrincipalId, 'b24988ac-6180-42a0-ab88-20f7382dd24c') // Contributor role ID
+  name: guid(searchService.name, logicAppPrincipalId, '8ebe5a00-799e-43f5-93ac-243d3dce84a7') // Search Index Data Contributor
   scope: searchService
   properties: {
-    roleDefinitionId: subscriptionResourceId('Microsoft.Authorization/roleDefinitions', 'b24988ac-6180-42a0-ab88-20f7382dd24c') // Contributor role ID
+    roleDefinitionId: subscriptionResourceId('Microsoft.Authorization/roleDefinitions', '8ebe5a00-799e-43f5-93ac-243d3dce84a7') // Search Index Data Contributor
     principalId: logicAppPrincipalId
   }
 }
