@@ -34,18 +34,56 @@ app.get('/', (req, res) => {
     res.send({ "status": "ready" });
 });
 
+/**
+ * @openapi
+ * /chat:
+ *   post:
+ *     summary: Execute a chat command
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               prompt:
+ *                 type: string
+ *                 description: The prompt to send to the agent
+ *               session_id:
+ *                 type: string
+ *                 description: The session ID for the agent instance
+ *             required:
+ *               - prompt
+ *               - session_id
+ *     responses:
+ *       '200':
+ *         description: Successful response
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 message:
+ *                   type: string
+ *                   description: The result from the agent
+ *       '400':
+ *         description: Bad request
+ *       '500':
+ *         description: Internal server error
+ * 
+ */
 app.post('/chat', async (req, res) => {
     let agent = {};
     let prompt = req.body.prompt;
-    let session_id = req.body.session_id;
 
-    if (agentInstancesMap.has(session_id)) {
-        agent = agentInstancesMap.get(session_id);
-    } else {
-        agent = new legoAgent();
-        agentInstancesMap.set(session_id, agent);
-    }
-
+    // if (agentInstancesMap.has(session_id)) {
+    //     agent = agentInstancesMap.get(session_id);
+    // } else {
+    agent = new legoAgent();
+    //    agentInstancesMap.set(session_id, agent);
+    //}
+    console.log('prompt:', prompt);
+    await agent.setup();
     let result = await agent.executeAgent(prompt);
     res.send({ message: result });
 });

@@ -1,5 +1,4 @@
 require('dotenv').config();
-const { MongoClient } = require('mongodb');
 const { AgentExecutor } = require("langchain/agents");
 const { OpenAIFunctionsAgentOutputParser } = require("langchain/agents/openai/output_parser");
 const { formatToOpenAIFunctionMessages } = require("langchain/agents/format_scratchpad");
@@ -9,63 +8,33 @@ const { HumanMessage, AIMessage } = require("@langchain/core/messages");
 const { MessagesPlaceholder, ChatPromptTemplate } = require("@langchain/core/prompts");
 const { convertToOpenAIFunction } = require("@langchain/core/utils/function_calling");
 const { ChatOpenAI, OpenAIEmbeddings } = require("@langchain/openai");
-const { AzureCosmosDBMongoDBVectorStore} = require("@langchain/azure-cosmosdb")
-const { OpenAIClient, AzureKeyCredential } = require("@azure/openai");
-const fs = require('node:fs');
+const {
+    AzureAISearchVectorStore,
+    AzureAISearchQueryType,
+} = require("@langchain/community/vectorstores/azure_aisearch");
+const {
+    SearchClient,
+    AzureKeyCredential
+  } = require("@azure/search-documents");
+
+const apiKey = process.env.AZURE_AISEARCH_KEY;
+const endpoint = `https://${process.env.AZURE_AISEARCH_ENDPOINT}.search.windows.net`;
 
 class CosmicWorksAIAgent {
     constructor() {
-        // set up the MongoDB client
-        this.dbClient = new MongoClient(process.env.AZURE_COSMOSDB_MONGODB_CONNECTION_STRING);
-        // set up the Azure Cosmos DB vector store
-        const azureCosmosDBConfigApi = {
-            client: this.dbClient,
-            databaseName: "legoaichat",
-            collectionName: "lego_sp_api",
-            indexName: "VectorSearchIndex",
-            embeddingKey: "contentVector",
-            textKey: "_id"
-        }
-        this.vectorStoreApi = new AzureCosmosDBMongoDBVectorStore(new OpenAIEmbeddings(), azureCosmosDBConfigApi);
-
-        const azureCosmosDBConfigSnippet = {
-            client: this.dbClient,
-            databaseName: "legoaichat",
-            collectionName: "lego_sp_snippet",
-            indexName: "VectorSearchIndex",
-            embeddingKey: "contentVector",
-            textKey: "_id"
-        }
-        this.vectorStoreSnippet = new AzureCosmosDBMongoDBVectorStore(new OpenAIEmbeddings(), azureCosmosDBConfigSnippet);
-
-
-        const azureCosmosDBConfigInfo = {
-            client: this.dbClient,
-            databaseName: "legoaichat",
-            collectionName: "lego_sp_doc",
-            indexName: "VectorSearchIndex",
-            embeddingKey: "contentVector",
-            textKey: "_id"
-        }
-        this.vectorStoreInfo = new AzureCosmosDBMongoDBVectorStore(new OpenAIEmbeddings(), azureCosmosDBConfigInfo);
-
-
-        const azureCosmosDBConfigImage = {
-            client: this.dbClient,
-            databaseName: "legoaichat",
-            collectionName: "legoimage",
-            indexName: "VectorSearchIndex",
-            embeddingKey: "contentVector",
-            textKey: "_id"
-        }
-        this.vectorStoreImage = new AzureCosmosDBMongoDBVectorStore(new OpenAIEmbeddings(), azureCosmosDBConfigImage);
-
-        const { SearchClient, AzureKeyCredential } = require("@azure/search-documents");
-        const serviceName = process.env.AZURE_AISEARCH_INSTANCE_NAME;
-        const apiKey = process.env.AZURE_AISEARCH_API_KEY;
-        const indexName = "fll-submerged-index-v1";
-        const endpoint = `https://${serviceName}.search.windows.net`;
+        const indexName = "legoaibot-index-v1";
         this.searchClient = new SearchClient(endpoint, indexName, new AzureKeyCredential(apiKey));
+
+        this.searchStore = new AzureAISearchVectorStore(
+            new OpenAIEmbeddings(),
+            {
+              client: this.searchClient,
+              indexName: indexName,
+              search: {
+                type: AzureAISearchQueryType.SimilarityHybrid,
+              },
+            }
+          );
 
         // set up the OpenAI chat model
         // https://js.langchain.com/docs/integrations/chat/azure
@@ -81,49 +50,11 @@ class CosmicWorksAIAgent {
         this.chatHistory = [];
 
         // initialize the agent executor
-        (async () => {
-            this.agentExecutor = await this.buildAgentExecutor();
-        })();
+
     }
 
-    async queryAzureSearch(query) {
-        console.log(query);
-        const searchResults = await searchClient.search(query);
-        const results = [];
-        for await (const result of searchResults.results) {
-          delete result.document.contentVector;
-          results.push(result);
-        }
-        return JSON.stringify(results.slice(0, 5));
-      }
-      
-    async formatDocuments(docs) {
-        // Prepares the product list for the system prompt.  
-        let strDocs = "";
-        for (let index = 0; index < docs.length; index++) {
-            let doc = docs[index];
-            let docFormatted = { "_id": doc.pageContent };
-            Object.assign(docFormatted, doc.metadata);
-
-            // Build the product document without the contentVector and tags
-            if ("contentVector" in docFormatted) {
-                delete docFormatted["contentVector"];
-            }
-            if ("tags" in docFormatted) {
-                delete docFormatted["tags"];
-            }
-
-            // Add the formatted product document to the list
-            strDocs += JSON.stringify(docFormatted, null, '\t');
-
-            // Add a comma and newline after each item except the last
-            if (index < docs.length - 1) {
-                strDocs += ",\n";
-            }
-        }
-        // Add two newlines after the last item
-        strDocs += "\n\n";
-        return strDocs;
+    async setup() {
+        this.agentExecutor = await this.buildAgentExecutor();
     }
 
     async buildAgentExecutor() {
@@ -229,65 +160,24 @@ class CosmicWorksAIAgent {
             runloop.until       
         `;
         // Create vector store retriever chain to retrieve documents and formats them as a string for the prompt.
-        const retrieverChainApi = this.vectorStoreApi.asRetriever().pipe(this.formatDocuments);
-        const retrieverChainSnippet = this.vectorStoreSnippet.asRetriever().pipe(this.formatDocuments);
-        const retrieverChainInfo = this.vectorStoreInfo.asRetriever().pipe(this.formatDocuments);
+        const retrieverChain = this.searchStore.asRetriever().pipe(this.formatDocuments);
 
         // Define tools for the agent can use, the description is important this is what the AI will 
         // use to decide which tool to use.
 
         // A tool that retrieves product information from Cosmic Works based on the user's question.
-        const legoApiRetrieverTool = new DynamicTool({
-            name: "api_retriever_tool",
-            description: `Must always use this tool for any python code request. Searches Lego python API information for similar python function definitions based on the question. 
-                    Returns the python function API information in JSON format.`,
-            func: async (input) => await retrieverChainApi.invoke(input),
-            verbose: true
-        });
-
-        const legoSnippetRetrieverTool = new DynamicTool({
-            name: "snippet_lookup_tool",
-            description: `Must always use this tool for any python code. Searches Lego python code examples for similar python function definitions based on the question. Returns the python code blocks in JSON format.`,
-            func: async (input) => await retrieverChainSnippet.invoke(input),
-            verbose: true
-        });
-
-        const legoInfoRetrieverTool = new DynamicTool({
+        const searchRetrieverTool = new DynamicTool({
             name: "info_lookup_tool",
             description: `Searches information about Lego robot based on the question. Returns general information about Lego related details in JSON format.`,
-            func: async (input) => await retrieverChainInfo.invoke(input),
+            func: async (input) => await retrieverChain.invoke(input),
             verbose: true
         });
-
-        const azureSearchTool = new DynamicTool({
-            name: "fll_lookup_tool",
-            description: "Must always use this tool for any fll season information related submerged season",
-            func: async (query) => {
-              return await queryAzureSearch(query);
-            },
-            verbose: true
-          });
-    
-        // A tool that will lookup a product by its SKU. Note that this is not a vector store lookup.
-        // const productLookupTool = new DynamicTool({
-        //     name: "snippet_lookup_tool",
-        //     description: `Searches Lego python code sample information for required robot actions.
-        //             Returns an example code snippet in JSON format.`,
-        //     func: async (input) => {
-        //         const db = this.dbClient.db("cosmic_works");
-        //         const products = db.collection("products");
-        //         const doc = await products.findOne({ "sku": input });
-        //         if (doc) {
-        //             //remove the contentVector property to save on tokens
-        //             delete doc.contentVector;
-        //         }
-        //         return doc ? JSON.stringify(doc, null, '\t') : null;
-        //     },
-        // });
 
         // Generate OpenAI function metadata to provide to the LLM
         // The LLM will use this metadata to decide which tool to use based on the description.
-        const tools = [legoApiRetrieverTool, legoSnippetRetrieverTool, legoInfoRetrieverTool, azureSearchTool];
+        // const tools = [legoApiRetrieverTool, legoSnippetRetrieverTool, legoInfoRetrieverTool, azureSearchTool];
+        const tools = [searchRetrieverTool];
+        
         const modelWithFunctions = this.chatModel.bind({
             functions: tools.map((tool) => convertToOpenAIFunction(tool)),
         });
@@ -323,8 +213,8 @@ class CosmicWorksAIAgent {
         const executor = AgentExecutor.fromAgentAndTools({
             agent: runnableAgent,
             tools,
-            returnIntermediateSteps: true,
-            verbose: true
+            // returnIntermediateSteps: true,
+            // verbose: true
         });
 
         return executor;
@@ -334,7 +224,7 @@ class CosmicWorksAIAgent {
     async executeAgent(input) {
         let returnValue = "";
         try {
-            await this.dbClient.connect();
+            // await this.dbClient.connect();
             // Invoke the agent with the user input
             const result = await this.agentExecutor.invoke({ input: input, chat_history: this.chatHistory });
 
@@ -348,60 +238,40 @@ class CosmicWorksAIAgent {
             // Return the final response from the agent
             returnValue = result.output;
         } finally {
-            await this.dbClient.close();
+            // await this.dbClient.close();
         }
         return returnValue;
     }
 
+    
+    async formatDocuments(docs) {
+        // Prepares the product list for the system prompt.  
+        let strDocs = "";
+        for (let index = 0; index < docs.length; index++) {
+            let doc = docs[index];
+            let docFormatted = { "_id": doc.pageContent };
+            Object.assign(docFormatted, doc.metadata);
 
-    async getVector(file) {
-        // const content = fs.readFileSync('/usr/src/app/cosmic_works/85-6541.png');
-        const content = fs.readFileSync(file);
-
-        var vector = '';
-        await fetch("https://eastus.api.cognitive.microsoft.com/computervision/retrieval:vectorizeImage?api-version=2023-02-01-preview&modelVersion=latest", {
-            method: 'POST',
-            body: content,
-            headers: { 'Content-Type': 'application/octet-stream', "Ocp-Apim-Subscription-Key": "<visionkey>" }
-        })
-            .then((result) => result.text())
-            .then((data) => {
-                vector = JSON.parse(data)
-                // string `{"text":"hello world"}`
-            })
-
-        this.client = new MongoClient(process.env.AZURE_COSMOSDB_MONGODB_CONNECTION_STRING);
-        await this.client.connect();
-
-        const db = this.client.db("legoaichat");
-        const collection = db.collection("legoimage");
-        console.log(vector.vector);
-
-        // Query for similar documents.
-        // const documents = collection.aggregate([
-        //     { "$group": { "_id": "$image_file", "count": { "$sum": "1" } } }
-        // ]);     
-
-        const documents = collection.aggregate([
-            {
-                "$search": {
-                    "cosmosSearch": { "vector": vector.vector, "path": "vectorContent", "k": 3 },
-                    "returnStoredSource": "true"
-                }
+            // Build the product document without the contentVector and tags
+            if ("content_vector" in docFormatted) {
+                delete docFormatted["contentVector"];
             }
-            , {
-                "$project": {
-                    'similarityScore':
-                        { '$meta': 'searchScore' }, "_id": 3, "image_file": 3, "author": 3, "title": 3, "type": 3, "description": 3
-                }
-            }])
+            if ("tags" in docFormatted) {
+                delete docFormatted["tags"];
+            }
 
-        var result = []
-        await documents.forEach(doc => result.push(doc));
-        console.log(result)
-        return result;
-    };
+            // Add the formatted product document to the list
+            strDocs += JSON.stringify(docFormatted, null, '\t');
 
+            // Add a comma and newline after each item except the last
+            if (index < docs.length - 1) {
+                strDocs += ",\n";
+            }
+        }
+        // Add two newlines after the last item
+        strDocs += "\n\n";
+        return strDocs;
+    }
 };
 
 

@@ -12,6 +12,7 @@
     "@azure/openai": "^2.0.0-beta.3",
     "@azure/search-documents": "^12.1.0",
     "@langchain/azure-cosmosdb": "^0.2.1",
+    "@langchain/community": "^0.3.20",
     "cors": "^2.8.5",
     "dotenv": "^16.4.5",
     "langchain": "^0.3.5",
