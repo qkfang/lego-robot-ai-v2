@@ -1,0 +1,23 @@
+{
+  "Module_Name": "Motor Pair",
+  "Module_Description": "The motor_pair module is used to run motors in a synchronized fashion. This mode is optimal for creating drivebases where you'd want a pair of motors to start and stop at the same time.",
+  "SubModule_Name": "Motor Pair",
+  "SubModule_Description": "The motor_pair module is used to run motors in a synchronized fashion. This mode is optimal for creating drivebases where you'd want a pair of motors to start and stop at the same time.",
+  "Function_Name": "unpair",
+  "Function": {
+    "Function_Name": "unpair",
+    "Function_Signature": "unpair(pair: int) -> None",
+    "Function_Description": "Unpair a Motor Pair.",
+    "Function_Arguments": [
+      {
+        "Argument_Name": "pair: int",
+        "Argument_Description": "The pair slot of the Motor Pair."
+      }
+    ],
+    "Function_Snippet": [
+      {
+        "Python_Code": "import motor_pair\n\nmotor_pair.unpair(motor_pair.PAIR_1)"
+      }
+    ]
+  }
+}

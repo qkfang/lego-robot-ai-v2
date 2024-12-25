@@ -1,0 +1,24 @@
+{
+  "Module_Name": "Hub",
+  "Module_Description": "Sub Modules",
+  "SubModule_Name": "Light Matrix",
+  "SubModule_Description": "To use the Light Matrix module add the following import statement to your project:",
+  "Function_Name": "show",
+  "Function": {
+    "Function_Name": "show",
+    "Function_Signature": "show(pixels: list[int]) -> None",
+    "Function_Description": "Change all the lights at the same time.",
+    "Parameters": [
+      {
+        "Argument_Name": "pixels: Iterable",
+        "Argument_Description": "A list containing light intensity values for all 25 pixels."
+      }
+    ],
+    "Python_Code": [
+      {
+        "Python_Code": "from hub import light_matrix\n# Update all pixels on Light Matrix using the show function \n\n# Create a list with 25 identical intensity values \npixels = [100] * 25 \n\n# Update all pixels to show same intensity \nlight_matrix.show(pixels)",
+        "Python_Description": "Change all the lights at the same time."
+      }
+    ]
+  }
+}

@@ -1,0 +1,14 @@
+{
+  "Module_Name": "Hub",
+  "Module_Description": "Sub Modules",
+  "SubModule_Name": "Sound",
+  "SubModule_Description": "To use the Sound module add the following import statement to your project:",
+  "Function_Name": "stop",
+  "Function": {
+    "Function_Name": "stop",
+    "Function_Signature": "stop() -> None",
+    "Function_Description": "Stops all noise from the hub",
+    "Parameters": [],
+    "Python_Code": []
+  }
+}

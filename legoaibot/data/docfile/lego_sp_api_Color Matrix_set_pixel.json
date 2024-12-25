@@ -1,0 +1,35 @@
+{
+  "Module_Name": "Color Matrix",
+  "Module_Description": "To use the Color Matrix module add the following import statement to your project:",
+  "SubModule_Name": "Color Matrix",
+  "SubModule_Description": "To use the Color Matrix module add the following import statement to your project:",
+  "Function_Name": "set_pixel",
+  "Function": {
+    "Function_Name": "set_pixel",
+    "Function_Signature": "set_pixel(port: int, x: int, y: int, pixel: tuple[color: int, intensity: int]) -> None",
+    "Function_Description": "Change a single pixel on a Color Matrix",
+    "Function_Arguments": [
+      {
+        "Argument_Name": "port: int",
+        "Argument_Description": "A port from the port submodule in the hub module"
+      },
+      {
+        "Argument_Name": "x: int",
+        "Argument_Description": "The X value (0 - 2)"
+      },
+      {
+        "Argument_Name": "y: int",
+        "Argument_Description": "The Y value, range (0 - 2)"
+      },
+      {
+        "Argument_Name": "pixel: tuple[color: int, intensity: int]",
+        "Argument_Description": "Tuple containing color and intensity, meaning how bright to light up the pixel"
+      }
+    ],
+    "Function_Snippet": [
+      {
+        "Python_Code": "from hub import port\nimport color\nimport color_matrix\n\n# Change the color of the 0,0 pixel on the Color Matrix connected to port A \ncolor_matrix.set_pixel(port.A, 0, 0, (color.RED, 10))\n\n# Print the color of the 0,0 pixel on the Color Matrix connected to port A \nprint(color_matrix.get_pixel(port.A, 0, 0)[0])"
+      }
+    ]
+  }
+}

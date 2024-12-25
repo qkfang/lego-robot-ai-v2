@@ -1,0 +1,14 @@
+{
+  "Module_Name": "Hub",
+  "Module_Description": "Sub Modules",
+  "SubModule_Name": "Motion Sensor",
+  "SubModule_Description": "To use the Motion Sensor module add the following import statement to your project:",
+  "Function_Name": "reset_tap_count",
+  "Function": {
+    "Function_Name": "reset_tap_count",
+    "Function_Signature": "reset_tap_count() -> None",
+    "Function_Description": "Reset the tap count returned by the tap_count function",
+    "Parameters": [],
+    "Python_Code": []
+  }
+}

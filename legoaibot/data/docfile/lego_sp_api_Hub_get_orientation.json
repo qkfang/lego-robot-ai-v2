@@ -1,0 +1,14 @@
+{
+  "Module_Name": "Hub",
+  "Module_Description": "Sub Modules",
+  "SubModule_Name": "Light Matrix",
+  "SubModule_Description": "To use the Light Matrix module add the following import statement to your project:",
+  "Function_Name": "get_orientation",
+  "Function": {
+    "Function_Name": "get_orientation",
+    "Function_Signature": "get_orientation() -> int",
+    "Function_Description": "Retrieve the current orientation of the Light Matrix.\n Can be used with the following  constants: orientation.UP, orientation.LEFT,  orientation.RIGHT, orientation.DOWN",
+    "Parameters": [],
+    "Python_Code": []
+  }
+}

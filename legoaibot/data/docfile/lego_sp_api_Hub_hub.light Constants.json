@@ -1,0 +1,13 @@
+{
+  "Module_Name": "Hub",
+  "Module_Description": "Sub Modules",
+  "SubModule_Name": "Light",
+  "SubModule_Description": "The light module includes functions to change the color of the light on the SPIKE Prime hub.",
+  "Function_Name": "hub.light Constants",
+  "Function": {
+    "Function_Name": "hub.light Constants",
+    "Function_Signature": "POWER = 0\nThe power button. On SPIKE Prime it's the button between the left  and right buttons.\nCONNECT = 1\nThe light around the Bluetooth connect  button on SPIKE Prime.",
+    "Parameters": [],
+    "Python_Code": []
+  }
+}

@@ -1,0 +1,19 @@
+{
+  "Module_Name": "App",
+  "Module_Description": "The app module is used communicate between hub and app",
+  "SubModule_Name": "Display",
+  "SubModule_Description": "The display module is used show images in the SPIKE App",
+  "Function_Name": "image",
+  "Function": {
+    "Function_Name": "image",
+    "Function_Signature": "image(image: int) -> None",
+    "Function_Description": "Parameters",
+    "Parameters": [
+      {
+        "Argument_Name": "image: int",
+        "Argument_Description": "The id of the image to show. The range of available images is 1 to 21. There are consts on      the display module for these"
+      }
+    ],
+    "Python_Code": []
+  }
+}

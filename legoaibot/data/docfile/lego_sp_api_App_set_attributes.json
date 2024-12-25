@@ -1,0 +1,27 @@
+{
+  "Module_Name": "App",
+  "Module_Description": "The app module is used communicate between hub and app",
+  "SubModule_Name": "Sound",
+  "SubModule_Description": "The sound module is used play sounds in the SPIKE App",
+  "Function_Name": "set_attributes",
+  "Function": {
+    "Function_Name": "set_attributes",
+    "Function_Signature": "set_attributes(volume: int, pitch: int, pan: int) -> None",
+    "Function_Description": "Parameters",
+    "Parameters": [
+      {
+        "Argument_Name": "volume: int",
+        "Argument_Description": "The volume (0-100)"
+      },
+      {
+        "Argument_Name": "pitch: int",
+        "Argument_Description": "The pitch of the sound"
+      },
+      {
+        "Argument_Name": "pan: int",
+        "Argument_Description": "The pan effect determines which speaker is emitting the sound, with \"-100\" being only the      left speaker, \"0\" being normal, and \"100\" being only the right speaker."
+      }
+    ],
+    "Python_Code": []
+  }
+}

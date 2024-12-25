@@ -1,0 +1,24 @@
+{
+  "Module_Name": "Hub",
+  "Module_Description": "Sub Modules",
+  "SubModule_Name": "Button",
+  "SubModule_Description": "To use the Button module add the following import statement to your project:",
+  "Function_Name": "pressed",
+  "Function": {
+    "Function_Name": "pressed",
+    "Function_Signature": "int pressed(button: int) -> int",
+    "Function_Description": "This module allows you to react to buttons being pressed on the hub. You must first import the  button module to use the buttons.",
+    "Parameters": [
+      {
+        "Argument_Name": "button: int",
+        "Argument_Description": "A button from the button submodule in the hub module"
+      }
+    ],
+    "Python_Code": [
+      {
+        "Python_Code": "from hub import button\n\nleft_button_press_duration = 0\n\n# Wait for the left button to be pressed \nwhile not button.pressed(button.LEFT):\n    pass\n\n# As long as the left button is being pressed, update the `left_button_press_duration` variable \nwhile button.pressed(button.LEFT):\n    left_button_press_duration = button.pressed(button.LEFT)\n\nprint(\"Left button was pressed for \" + str(left_button_press_duration) + \" milliseconds\")\n",
+        "Python_Description": "This module allows you to react to buttons being pressed on the hub. You must first import the  button module to use the buttons."
+      }
+    ]
+  }
+}

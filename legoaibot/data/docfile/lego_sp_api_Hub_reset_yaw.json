@@ -1,0 +1,14 @@
+{
+  "Module_Name": "Hub",
+  "Module_Description": "Sub Modules",
+  "SubModule_Name": "Motion Sensor",
+  "SubModule_Description": "To use the Motion Sensor module add the following import statement to your project:",
+  "Function_Name": "reset_yaw",
+  "Function": {
+    "Function_Name": "reset_yaw",
+    "Function_Signature": "reset_yaw(angle: int) -> None",
+    "Function_Description": "Change the yaw angle offset.\nThe angle set will be the new yaw value.",
+    "Parameters": [],
+    "Python_Code": []
+  }
+}

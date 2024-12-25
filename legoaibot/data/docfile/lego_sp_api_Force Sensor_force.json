@@ -1,0 +1,23 @@
+{
+  "Module_Name": "Force Sensor",
+  "Module_Description": "The force_sensor module contains all functions and constants to use the Force Sensor.",
+  "SubModule_Name": "Force Sensor",
+  "SubModule_Description": "The force_sensor module contains all functions and constants to use the Force Sensor.",
+  "Function_Name": "force",
+  "Function": {
+    "Function_Name": "force",
+    "Function_Signature": "force(port: int) -> int",
+    "Function_Description": "Retrieves the measured force as decinewton. Values range from 0 to 100",
+    "Function_Arguments": [
+      {
+        "Argument_Name": "port: int",
+        "Argument_Description": "A port from the port submodule in the hub module"
+      }
+    ],
+    "Function_Snippet": [
+      {
+        "Python_Code": "from hub import port\nimport force_sensor\n\n\nprint(force_sensor.force(port.A))"
+      }
+    ]
+  }
+}

@@ -1,0 +1,19 @@
+{
+  "Module_Name": "App",
+  "Module_Description": "The app module is used communicate between hub and app",
+  "SubModule_Name": "Display",
+  "SubModule_Description": "The display module is used show images in the SPIKE App",
+  "Function_Name": "text",
+  "Function": {
+    "Function_Name": "text",
+    "Function_Signature": "text(text: str) -> None",
+    "Function_Description": "Parameters",
+    "Parameters": [
+      {
+        "Argument_Name": "text: str",
+        "Argument_Description": "The text to display"
+      }
+    ],
+    "Python_Code": []
+  }
+}

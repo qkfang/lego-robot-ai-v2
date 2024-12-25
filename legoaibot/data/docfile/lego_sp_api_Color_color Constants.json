@@ -1,0 +1,13 @@
+{
+  "Module_Name": "Color",
+  "Module_Description": "The color module contains all the color constants to use with the color_matrix, color_sensor and light modules.",
+  "SubModule_Name": "Color",
+  "SubModule_Description": "The color module contains all the color constants to use with the color_matrix, color_sensor and light modules.",
+  "Function_Name": "color Constants",
+  "Function": {
+    "Function_Name": "color Constants",
+    "Function_Signature": "BLACK = 0\nMAGENTA = 1\nPURPLE = 2\nBLUE = 3\nAZURE = 4\nTURQUOISE = 5\nGREEN = 6\nYELLOW = 7\nORANGE = 8\nRED = 9\nWHITE = 10\nUNKNOWN = -1",
+    "Function_Arguments": [],
+    "Function_Snippet": []
+  }
+}

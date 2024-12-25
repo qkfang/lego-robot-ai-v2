@@ -1,0 +1,23 @@
+{
+  "Module_Name": "Color Matrix",
+  "Module_Description": "To use the Color Matrix module add the following import statement to your project:",
+  "SubModule_Name": "Color Matrix",
+  "SubModule_Description": "To use the Color Matrix module add the following import statement to your project:",
+  "Function_Name": "clear",
+  "Function": {
+    "Function_Name": "clear",
+    "Function_Signature": "clear(port: int) -> None",
+    "Function_Description": "Turn off all pixels on a Color Matrix",
+    "Function_Arguments": [
+      {
+        "Argument_Name": "port: int",
+        "Argument_Description": "A port from the port submodule in the hub module"
+      }
+    ],
+    "Function_Snippet": [
+      {
+        "Python_Code": "from hub import port\nimport color_matrix\n\ncolor_matrix.clear(port.A)"
+      }
+    ]
+  }
+}

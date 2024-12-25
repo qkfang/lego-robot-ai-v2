@@ -1,0 +1,23 @@
+{
+  "Module_Name": "Force Sensor",
+  "Module_Description": "The force_sensor module contains all functions and constants to use the Force Sensor.",
+  "SubModule_Name": "Force Sensor",
+  "SubModule_Description": "The force_sensor module contains all functions and constants to use the Force Sensor.",
+  "Function_Name": "raw",
+  "Function": {
+    "Function_Name": "raw",
+    "Function_Signature": "raw(port: int) -> int",
+    "Function_Description": "Returns the raw, uncalibrated force value of the force sensor connected on port port",
+    "Function_Arguments": [
+      {
+        "Argument_Name": "port: int",
+        "Argument_Description": "A port from the port submodule in the hub module"
+      }
+    ],
+    "Function_Snippet": [
+      {
+        "Python_Code": "from hub import port\nimport force_sensor\n\n\nprint(force_sensor.raw(port.A))"
+      }
+    ]
+  }
+}

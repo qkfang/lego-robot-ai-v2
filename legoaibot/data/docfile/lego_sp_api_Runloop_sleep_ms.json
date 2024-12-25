@@ -1,0 +1,23 @@
+{
+  "Module_Name": "Runloop",
+  "Module_Description": "The runloop module contains all functions and constants to use the Runloop.",
+  "SubModule_Name": "Runloop",
+  "SubModule_Description": "The runloop module contains all functions and constants to use the Runloop.",
+  "Function_Name": "sleep_ms",
+  "Function": {
+    "Function_Name": "sleep_ms",
+    "Function_Signature": "sleep_ms(duration: int) -> Awaitable",
+    "Function_Description": "Pause the execution of the application for any amount of milliseconds.",
+    "Function_Arguments": [
+      {
+        "Argument_Name": "duration: int",
+        "Argument_Description": "The duration in milliseconds"
+      }
+    ],
+    "Function_Snippet": [
+      {
+        "Python_Code": "from hub import light_matrix\nimport runloop\n\nasync def main():\n    light_matrix.write(\"Hi!\")\n    # Wait for ten seconds \n    await runloop.sleep_ms(10000)\n    light_matrix.write(\"Are you still here?\")\n\nrunloop.run(main())\n"
+      }
+    ]
+  }
+}

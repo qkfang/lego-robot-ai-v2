@@ -1,0 +1,19 @@
+{
+  "Module_Name": "Device",
+  "Module_Description": "The device module enables you to write code to get information about devices plugged into the hub.",
+  "SubModule_Name": "Device",
+  "SubModule_Description": "The device module enables you to write code to get information about devices plugged into the hub.",
+  "Function_Name": "id",
+  "Function": {
+    "Function_Name": "id",
+    "Function_Signature": "id(port: int) -> int",
+    "Function_Description": "Retrieve the device id of a device. Each device has an id based on its type.",
+    "Function_Arguments": [
+      {
+        "Argument_Name": "port: int",
+        "Argument_Description": "A port from the port submodule in the hub module"
+      }
+    ],
+    "Function_Snippet": []
+  }
+}

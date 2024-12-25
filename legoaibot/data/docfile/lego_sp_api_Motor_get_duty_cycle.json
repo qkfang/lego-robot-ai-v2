@@ -1,0 +1,19 @@
+{
+  "Module_Name": "Motor",
+  "Module_Description": "To use a Motor add the following import statement to your project:",
+  "SubModule_Name": "Motor",
+  "SubModule_Description": "To use a Motor add the following import statement to your project:",
+  "Function_Name": "get_duty_cycle",
+  "Function": {
+    "Function_Name": "get_duty_cycle",
+    "Function_Signature": "get_duty_cycle(port: int) -> int",
+    "Function_Description": "Get the pwm of a Motor",
+    "Function_Arguments": [
+      {
+        "Argument_Name": "port: int",
+        "Argument_Description": "A port from the port submodule in the hub module"
+      }
+    ],
+    "Function_Snippet": []
+  }
+}

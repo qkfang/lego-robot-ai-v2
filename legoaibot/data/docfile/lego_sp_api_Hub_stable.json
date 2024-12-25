@@ -1,0 +1,14 @@
+{
+  "Module_Name": "Hub",
+  "Module_Description": "Sub Modules",
+  "SubModule_Name": "Motion Sensor",
+  "SubModule_Description": "To use the Motion Sensor module add the following import statement to your project:",
+  "Function_Name": "stable",
+  "Function": {
+    "Function_Name": "stable",
+    "Function_Signature": "stable() -> bool",
+    "Function_Description": "Whether or not the hub is resting flat.",
+    "Parameters": [],
+    "Python_Code": []
+  }
+}

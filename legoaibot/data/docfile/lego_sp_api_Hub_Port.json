@@ -1,0 +1,26 @@
+{
+  "Module_Name": "Hub",
+  "Module_Description": "Sub Modules",
+  "SubModule_Name": "Hub",
+  "SubModule_Description": "Sub Modules",
+  "Function_Name": "Port",
+  "Function": {
+    "Function_Name": "Port",
+    "Function_Signature": "This module contains constants that enables easy access to the ports on the SPIKE Prime hub. Use the constants in all functions that takes a port parameter.",
+    "Function_Description": "To use the Port module add the following import statement to your project:",
+    "Function_Arguments": [
+      {
+        "Argument_Name": "hub.port Constants",
+        "Argument_Description": "A = 0\nThe Port that is labelled ‘A’ on the Hub.\nB =  1\nThe Port that is labelled ‘B’ on the Hub.\nC = 2\nThe Port that is  labelled ‘C’ on the Hub.\nD = 3\nThe Port that is labelled ‘D’ on the  Hub.\nE = 4\nThe Port that is labelled ‘E’ on the  Hub.\nF = 5\nThe Port that is labelled ‘F’ on the Hub."
+      }
+    ],
+    "Function_Snippet": [
+      {
+        "Python_Code": "from hub import port"
+      },
+      {
+        "Python_Code": "port.A"
+      }
+    ]
+  }
+}

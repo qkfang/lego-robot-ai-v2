@@ -1,0 +1,27 @@
+{
+  "Module_Name": "Runloop",
+  "Module_Description": "The runloop module contains all functions and constants to use the Runloop.",
+  "SubModule_Name": "Runloop",
+  "SubModule_Description": "The runloop module contains all functions and constants to use the Runloop.",
+  "Function_Name": "until",
+  "Function": {
+    "Function_Name": "until",
+    "Function_Signature": "until(function: Callable[[], bool], timeout: int = 0) -> Awaitable",
+    "Function_Description": "Returns an awaitable that will return when the condition in the function or lambda passed is True or when it times out",
+    "Function_Arguments": [
+      {
+        "Argument_Name": "function: Callable[[], bool]",
+        "Argument_Description": "A callable with no parameters that returns either True or  False.\nCallable is anything that can be called, so a def or a  lambda"
+      },
+      {
+        "Argument_Name": "timeout: int",
+        "Argument_Description": "A timeout for the function in milliseconds.\nIf the callable does not return True  within the timeout, the until still resolves after the timeout.\n0 means no  timeout, in that case it will not resolve until the callable returns True"
+      }
+    ],
+    "Function_Snippet": [
+      {
+        "Python_Code": "import color_sensor\nimport color\nfrom hub import port\nimport runloop\n\ndef is_color_red():\n    return color_sensor.color(port.A) is color.RED\n\nasync def main():\n    # Wait until Color Sensor sees red \n    await runloop.until(is_color_red)\n    print(\"Red!\")\n\nrunloop.run(main())\n"
+      }
+    ]
+  }
+}

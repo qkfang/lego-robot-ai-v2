@@ -1,0 +1,35 @@
+{
+  "Module_Name": "Motor Pair",
+  "Module_Description": "The motor_pair module is used to run motors in a synchronized fashion. This mode is optimal for creating drivebases where you'd want a pair of motors to start and stop at the same time.",
+  "SubModule_Name": "Motor Pair",
+  "SubModule_Description": "The motor_pair module is used to run motors in a synchronized fashion. This mode is optimal for creating drivebases where you'd want a pair of motors to start and stop at the same time.",
+  "Function_Name": "move",
+  "Function": {
+    "Function_Name": "move",
+    "Function_Signature": "move(pair: int, steering: int, *, velocity: int = 360, acceleration: int = 1000) -> None",
+    "Function_Description": "Move a Motor Pair at a constant speed until a new command is given.",
+    "Function_Arguments": [
+      {
+        "Argument_Name": "pair: int",
+        "Argument_Description": "The pair slot of the Motor Pair."
+      },
+      {
+        "Argument_Name": "steering: int",
+        "Argument_Description": "The steering (-100 to 100)"
+      },
+      {
+        "Argument_Name": "velocity: int",
+        "Argument_Description": "The velocity in degrees/sec\nValue ranges depends on motor type.\nSmall motor (essential): -660 to 660\nMedium motor: -1110 to 1110\nLarge motor: -1050 to 1050"
+      },
+      {
+        "Argument_Name": "acceleration: int",
+        "Argument_Description": "The acceleration (deg/sec²) (1 - 10000)"
+      }
+    ],
+    "Function_Snippet": [
+      {
+        "Python_Code": "from hub import port\nimport runloop\nimport motor_pair\n\nasync def main():\n    # Pair motors on port A and B \n    motor_pair.pair(motor_pair.PAIR_1, port.A, port.B)\n\n    await runloop.sleep_ms(2000)\n\n    # Move straight at default velocity \n    motor_pair.move(motor_pair.PAIR_1, 0)\n\n    await runloop.sleep_ms(2000)\n\n    # Move straight at a specific velocity \n    motor_pair.move(motor_pair.PAIR_1, 0, velocity=280)\n\n    await runloop.sleep_ms(2000)\n\n    # Move straight at a specific velocity and acceleration \n    motor_pair.move(motor_pair.PAIR_1, 0, velocity=280, acceleration=100)\n\nrunloop.run(main())"
+      }
+    ]
+  }
+}

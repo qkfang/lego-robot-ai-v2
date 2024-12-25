@@ -1,0 +1,23 @@
+{
+  "Module_Name": "Device",
+  "Module_Description": "The device module enables you to write code to get information about devices plugged into the hub.",
+  "SubModule_Name": "Device",
+  "SubModule_Description": "The device module enables you to write code to get information about devices plugged into the hub.",
+  "Function_Name": "set_duty_cycle",
+  "Function": {
+    "Function_Name": "set_duty_cycle",
+    "Function_Signature": "set_duty_cycle(port: int, duty_cycle: int) -> None",
+    "Function_Description": "Set the duty cycle on a device. Range 0 to 10000",
+    "Function_Arguments": [
+      {
+        "Argument_Name": "port: int",
+        "Argument_Description": "A port from the port submodule in the hub module"
+      },
+      {
+        "Argument_Name": "duty_cycle: int",
+        "Argument_Description": "The PWM value (0-10000)"
+      }
+    ],
+    "Function_Snippet": []
+  }
+}

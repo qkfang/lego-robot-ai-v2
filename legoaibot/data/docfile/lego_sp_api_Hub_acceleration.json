@@ -1,0 +1,19 @@
+{
+  "Module_Name": "Hub",
+  "Module_Description": "Sub Modules",
+  "SubModule_Name": "Motion Sensor",
+  "SubModule_Description": "To use the Motion Sensor module add the following import statement to your project:",
+  "Function_Name": "acceleration",
+  "Function": {
+    "Function_Name": "acceleration",
+    "Function_Signature": "acceleration(raw_unfiltered: bool) -> tuple[int, int, int]",
+    "Function_Description": "Returns a tuple containing x, y & z acceleration values as integers. The values are mili G,  so 1 / 1000 G",
+    "Parameters": [
+      {
+        "Argument_Name": "raw_unfiltered: bool",
+        "Argument_Description": "If we want the data back raw and unfiltered"
+      }
+    ],
+    "Python_Code": []
+  }
+}

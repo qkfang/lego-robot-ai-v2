@@ -1,0 +1,28 @@
+{
+  "Module_Name": "Hub",
+  "Module_Description": "Sub Modules",
+  "SubModule_Name": "Light Matrix",
+  "SubModule_Description": "To use the Light Matrix module add the following import statement to your project:",
+  "Function_Name": "get_pixel",
+  "Function": {
+    "Function_Name": "get_pixel",
+    "Function_Signature": "get_pixel(x: int, y: int) -> int",
+    "Function_Description": "Retrieve the intensity of a specific pixel on the Light Matrix.",
+    "Parameters": [
+      {
+        "Argument_Name": "x: int",
+        "Argument_Description": "The X value, range (0 - 4)"
+      },
+      {
+        "Argument_Name": "y: int",
+        "Argument_Description": "The Y value, range (0 - 4)"
+      }
+    ],
+    "Python_Code": [
+      {
+        "Python_Code": "from hub import light_matrix\n\n# Show a heart \nlight_matrix.show_image(1)\n\n# Print the value of the center pixel's intensity \nprint(light_matrix.get_pixel(2, 2))\n",
+        "Python_Description": "Retrieve the intensity of a specific pixel on the Light Matrix."
+      }
+    ]
+  }
+}

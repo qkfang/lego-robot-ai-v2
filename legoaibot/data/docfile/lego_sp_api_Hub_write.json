@@ -1,0 +1,32 @@
+{
+  "Module_Name": "Hub",
+  "Module_Description": "Sub Modules",
+  "SubModule_Name": "Light Matrix",
+  "SubModule_Description": "To use the Light Matrix module add the following import statement to your project:",
+  "Function_Name": "write",
+  "Function": {
+    "Function_Name": "write",
+    "Function_Signature": "write(text: str, intensity: int = 100, time_per_character: int = 500) -> Awaitable",
+    "Function_Description": "Displays text on the Light Matrix, one letter at a time, scrolling from right to left except if  there is a single character to show which will not scroll",
+    "Parameters": [
+      {
+        "Argument_Name": "text: str",
+        "Argument_Description": "The text to display"
+      },
+      {
+        "Argument_Name": "intensity: int",
+        "Argument_Description": "How bright to light up the pixel"
+      },
+      {
+        "Argument_Name": "time_per_character: int",
+        "Argument_Description": "How long to show each character on the display"
+      }
+    ],
+    "Python_Code": [
+      {
+        "Python_Code": "from hub import light_matrix\n# White a message to the hub \nlight_matrix.write(\"Hello, world!\")",
+        "Python_Description": "Displays text on the Light Matrix, one letter at a time, scrolling from right to left except if  there is a single character to show which will not scroll"
+      }
+    ]
+  }
+}

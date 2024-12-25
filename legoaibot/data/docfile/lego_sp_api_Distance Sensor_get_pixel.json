@@ -1,0 +1,27 @@
+{
+  "Module_Name": "Distance Sensor",
+  "Module_Description": "The distance_sensor module enables you to write code that reacts to specific distances or light up the Distance Sensor in different ways.",
+  "SubModule_Name": "Distance Sensor",
+  "SubModule_Description": "The distance_sensor module enables you to write code that reacts to specific distances or light up the Distance Sensor in different ways.",
+  "Function_Name": "get_pixel",
+  "Function": {
+    "Function_Name": "get_pixel",
+    "Function_Signature": "get_pixel(port: int, x: int, y: int) -> int",
+    "Function_Description": "Retrieve the intensity of a specific light on the Distance Sensor connected to port.",
+    "Function_Arguments": [
+      {
+        "Argument_Name": "port: int",
+        "Argument_Description": "A port from the port submodule in the hub module"
+      },
+      {
+        "Argument_Name": "x: int",
+        "Argument_Description": "The X value (0 - 3)"
+      },
+      {
+        "Argument_Name": "y: int",
+        "Argument_Description": "The Y value, range (0 - 3)"
+      }
+    ],
+    "Function_Snippet": []
+  }
+}

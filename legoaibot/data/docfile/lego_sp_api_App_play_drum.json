@@ -1,0 +1,19 @@
+{
+  "Module_Name": "App",
+  "Module_Description": "The app module is used communicate between hub and app",
+  "SubModule_Name": "Music",
+  "SubModule_Description": "The music module is used make music in the SPIKE App",
+  "Function_Name": "play_drum",
+  "Function": {
+    "Function_Name": "play_drum",
+    "Function_Signature": "play_drum(drum: int) -> None",
+    "Function_Description": "Parameters",
+    "Parameters": [
+      {
+        "Argument_Name": "drum: int",
+        "Argument_Description": "The drum name. See all available values in the app.sound module."
+      }
+    ],
+    "Python_Code": []
+  }
+}

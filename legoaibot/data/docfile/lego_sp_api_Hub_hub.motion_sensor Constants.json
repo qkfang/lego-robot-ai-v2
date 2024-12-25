@@ -1,0 +1,13 @@
+{
+  "Module_Name": "Hub",
+  "Module_Description": "Sub Modules",
+  "SubModule_Name": "Motion Sensor",
+  "SubModule_Description": "To use the Motion Sensor module add the following import statement to your project:",
+  "Function_Name": "hub.motion_sensor Constants",
+  "Function": {
+    "Function_Name": "hub.motion_sensor Constants",
+    "Function_Signature": "TAPPED = 0\nDOUBLE_TAPPED = 1\nSHAKEN = 2\nFALLING = 3\nUNKNOWN = -1\nTOP = 0\nThe SPIKE Prime hub face with the Light  Matrix.\nFRONT = 1\nThe SPIKE Prime hub face where the speaker  is.\nRIGHT = 2\nThe right side of the SPIKE Prime hub when facing the front  hub face.\nBOTTOM = 3\nThe side of the SPIKE Prime hub where the battery  is.\nBACK = 4\nThe SPIKE Prime hub face with the USB charging  port.\nLEFT = 5\nThe left side of the SPIKE Prime hub when facing the front  hub face.",
+    "Parameters": [],
+    "Python_Code": []
+  }
+}

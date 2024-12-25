@@ -1,0 +1,19 @@
+{
+  "Module_Name": "Runloop",
+  "Module_Description": "The runloop module contains all functions and constants to use the Runloop.",
+  "SubModule_Name": "Runloop",
+  "SubModule_Description": "The runloop module contains all functions and constants to use the Runloop.",
+  "Function_Name": "run",
+  "Function": {
+    "Function_Name": "run",
+    "Function_Signature": "run(*functions: Awaitable) -> None",
+    "Function_Description": "Start any number of parallel async functions. This is the function you should use to create programs with a similar structure to Word Blocks.",
+    "Function_Arguments": [
+      {
+        "Argument_Name": "*functions: awaitable",
+        "Argument_Description": "The functions to run"
+      }
+    ],
+    "Function_Snippet": []
+  }
+}

@@ -1,0 +1,14 @@
+{
+  "Module_Name": "Hub",
+  "Module_Description": "Sub Modules",
+  "SubModule_Name": "Hub",
+  "SubModule_Description": "Sub Modules",
+  "Function_Name": "power_off",
+  "Function": {
+    "Function_Name": "power_off",
+    "Function_Signature": "power_off() -> int",
+    "Function_Description": "Turns off the hub.",
+    "Function_Arguments": [],
+    "Function_Snippet": []
+  }
+}

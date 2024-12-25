@@ -1,0 +1,23 @@
+{
+  "Module_Name": "Color Sensor",
+  "Module_Description": "The color_sensor module enables you to write code that reacts to specific colors or the intensity of the reflected light.",
+  "SubModule_Name": "Color Sensor",
+  "SubModule_Description": "The color_sensor module enables you to write code that reacts to specific colors or the intensity of the reflected light.",
+  "Function_Name": "color",
+  "Function": {
+    "Function_Name": "color",
+    "Function_Signature": "color(port: int) -> int",
+    "Function_Description": "Returns the color value of the detected color. Use the color module to map the color value to a specific color.",
+    "Function_Arguments": [
+      {
+        "Argument_Name": "port: int",
+        "Argument_Description": "A port from the port submodule in the hub module"
+      }
+    ],
+    "Function_Snippet": [
+      {
+        "Python_Code": "import color_sensor\nfrom hub import port\nimport color\n\nif color_sensor.color(port.A) is color.RED:\n    print(\"Red detected\")"
+      }
+    ]
+  }
+}

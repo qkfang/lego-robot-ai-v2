@@ -1,0 +1,14 @@
+{
+  "Module_Name": "App",
+  "Module_Description": "The app module is used communicate between hub and app",
+  "SubModule_Name": "Sound",
+  "SubModule_Description": "The sound module is used play sounds in the SPIKE App",
+  "Function_Name": "stop",
+  "Function": {
+    "Function_Name": "stop",
+    "Function_Signature": "stop() -> None",
+    "Function_Description": "Parameters",
+    "Parameters": [],
+    "Python_Code": []
+  }
+}

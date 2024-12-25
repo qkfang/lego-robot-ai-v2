@@ -1,0 +1,27 @@
+{
+  "Module_Name": "Distance Sensor",
+  "Module_Description": "The distance_sensor module enables you to write code that reacts to specific distances or light up the Distance Sensor in different ways.",
+  "SubModule_Name": "Distance Sensor",
+  "SubModule_Description": "The distance_sensor module enables you to write code that reacts to specific distances or light up the Distance Sensor in different ways.",
+  "Function_Name": "show",
+  "Function": {
+    "Function_Name": "show",
+    "Function_Signature": "show(port: int, pixels: list[int]) -> None",
+    "Function_Description": "Change all the lights at the same time.",
+    "Function_Arguments": [
+      {
+        "Argument_Name": "port: int",
+        "Argument_Description": "A port from the port submodule in the hub module"
+      },
+      {
+        "Argument_Name": "pixels: bytes",
+        "Argument_Description": "A list containing intensity values for all 4 pixels."
+      }
+    ],
+    "Function_Snippet": [
+      {
+        "Python_Code": "from hub import port\nimport distance_sensor\n\n# Update all pixels on Distance Sensor using the show function \n\n# Create a list with 4 identical intensity values \npixels = [100] * 4 \n\n# Update all pixels to show same intensity \ndistance_sensor.show(port.A, pixels)"
+      }
+    ]
+  }
+}

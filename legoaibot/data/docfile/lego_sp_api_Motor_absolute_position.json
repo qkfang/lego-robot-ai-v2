@@ -1,0 +1,19 @@
+{
+  "Module_Name": "Motor",
+  "Module_Description": "To use a Motor add the following import statement to your project:",
+  "SubModule_Name": "Motor",
+  "SubModule_Description": "To use a Motor add the following import statement to your project:",
+  "Function_Name": "absolute_position",
+  "Function": {
+    "Function_Name": "absolute_position",
+    "Function_Signature": "absolute_position(port: int) -> int",
+    "Function_Description": "Get the absolute position of a Motor",
+    "Function_Arguments": [
+      {
+        "Argument_Name": "port: int",
+        "Argument_Description": "A port from the port submodule in the hub module"
+      }
+    ],
+    "Function_Snippet": []
+  }
+}

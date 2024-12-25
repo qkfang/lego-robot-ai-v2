@@ -1,0 +1,19 @@
+{
+  "Module_Name": "App",
+  "Module_Description": "The app module is used communicate between hub and app",
+  "SubModule_Name": "Display",
+  "SubModule_Description": "The display module is used show images in the SPIKE App",
+  "Function_Name": "show",
+  "Function": {
+    "Function_Name": "show",
+    "Function_Signature": "show(fullscreen: bool) -> None",
+    "Function_Description": "Parameters",
+    "Parameters": [
+      {
+        "Argument_Name": "fullscreen: bool",
+        "Argument_Description": "Show in full screen"
+      }
+    ],
+    "Python_Code": []
+  }
+}

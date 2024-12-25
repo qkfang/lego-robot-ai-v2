@@ -1,0 +1,27 @@
+{
+  "Module_Name": "Color Matrix",
+  "Module_Description": "To use the Color Matrix module add the following import statement to your project:",
+  "SubModule_Name": "Color Matrix",
+  "SubModule_Description": "To use the Color Matrix module add the following import statement to your project:",
+  "Function_Name": "show",
+  "Function": {
+    "Function_Name": "show",
+    "Function_Signature": "show(port: int, pixels: list[tuple[int, int]]) -> None",
+    "Function_Description": "Change all pixels at once on a Color Matrix",
+    "Function_Arguments": [
+      {
+        "Argument_Name": "port: int",
+        "Argument_Description": "A port from the port submodule in the hub module"
+      },
+      {
+        "Argument_Name": "pixels: list[tuple[int, int]]",
+        "Argument_Description": "A list containing color and intensity value tuples for all 9 pixels."
+      }
+    ],
+    "Function_Snippet": [
+      {
+        "Python_Code": "from hub import port\nimport color\nimport color_matrix\n\n# Update all pixels on Color Matrix using the show function \n\n# Create a list with 18 items (color and intensity pairs) \npixels = [(color.BLUE, 10)] * 9 \n\n# Update all pixels to show same color and intensity \ncolor_matrix.show(port.A, pixels)"
+      }
+    ]
+  }
+}

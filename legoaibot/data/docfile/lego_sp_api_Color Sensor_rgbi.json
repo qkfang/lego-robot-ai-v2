@@ -1,0 +1,19 @@
+{
+  "Module_Name": "Color Sensor",
+  "Module_Description": "The color_sensor module enables you to write code that reacts to specific colors or the intensity of the reflected light.",
+  "SubModule_Name": "Color Sensor",
+  "SubModule_Description": "The color_sensor module enables you to write code that reacts to specific colors or the intensity of the reflected light.",
+  "Function_Name": "rgbi",
+  "Function": {
+    "Function_Name": "rgbi",
+    "Function_Signature": "rgbi(port: int) -> tuple[int, int, int, int]",
+    "Function_Description": "Retrieves the overall color intensity and intensity of red, green and blue.",
+    "Function_Arguments": [
+      {
+        "Argument_Name": "port: int",
+        "Argument_Description": "A port from the port submodule in the hub module"
+      }
+    ],
+    "Function_Snippet": []
+  }
+}

@@ -1,0 +1,13 @@
+{
+  "Module_Name": "Hub",
+  "Module_Description": "Sub Modules",
+  "SubModule_Name": "Sound",
+  "SubModule_Description": "To use the Sound module add the following import statement to your project:",
+  "Function_Name": "hub.sound Constants",
+  "Function": {
+    "Function_Name": "hub.sound Constants",
+    "Function_Signature": "ANY = -2\nDEFAULT = -1\nWAVEFORM_SINE = 1\nWAVEFORM_SAWTOOTH = 3\nWAVEFORM_SQUARE = 2\nWAVEFORM_TRIANGLE = 1",
+    "Parameters": [],
+    "Python_Code": []
+  }
+}

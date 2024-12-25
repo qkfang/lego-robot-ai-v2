@@ -1,0 +1,23 @@
+{
+  "Module_Name": "App",
+  "Module_Description": "The app module is used communicate between hub and app",
+  "SubModule_Name": "Bargraph",
+  "SubModule_Description": "The bargraph module is used make bar graphs in the SPIKE App",
+  "Function_Name": "set_value",
+  "Function": {
+    "Function_Name": "set_value",
+    "Function_Signature": "set_value(color: int, value: float) -> None",
+    "Function_Description": "Parameters",
+    "Parameters": [
+      {
+        "Argument_Name": "color: int",
+        "Argument_Description": "A color from the color module"
+      },
+      {
+        "Argument_Name": "value: float",
+        "Argument_Description": "The value"
+      }
+    ],
+    "Python_Code": []
+  }
+}

@@ -1,0 +1,13 @@
+{
+  "Module_Name": "Motor Pair",
+  "Module_Description": "The motor_pair module is used to run motors in a synchronized fashion. This mode is optimal for creating drivebases where you'd want a pair of motors to start and stop at the same time.",
+  "SubModule_Name": "Motor Pair",
+  "SubModule_Description": "The motor_pair module is used to run motors in a synchronized fashion. This mode is optimal for creating drivebases where you'd want a pair of motors to start and stop at the same time.",
+  "Function_Name": "motor_pair Constants",
+  "Function": {
+    "Function_Name": "motor_pair Constants",
+    "Function_Signature": "PAIR_1 = 0\nFirst Motor Pair\nPAIR_2 = 1\nSecond Motor Pair\nPAIR_3 = 2\nThird Motor Pair",
+    "Function_Arguments": [],
+    "Function_Snippet": []
+  }
+}

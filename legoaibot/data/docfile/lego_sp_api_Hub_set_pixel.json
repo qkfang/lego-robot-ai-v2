@@ -1,0 +1,32 @@
+{
+  "Module_Name": "Hub",
+  "Module_Description": "Sub Modules",
+  "SubModule_Name": "Light Matrix",
+  "SubModule_Description": "To use the Light Matrix module add the following import statement to your project:",
+  "Function_Name": "set_pixel",
+  "Function": {
+    "Function_Name": "set_pixel",
+    "Function_Signature": "set_pixel(x: int, y: int, intensity: int) -> None",
+    "Function_Description": "Sets the brightness of one pixel (one of the 25 LEDs) on the Light Matrix.",
+    "Parameters": [
+      {
+        "Argument_Name": "x: int",
+        "Argument_Description": "The X value, range (0 - 4)"
+      },
+      {
+        "Argument_Name": "y: int",
+        "Argument_Description": "The Y value, range (0 - 4)"
+      },
+      {
+        "Argument_Name": "intensity: int",
+        "Argument_Description": "How bright to light up the pixel"
+      }
+    ],
+    "Python_Code": [
+      {
+        "Python_Code": "from hub import light_matrix\n# Turn on the pixel in the center of the hub \nlight_matrix.set_pixel(2, 2, 100)",
+        "Python_Description": "Sets the brightness of one pixel (one of the 25 LEDs) on the Light Matrix."
+      }
+    ]
+  }
+}

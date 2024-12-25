@@ -1,0 +1,14 @@
+{
+  "Module_Name": "Hub",
+  "Module_Description": "Sub Modules",
+  "SubModule_Name": "Hub",
+  "SubModule_Description": "Sub Modules",
+  "Function_Name": "temperature",
+  "Function": {
+    "Function_Name": "temperature",
+    "Function_Signature": "temperature() -> int",
+    "Function_Description": "Retrieve the hub temperature. Measured in decidegrees celsius (d°C) which is 1 / 10 of a degree celsius (°C)",
+    "Function_Arguments": [],
+    "Function_Snippet": []
+  }
+}

@@ -1,0 +1,19 @@
+{
+  "Module_Name": "Hub",
+  "Module_Description": "Sub Modules",
+  "SubModule_Name": "Light Matrix",
+  "SubModule_Description": "To use the Light Matrix module add the following import statement to your project:",
+  "Function_Name": "clear",
+  "Function": {
+    "Function_Name": "clear",
+    "Function_Signature": "clear() -> None",
+    "Function_Description": "Switches off all of the pixels on the Light Matrix.",
+    "Parameters": [],
+    "Python_Code": [
+      {
+        "Python_Code": "from hub import light_matrix\nimport time\n# Update pixels to show an image on Light Matrix, and then turn them off using the clear function \n\n# Show a small heart \nlight_matrix.show_image(2)\n\n# Wait for two seconds \ntime.sleep_ms(2000)\n\n# Switch off the heart \nlight_matrix.clear()",
+        "Python_Description": "Switches off all of the pixels on the Light Matrix."
+      }
+    ]
+  }
+}

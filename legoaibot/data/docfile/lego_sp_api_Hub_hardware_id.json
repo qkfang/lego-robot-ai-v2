@@ -1,0 +1,14 @@
+{
+  "Module_Name": "Hub",
+  "Module_Description": "Sub Modules",
+  "SubModule_Name": "Hub",
+  "SubModule_Description": "Sub Modules",
+  "Function_Name": "hardware_id",
+  "Function": {
+    "Function_Name": "hardware_id",
+    "Function_Signature": "hardware_id() -> str",
+    "Function_Description": "Retrieve the hardware id.",
+    "Function_Arguments": [],
+    "Function_Snippet": []
+  }
+}

@@ -1,0 +1,19 @@
+{
+  "Module_Name": "Device",
+  "Module_Description": "The device module enables you to write code to get information about devices plugged into the hub.",
+  "SubModule_Name": "Device",
+  "SubModule_Description": "The device module enables you to write code to get information about devices plugged into the hub.",
+  "Function_Name": "get_duty_cycle",
+  "Function": {
+    "Function_Name": "get_duty_cycle",
+    "Function_Signature": "get_duty_cycle(port: int) -> int",
+    "Function_Description": "Retrieve the duty cycle for a device. Returned values is in range 0 to 10000",
+    "Function_Arguments": [
+      {
+        "Argument_Name": "port: int",
+        "Argument_Description": "A port from the port submodule in the hub module"
+      }
+    ],
+    "Function_Snippet": []
+  }
+}

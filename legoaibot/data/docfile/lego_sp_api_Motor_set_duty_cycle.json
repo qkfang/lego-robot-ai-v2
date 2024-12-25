@@ -1,0 +1,23 @@
+{
+  "Module_Name": "Motor",
+  "Module_Description": "To use a Motor add the following import statement to your project:",
+  "SubModule_Name": "Motor",
+  "SubModule_Description": "To use a Motor add the following import statement to your project:",
+  "Function_Name": "set_duty_cycle",
+  "Function": {
+    "Function_Name": "set_duty_cycle",
+    "Function_Signature": "set_duty_cycle(port: int, pwm: int) -> None",
+    "Function_Description": "Start a Motor with a specific pwm",
+    "Function_Arguments": [
+      {
+        "Argument_Name": "port: int",
+        "Argument_Description": "A port from the port submodule in the hub module"
+      },
+      {
+        "Argument_Name": "pwm: int",
+        "Argument_Description": "The PWM value (-10000-10000)"
+      }
+    ],
+    "Function_Snippet": []
+  }
+}

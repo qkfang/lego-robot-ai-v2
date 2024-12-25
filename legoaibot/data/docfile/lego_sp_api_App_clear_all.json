@@ -1,0 +1,14 @@
+{
+  "Module_Name": "App",
+  "Module_Description": "The app module is used communicate between hub and app",
+  "SubModule_Name": "Bargraph",
+  "SubModule_Description": "The bargraph module is used make bar graphs in the SPIKE App",
+  "Function_Name": "clear_all",
+  "Function": {
+    "Function_Name": "clear_all",
+    "Function_Signature": "clear_all() -> None",
+    "Function_Description": "Parameters",
+    "Parameters": [],
+    "Python_Code": []
+  }
+}

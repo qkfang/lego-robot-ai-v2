@@ -1,0 +1,14 @@
+{
+  "Module_Name": "Hub",
+  "Module_Description": "Sub Modules",
+  "SubModule_Name": "Motion Sensor",
+  "SubModule_Description": "To use the Motion Sensor module add the following import statement to your project:",
+  "Function_Name": "gesture",
+  "Function": {
+    "Function_Name": "gesture",
+    "Function_Signature": "gesture() -> int",
+    "Function_Description": "Returns the gesture recognized.\nPossible values are:\nmotion_sensor.TAPPED\nmotion_sensor.DOUBLE_TAPPED\nmotion_sensor.SHAKEN\nmotion_sensor.FALLING\nmotion_sensor.UNKNOWN",
+    "Parameters": [],
+    "Python_Code": []
+  }
+}

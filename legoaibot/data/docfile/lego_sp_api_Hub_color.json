@@ -1,0 +1,28 @@
+{
+  "Module_Name": "Hub",
+  "Module_Description": "Sub Modules",
+  "SubModule_Name": "Light",
+  "SubModule_Description": "The light module includes functions to change the color of the light on the SPIKE Prime hub.",
+  "Function_Name": "color",
+  "Function": {
+    "Function_Name": "color",
+    "Function_Signature": "color(light: int, color: int) -> None",
+    "Function_Description": "Change the color of a light on the hub.",
+    "Parameters": [
+      {
+        "Argument_Name": "light: int",
+        "Argument_Description": "The light on the hub"
+      },
+      {
+        "Argument_Name": "color: int",
+        "Argument_Description": "A color from the color module"
+      }
+    ],
+    "Python_Code": [
+      {
+        "Python_Code": "from hub import light\nimport color\n\n# Change the light to red \nlight.color(light.POWER, color.RED)",
+        "Python_Description": "Change the color of a light on the hub."
+      }
+    ]
+  }
+}

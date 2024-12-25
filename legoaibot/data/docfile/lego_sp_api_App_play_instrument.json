@@ -1,0 +1,27 @@
+{
+  "Module_Name": "App",
+  "Module_Description": "The app module is used communicate between hub and app",
+  "SubModule_Name": "Music",
+  "SubModule_Description": "The music module is used make music in the SPIKE App",
+  "Function_Name": "play_instrument",
+  "Function": {
+    "Function_Name": "play_instrument",
+    "Function_Signature": "play_instrument(instrument: int, note: int, duration: int) -> None",
+    "Function_Description": "Parameters",
+    "Parameters": [
+      {
+        "Argument_Name": "instrument: int",
+        "Argument_Description": "The instrument name. See all available values in the app.music module."
+      },
+      {
+        "Argument_Name": "note: int",
+        "Argument_Description": "The midi note to play (0-130)"
+      },
+      {
+        "Argument_Name": "duration: int",
+        "Argument_Description": "The duration in milliseconds"
+      }
+    ],
+    "Python_Code": []
+  }
+}

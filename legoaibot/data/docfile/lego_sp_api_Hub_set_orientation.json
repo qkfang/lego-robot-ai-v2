@@ -1,0 +1,19 @@
+{
+  "Module_Name": "Hub",
+  "Module_Description": "Sub Modules",
+  "SubModule_Name": "Light Matrix",
+  "SubModule_Description": "To use the Light Matrix module add the following import statement to your project:",
+  "Function_Name": "set_orientation",
+  "Function": {
+    "Function_Name": "set_orientation",
+    "Function_Signature": "set_orientation(top: int) -> int",
+    "Function_Description": "Change the orientation of the Light Matrix. All subsequent calls will use the new  orientation.\n Can be used with the following constants: orientation.UP,  orientation.LEFT, orientation.RIGHT, orientation.DOWN",
+    "Parameters": [
+      {
+        "Argument_Name": "top: int",
+        "Argument_Description": "The side of the hub to be the top"
+      }
+    ],
+    "Python_Code": []
+  }
+}

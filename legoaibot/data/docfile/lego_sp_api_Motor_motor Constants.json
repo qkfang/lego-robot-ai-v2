@@ -1,0 +1,13 @@
+{
+  "Module_Name": "Motor",
+  "Module_Description": "To use a Motor add the following import statement to your project:",
+  "SubModule_Name": "Motor",
+  "SubModule_Description": "To use a Motor add the following import statement to your project:",
+  "Function_Name": "motor Constants",
+  "Function": {
+    "Function_Name": "motor Constants",
+    "Function_Signature": "READY = 0\nRUNNING = 1\nSTALLED = 2\nCANCELLED = 3\nERROR = 4\nDISCONNECTED = 5\nCOAST = 0\nBRAKE = 1\nHOLD = 2\nCONTINUE = 3\nSMART_COAST = 4\nSMART_BRAKE = 5\nCLOCKWISE = 0\nCOUNTERCLOCKWISE = 1\nSHORTEST_PATH = 2\nLONGEST_PATH = 3",
+    "Function_Arguments": [],
+    "Function_Snippet": []
+  }
+}

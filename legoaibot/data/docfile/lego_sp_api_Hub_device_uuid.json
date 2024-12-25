@@ -1,0 +1,14 @@
+{
+  "Module_Name": "Hub",
+  "Module_Description": "Sub Modules",
+  "SubModule_Name": "Hub",
+  "SubModule_Description": "Sub Modules",
+  "Function_Name": "device_uuid",
+  "Function": {
+    "Function_Name": "device_uuid",
+    "Function_Signature": "device_uuid() -> str",
+    "Function_Description": "Retrieve the device id.",
+    "Function_Arguments": [],
+    "Function_Snippet": []
+  }
+}

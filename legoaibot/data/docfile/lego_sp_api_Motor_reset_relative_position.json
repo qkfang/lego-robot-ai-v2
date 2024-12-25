@@ -1,0 +1,23 @@
+{
+  "Module_Name": "Motor",
+  "Module_Description": "To use a Motor add the following import statement to your project:",
+  "SubModule_Name": "Motor",
+  "SubModule_Description": "To use a Motor add the following import statement to your project:",
+  "Function_Name": "reset_relative_position",
+  "Function": {
+    "Function_Name": "reset_relative_position",
+    "Function_Signature": "reset_relative_position(port: int, position: int) -> None",
+    "Function_Description": "Change the position used as the offset when using the run_to_relative_position function.",
+    "Function_Arguments": [
+      {
+        "Argument_Name": "port: int",
+        "Argument_Description": "A port from the port submodule in the hub module"
+      },
+      {
+        "Argument_Name": "position: int",
+        "Argument_Description": "The degree of the motor"
+      }
+    ],
+    "Function_Snippet": []
+  }
+}

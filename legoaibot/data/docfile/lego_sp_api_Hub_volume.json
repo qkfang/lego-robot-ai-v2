@@ -1,0 +1,19 @@
+{
+  "Module_Name": "Hub",
+  "Module_Description": "Sub Modules",
+  "SubModule_Name": "Sound",
+  "SubModule_Description": "To use the Sound module add the following import statement to your project:",
+  "Function_Name": "volume",
+  "Function": {
+    "Function_Name": "volume",
+    "Function_Signature": "volume(volume: int) -> None",
+    "Function_Description": "Parameters",
+    "Parameters": [
+      {
+        "Argument_Name": "volume: int",
+        "Argument_Description": "The volume (0-100)"
+      }
+    ],
+    "Python_Code": []
+  }
+}

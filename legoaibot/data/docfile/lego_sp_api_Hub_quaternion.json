@@ -1,0 +1,14 @@
+{
+  "Module_Name": "Hub",
+  "Module_Description": "Sub Modules",
+  "SubModule_Name": "Motion Sensor",
+  "SubModule_Description": "To use the Motion Sensor module add the following import statement to your project:",
+  "Function_Name": "quaternion",
+  "Function": {
+    "Function_Name": "quaternion",
+    "Function_Signature": "quaternion() -> tuple[float, float, float, float]",
+    "Function_Description": "Returns the hub orientation quaternion as a tuple[w: float, x: float, y: float, z: float].",
+    "Parameters": [],
+    "Python_Code": []
+  }
+}

@@ -1,0 +1,13 @@
+{
+  "Module_Name": "Hub",
+  "Module_Description": "Sub Modules",
+  "SubModule_Name": "Button",
+  "SubModule_Description": "To use the Button module add the following import statement to your project:",
+  "Function_Name": "hub.button Constants",
+  "Function": {
+    "Function_Name": "hub.button Constants",
+    "Function_Signature": "LEFT = 1\nLeft button next to the power button on the SPIKE Prime  hub\nRIGHT = 2\nRight button next to the power button on the SPIKE  Prime hub",
+    "Parameters": [],
+    "Python_Code": []
+  }
+}

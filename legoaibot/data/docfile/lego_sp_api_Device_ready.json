@@ -1,0 +1,19 @@
+{
+  "Module_Name": "Device",
+  "Module_Description": "The device module enables you to write code to get information about devices plugged into the hub.",
+  "SubModule_Name": "Device",
+  "SubModule_Description": "The device module enables you to write code to get information about devices plugged into the hub.",
+  "Function_Name": "ready",
+  "Function": {
+    "Function_Name": "ready",
+    "Function_Signature": "ready(port: int) -> bool",
+    "Function_Description": "When a device is attached to the hub it might take a short amount of time before it's ready to accept requests.\nUse ready to test for the readiness of the attached devices.",
+    "Function_Arguments": [
+      {
+        "Argument_Name": "port: int",
+        "Argument_Description": "A port from the port submodule in the hub module"
+      }
+    ],
+    "Function_Snippet": []
+  }
+}

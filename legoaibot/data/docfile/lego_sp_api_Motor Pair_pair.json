@@ -1,0 +1,31 @@
+{
+  "Module_Name": "Motor Pair",
+  "Module_Description": "The motor_pair module is used to run motors in a synchronized fashion. This mode is optimal for creating drivebases where you'd want a pair of motors to start and stop at the same time.",
+  "SubModule_Name": "Motor Pair",
+  "SubModule_Description": "The motor_pair module is used to run motors in a synchronized fashion. This mode is optimal for creating drivebases where you'd want a pair of motors to start and stop at the same time.",
+  "Function_Name": "pair",
+  "Function": {
+    "Function_Name": "pair",
+    "Function_Signature": "pair(pair: int, left_motor: int, right_motor: int) -> None",
+    "Function_Description": "pair two motors (left_motor & right_motor) and store the paired motors in pair.\nUse pair in all subsequent motor_pair related function calls.",
+    "Function_Arguments": [
+      {
+        "Argument_Name": "pair: int",
+        "Argument_Description": "The pair slot of the Motor Pair."
+      },
+      {
+        "Argument_Name": "left_motor: int",
+        "Argument_Description": "The port of the left motor. Use the port submodule in the hub module."
+      },
+      {
+        "Argument_Name": "right_motor: int",
+        "Argument_Description": "The port of the right motor. Use the port submodule in the hub module."
+      }
+    ],
+    "Function_Snippet": [
+      {
+        "Python_Code": "import motor_pair\nfrom hub import port\n\nmotor_pair.pair(motor_pair.PAIR_1, port.A, port.B)"
+      }
+    ]
+  }
+}

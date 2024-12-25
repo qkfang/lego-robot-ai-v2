@@ -1,0 +1,27 @@
+{
+  "Module_Name": "Motor Pair",
+  "Module_Description": "The motor_pair module is used to run motors in a synchronized fashion. This mode is optimal for creating drivebases where you'd want a pair of motors to start and stop at the same time.",
+  "SubModule_Name": "Motor Pair",
+  "SubModule_Description": "The motor_pair module is used to run motors in a synchronized fashion. This mode is optimal for creating drivebases where you'd want a pair of motors to start and stop at the same time.",
+  "Function_Name": "stop",
+  "Function": {
+    "Function_Name": "stop",
+    "Function_Signature": "stop(pair: int, *, stop: int = motor.BRAKE) -> None",
+    "Function_Description": "Stops a Motor Pair.",
+    "Function_Arguments": [
+      {
+        "Argument_Name": "pair: int",
+        "Argument_Description": "The pair slot of the Motor Pair."
+      },
+      {
+        "Argument_Name": "stop: int",
+        "Argument_Description": "The behavior of the Motor after it has stopped. Use the constants in the motor  module.\nPossible values are\nmotor.COAST to make the motor coast until a  stop\nmotor.BREAK to brake and continue to brake after  stop\nmotor.HOLD to tell the motor to hold it's  position\nmotor.CONTINUE to tell the motor to keep running at whatever velocity  it's running at until it gets another command\nmotor.SMART_COAST to make the  motor brake until stop and then coast and compensate for inaccuracies in the next  command\nmotor.SMART_BRAKE to make the motor brake and continue to brake after  stop and compensate for inaccuracies in the next command"
+      }
+    ],
+    "Function_Snippet": [
+      {
+        "Python_Code": "import motor_pair\n\nmotor_pair.stop(motor_pair.PAIR_1)"
+      }
+    ]
+  }
+}

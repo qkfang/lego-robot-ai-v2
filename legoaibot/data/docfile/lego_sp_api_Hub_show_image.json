@@ -1,0 +1,24 @@
+{
+  "Module_Name": "Hub",
+  "Module_Description": "Sub Modules",
+  "SubModule_Name": "Light Matrix",
+  "SubModule_Description": "To use the Light Matrix module add the following import statement to your project:",
+  "Function_Name": "show_image",
+  "Function": {
+    "Function_Name": "show_image",
+    "Function_Signature": "show_image(image: int) -> None",
+    "Function_Description": "Display one of the built in images on the display.",
+    "Parameters": [
+      {
+        "Argument_Name": "image: int",
+        "Argument_Description": "The id of the image to show. The range of available images is 1 to 67. There are consts on      the light_matrix module for these."
+      }
+    ],
+    "Python_Code": [
+      {
+        "Python_Code": "from hub import light_matrix\n# Update pixels to show an image on Light Matrix using the show_image function \n\n# Show a smiling face \nlight_matrix.show_image(light_matrix.IMAGE_HAPPY)",
+        "Python_Description": "Display one of the built in images on the display."
+      }
+    ]
+  }
+}

@@ -1,0 +1,13 @@
+{
+  "Module_Name": "Orientation",
+  "Module_Description": "The orientation module contains all the orientation constants to use with the light_matrix module.",
+  "SubModule_Name": "Orientation",
+  "SubModule_Description": "The orientation module contains all the orientation constants to use with the light_matrix module.",
+  "Function_Name": "orientation Constants",
+  "Function": {
+    "Function_Name": "orientation Constants",
+    "Function_Signature": "UP = 0\nRIGHT = 1\nDOWN = 2\nLEFT = 3",
+    "Function_Arguments": [],
+    "Function_Snippet": []
+  }
+}
