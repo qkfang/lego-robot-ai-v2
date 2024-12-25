@@ -1,0 +1,71 @@
+.todowrapper {
+  min-height: 500px;
+  margin: 2px auto 2px;
+  border: 1px solid #eee;
+  border-radius: 4px;
+  padding: 10px 10px;
+  -webkit-box-shadow: 0 0 15px 0 rgba(0, 0, 0, 0.05);
+  box-shadow: 0 0 15px 0 rgba(0, 0, 0, 0.05);
+  overflow: hidden;
+  position: relative;
+}
+
+form {
+  overflow: overlay;
+}
+
+.btn,
+input {
+  line-height: 2em;
+  border-radius: 3px;
+  border: 0;
+  display: inline-block;
+  margin: 2px 0;
+  padding: 0.2em 1em;
+  font-size: 1em;
+}
+
+input[type='text'] {
+  border: 1px solid #ddd;
+  min-width: 80%;
+}
+
+input:focus {
+  outline: none;
+  border: 1px solid #a3b1ff;
+}
+
+.btn-add {
+  text-align: center;
+  font-weight: bold;
+  cursor: pointer;
+  border-width: 1px;
+  border-style: solid;
+
+  background: #00de72;
+  color: #fefefe;
+  min-width: 17%;
+  font-size: 17pt;
+  line-height: 0.5em;
+  padding: 0.3em 0.3em;
+  float: right;
+  height: 40px;
+  padding-top: 12px;
+}
+
+.ultask {
+  list-style: none;
+  padding: 0;
+}
+
+.litask {
+  padding: 10px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 5px;
+}
+
+.text {
+  padding: 0.7em;
+}
