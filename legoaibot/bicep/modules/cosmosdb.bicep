@@ -100,6 +100,19 @@ resource database 'Microsoft.DocumentDB/databaseAccounts/sqlDatabases@2022-05-15
   }]
 }
 
+
+module databaseAccess './database-access.bicep' = {
+  name: '${deployment().name}-database-access'
+  params: {
+    databaseAccountName: accountName
+    principalIds:  [
+      // containerApps.outputs.identityPrincipalId
+      'a15af93d-4279-4c48-9dfa-513346e54671' // me
+    ]
+  }
+}
+
+
 output name string = account.name
 output endpoint string = account.properties.documentEndpoint
 output key string = listKeys(account.id, '2024-05-15').primaryMasterKey
