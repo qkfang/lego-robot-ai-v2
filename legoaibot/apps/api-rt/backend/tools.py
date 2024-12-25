@@ -6,12 +6,30 @@ from azure.identity import DefaultAzureCredential
 
 from backend.rtmt import RTMiddleTier, Tool, ToolResult, ToolResultDirection
 
+_get_report_fields_tool_schema = {
+    "type": "function",
+    "name": "get_report_fields",
+    "description": "Search the report database for a set of questions that need to be answered by the user. The knowledge base is in English, translate to and from English if " + \
+                   "needed. Results are returned in JSON format with a set of questions that need to be answered by the user.",
+    "parameters": {
+        "type": "object",
+        "properties": {
+            "team": {
+                "type": "string",
+                "description": "The name of the player."
+            }
+        },
+        "required": ["team"],
+        "additionalProperties": False
+    }
+}
+
 async def _generate_report_tool(args: Any) -> ToolResult:
     report = {
-        "customer_name": args["customer_name"],
-        "demo_product": args["demo_product"],
-        "demo_date": args["demo_date"],
-        "meeting_feedback": args["meeting_feedback"]
+        "player_name": args["player_name"],
+        "player_note": args["player_note"],
+        "game_score": args["game_score"],
+        "game_date": args["game_date"]
     }
     # Return the result to the client
     return ToolResult(report, ToolResultDirection.TO_CLIENT)
@@ -20,46 +38,28 @@ async def _generate_report_tool(args: Any) -> ToolResult:
 _generate_report_tool_schema = {
     "type": "function",
     "name": "generate_report",
-    "description": "Generates a JSON report of the customer demo and product attributes derived from the conversation.",
+    "description": "Generates a JSON report of the player and game attributes derived from the conversation.",
     "parameters": {
         "type": "object",
         "properties": {
-            "customer_name": {
+            "player_name": {
                 "type": "string",
-                "description": "The name of the customer."
+                "description": "The name of the player."
             },
-            "demo_product": {
+            "player_note": {
                 "type": "string",
-                "description": "The product that the demo is needed for."
+                "description": "Note from the player about the game."
             },
-            "demo_date": {
+            "game_score": {
                 "type": "string",
-                "description": "The date when the demo is needed."
+                "description": "Score of the game."
             },
-            "meeting_feedback": {
+            "game_date": {
                 "type": "string",
-                "description": "Feedback from the meeting."
+                "description": "Date of the game."
             }
         },
-        "required": ["customer_name", "demo_product", "demo_date", "meeting_feedback"],
-        "additionalProperties": False
-    }
-}
-
-_get_report_fields_tool_schema = {
-    "type": "function",
-    "name": "get_questions",
-    "description": "Search the report database for a set of questions that need to be answered by the user. The knowledge base is in English, translate to and from English if " + \
-                   "needed. Results are returned in JSON format with a set of questions that need to be answered by the user.",
-    "parameters": {
-        "type": "object",
-        "properties": {
-            "department": {
-                "type": "string",
-                "description": "The name of the department."
-            }
-        },
-        "required": ["department"],
+        "required": ["player_name", "player_note", "game_score", "game_date"],
         "additionalProperties": False
     }
 }

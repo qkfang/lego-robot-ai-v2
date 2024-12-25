@@ -20,12 +20,12 @@ class CosmosDBStore:
         with open(file_path, "r") as file:
             return json.load(file)
 
-    def insert_departments(self, container_name: str, departments: List[any]):
-        self.logger.info("Inserting departments into database")
+    def insert_teams(self, container_name: str, teams: List[any]):
+        self.logger.info("Inserting teams into database")
         try:
             container = self.db.get_container_client(container_name)
-            for department in departments:
-                container.create_item( department )
+            for team in teams:
+                container.create_item( team )
         except exceptions.CosmosResourceExistsError as e:
             print("Item already exists.")
             logging.debug(e)
@@ -39,13 +39,13 @@ class CosmosDBStore:
         templates = self.load_from_file(templates_path)
         try:
             container = self.db.get_container_client(container_name)
-            self.db.create_container(id=container_name, partition_key=PartitionKey(path="/department"))
+            self.db.create_container(id=container_name, partition_key=PartitionKey(path="/team"))
             print(f"Container created or returned: {container.id}")
-            self.insert_departments(container_name, templates)
+            self.insert_teams(container_name, templates)
         except exceptions.CosmosResourceExistsError as e:
             print("Container already exists.")
             logging.debug(e)
-            self.insert_departments(container_name, templates)
+            self.insert_teams(container_name, templates)
         except exceptions.CosmosHttpResponseError as e:
             print("Request to the Azure Cosmos database service failed.")
             logging.error(e)
@@ -61,13 +61,13 @@ class CosmosDBStore:
         self.create_container(container_name)
 
     
-    async def get_schema_from_database(self, department: str): 
+    async def get_schema_from_database(self, team: str): 
         self.logger.info("Getting schema from database")
         try:
             container = self.db.get_container_client(self.container_name)
         
-            query = "SELECT * FROM c WHERE c.department = @department"
-            parameters = [{"name": "@department", "value": department}]
+            query = "SELECT * FROM c WHERE c.team = @team"
+            parameters = [{"name": "@team", "value": team}]
             response = container.query_items(query=query, parameters=parameters, enable_cross_partition_query=True)
             
             fields = []
@@ -82,22 +82,18 @@ class CosmosDBStore:
             logging.error(e)
 
 
+    async def get_report_fields(self, args: Any) -> ToolResult:
+        team = args["team"].lower()
+        fields = await self.get_schema_from_database(team)
+        print(fields)
+        return ToolResult(fields, ToolResultDirection.TO_SERVER)
+            
     async def write_report(self, args: Any) -> ToolResult:
         report = {
-            "customer_name": args["customer_name"],
-            "demo_product": args["demo_product"],
-            "demo_date": args["demo_date"],
-            "meeting_feedback": args["meeting_feedback"]
+            "player_name": args["player_name"],
+            "player_note": args["player_note"],
+            "game_score": args["game_score"],
+            "game_date": args["game_date"]
         }
         # Return the result to the client
         return ToolResult(report, ToolResultDirection.TO_CLIENT)
-
-    async def get_report_fields(self, args: Any) -> ToolResult:
-        department = args["department"].lower()
-        
-        fields = await self.get_schema_from_database(department)
-
-        print(fields)
-
-        return ToolResult(fields, ToolResultDirection.TO_SERVER)
-            

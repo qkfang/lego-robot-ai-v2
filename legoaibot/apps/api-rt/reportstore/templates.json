@@ -1,61 +1,61 @@
 [
     {
         "id": "368814",
-        "department": "sales",
+        "team": "team 1",
         "fields": [
             {
                 "id": "1",
-                "name": "name",
+                "name": "player_name",
                 "type": "string",
-                "description": "Name of the customer"
+                "description": "Name of the player"
             },
             {
                 "id": "2",
-                "name": "feedback",
+                "name": "player_note",
                 "type": "string",
-                "description": "Feedback from the customer about the meeting"
+                "description": "Note from the player about the game"
             },
             {
                 "id": "3",
-                "name": "product",
-                "type": "string",
-                "description": "Product discussed with the customer"
+                "name": "game_score",
+                "type": "int",
+                "description": "Score of the game"
             },
             {
                 "id": "4",
-                "name": "date",
+                "name": "game_date",
                 "type": "date",
-                "description": "Date of the meeting"
+                "description": "Date of the game"
             }
         ]
     },
     {
         "id": "368815",
-        "department": "hr",
+        "team": "team 2",
         "fields": [
             {
                 "id": "1",
-                "name": "name",
+                "name": "player_name",
                 "type": "string",
-                "description": "Name of the employee"
+                "description": "Name of the player"
             },
             {
                 "id": "2",
-                "name": "feedback",
+                "name": "player_note",
                 "type": "string",
-                "description": "Feedback from the employee about the training"
+                "description": "Note from the player about the game"
             },
             {
                 "id": "3",
-                "name": "training",
-                "type": "string",
-                "description": "Training attended by the employee"
+                "name": "game_score",
+                "type": "int",
+                "description": "Score of the game"
             },
             {
                 "id": "4",
-                "name": "date",
+                "name": "game_date",
                 "type": "date",
-                "description": "Date of the training"
+                "description": "Date of the game"
             }
         ]
     }

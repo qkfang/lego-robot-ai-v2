@@ -71,6 +71,8 @@ class RTMiddleTier:
 
     async def _process_message_to_client(self, msg: str, client_ws: web.WebSocketResponse, server_ws: web.WebSocketResponse) -> Optional[str]:
         message = json.loads(msg.data)
+        print(message)
+
         updated_message = msg.data
         if message is not None:
             match message["type"]:
@@ -107,6 +109,7 @@ class RTMiddleTier:
                     if "item" in message and message["item"]["type"] == "function_call":
                         item = message["item"]
                         tool_call = self._tools_pending[message["item"]["call_id"]]
+                        print(item)
                         tool = self.tools[item["name"]]
                         args = item["arguments"]
                         result = await tool.target(json.loads(args))
