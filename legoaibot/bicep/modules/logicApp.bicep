@@ -48,7 +48,6 @@ resource logicApp 'Microsoft.Web/sites@2024-04-01' = {
         { name: 'openai_embedding_deployment_id', value: '' }
         { name: 'openai_api_key', value: '' }
         { name: 'openai_endpoint', value: '' }
-        { name: 'aisearch_index_name', value: '' }
         { name: 'aisearch_admin_key', value: '' }
         { name: 'aisearch_endpoint', value: '' }
         { name: 'tokenize_function_url', value: '' }

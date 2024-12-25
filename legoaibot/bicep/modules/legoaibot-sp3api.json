@@ -1,0 +1,84 @@
+{
+  "definition": {
+      "$schema": "https://schema.management.azure.com/providers/Microsoft.Logic/schemas/2016-06-01/workflowdefinition.json#",
+      "actions": {
+          "Read_blob_content": {
+              "type": "ServiceProvider",
+              "inputs": {
+                  "parameters": {
+                      "containerName": "legoaibot-sp3api",
+                      "blobName": "@triggerBody()?['name']",
+                      "inferContentType": false
+                  },
+                  "serviceProviderConfiguration": {
+                      "connectionName": "AzureBlob",
+                      "operationId": "readBlob",
+                      "serviceProviderId": "/serviceProviders/AzureBlob"
+                  }
+              },
+              "runAfter": {}
+          },
+          "Get_an_embedding": {
+              "type": "ServiceProvider",
+              "inputs": {
+                  "parameters": {
+                      "deploymentId": "@parameters('OpenAI_TextEmbedding_Deployment_Identifier')",
+                      "input": "@body('Read_blob_content')?['content']"
+                  },
+                  "serviceProviderConfiguration": {
+                      "connectionName": "openai",
+                      "operationId": "getSingleEmbedding",
+                      "serviceProviderId": "/serviceProviders/openai"
+                  }
+              },
+              "runAfter": {
+                  "Read_blob_content": [
+                      "SUCCEEDED"
+                  ]
+              }
+          },
+          "Index_a_document": {
+              "type": "ServiceProvider",
+              "inputs": {
+                  "parameters": {
+                      "indexName": "legoaibot-sp3api",
+                      "document": {
+                          "content": "@decodeBase64(body('Read_blob_content')?['content']['$content'])",
+                          "title": "@triggerBody()?['name']",
+                          "content_Vector": "@body('Get_an_embedding')['embedding']",
+                          "id": "@replace(triggerBody()?['name'] ,'.', '')"
+                      }
+                  },
+                  "serviceProviderConfiguration": {
+                      "connectionName": "azureaisearch",
+                      "operationId": "indexDocument",
+                      "serviceProviderId": "/serviceProviders/azureaisearch"
+                  }
+              },
+              "runAfter": {
+                  "Get_an_embedding": [
+                      "SUCCEEDED"
+                  ]
+              }
+          }
+      },
+      "contentVersion": "1.0.0.0",
+      "outputs": {},
+      "triggers": {
+          "When_a_blob_is_added_or_updated": {
+              "type": "ServiceProvider",
+              "inputs": {
+                  "parameters": {
+                      "path": "legoaibot-sp3api"
+                  },
+                  "serviceProviderConfiguration": {
+                      "connectionName": "AzureBlob",
+                      "operationId": "whenABlobIsAddedOrModified",
+                      "serviceProviderId": "/serviceProviders/AzureBlob"
+                  }
+              }
+          }
+      }
+  },
+  "kind": "stateful"
+}

@@ -48,8 +48,29 @@ resource storageAccount 'Microsoft.Storage/storageAccounts@2021-04-01' = {
 }
 
 // Create a blob container called legoaibotdoc
-resource blobContainer 'Microsoft.Storage/storageAccounts/blobServices/containers@2021-04-01' = {
-  name: '${storageAccount.name}/default/legoaibotdoc'
+resource legoaibot_flldoc 'Microsoft.Storage/storageAccounts/blobServices/containers@2021-04-01' = {
+  name: '${storageAccount.name}/default/legoaibot-flldoc'
+  properties: {
+    publicAccess: 'None'
+  }
+}
+
+resource legoaibot_ffl2024 'Microsoft.Storage/storageAccounts/blobServices/containers@2021-04-01' = {
+  name: '${storageAccount.name}/default/legoaibot-ffl2024'
+  properties: {
+    publicAccess: 'None'
+  }
+}
+
+resource legoaibot_sp3doc 'Microsoft.Storage/storageAccounts/blobServices/containers@2021-04-01' = {
+  name: '${storageAccount.name}/default/legoaibot-sp3doc'
+  properties: {
+    publicAccess: 'None'
+  }
+}
+
+resource legoaibot_sp3api 'Microsoft.Storage/storageAccounts/blobServices/containers@2021-04-01' = {
+  name: '${storageAccount.name}/default/legoaibot-sp3api'
   properties: {
     publicAccess: 'None'
   }

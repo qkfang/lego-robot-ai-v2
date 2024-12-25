@@ -1,0 +1,121 @@
+{
+    "definition": {
+        "$schema": "https://schema.management.azure.com/providers/Microsoft.Logic/schemas/2016-06-01/workflowdefinition.json#",
+        "actions": {
+            "Chunk_text": {
+                "type": "ChunkText",
+                "inputs": {
+                    "chunkingStrategy": "TokenSize",
+                    "text": "@body('Parse_a_document')?['text']",
+                    "EncodingModel": "cl100k_base",
+                    "PageOverlapLength": 0,
+                    "TokenSize": 5000
+                },
+                "runAfter": {
+                    "Parse_a_document": [
+                        "SUCCEEDED"
+                    ]
+                }
+            },
+            "Get_multiple_embeddings": {
+                "type": "ServiceProvider",
+                "inputs": {
+                    "parameters": {
+                        "deploymentId": "@parameters('OpenAI_TextEmbedding_Deployment_Identifier')",
+                        "input": "@body('Chunk_text')?['value']"
+                    },
+                    "serviceProviderConfiguration": {
+                        "connectionName": "openai",
+                        "operationId": "getArrayEmbeddings",
+                        "serviceProviderId": "/serviceProviders/openai"
+                    }
+                },
+                "runAfter": {
+                    "Chunk_text": [
+                        "SUCCEEDED"
+                    ]
+                }
+            },
+            "Index_multiple_documents": {
+                "type": "ServiceProvider",
+                "inputs": {
+                    "parameters": {
+                        "indexName": "legoaibot-ffldoc",
+                        "documents": "@body('Select_embeddings_and_map_to_AI_Search_schema')"
+                    },
+                    "serviceProviderConfiguration": {
+                        "connectionName": "azureaisearch",
+                        "operationId": "indexDocuments",
+                        "serviceProviderId": "/serviceProviders/azureaisearch"
+                    }
+                },
+                "runAfter": {
+                    "Select_embeddings_and_map_to_AI_Search_schema": [
+                        "SUCCEEDED"
+                    ]
+                }
+            },
+            "Parse_a_document": {
+                "type": "ParseDocument",
+                "inputs": {
+                    "content": "@body('Read_blob_content')?['content']"
+                },
+                "runAfter": {
+                    "Read_blob_content": [
+                        "SUCCEEDED"
+                    ]
+                }
+            },
+            "Read_blob_content": {
+                "type": "ServiceProvider",
+                "inputs": {
+                    "parameters": {
+                        "containerName": "legoaibot-ffldoc",
+                        "blobName": "@triggerBody()?['name']"
+                    },
+                    "serviceProviderConfiguration": {
+                        "connectionName": "AzureBlob",
+                        "operationId": "readBlob",
+                        "serviceProviderId": "/serviceProviders/AzureBlob"
+                    }
+                },
+                "runAfter": {}
+            },
+            "Select_embeddings_and_map_to_AI_Search_schema": {
+                "type": "Select",
+                "inputs": {
+                    "from": "@range(0, length(body('Chunk_text')['value']))",
+                    "select": {
+                        "content": "@body('Chunk_text')['value'][item()]",
+                        "title": "@triggerBody()?['name']",
+                        "content_Vector": "@body('Get_multiple_embeddings')['embeddings'][item()]",
+                        "id": "@replace(triggerBody()?['name'] ,'.', '')"
+                    }
+                },
+                "runAfter": {
+                    "Get_multiple_embeddings": [
+                        "SUCCEEDED"
+                    ]
+                }
+            }
+        },
+        "contentVersion": "1.0.0.0",
+        "outputs": {},
+        "triggers": {
+            "When_a_blob_is_added_or_updated": {
+                "type": "ServiceProvider",
+                "inputs": {
+                    "parameters": {
+                        "path": "legoaibot-ffldoc"
+                    },
+                    "serviceProviderConfiguration": {
+                        "connectionName": "AzureBlob",
+                        "operationId": "whenABlobIsAddedOrModified",
+                        "serviceProviderId": "/serviceProviders/AzureBlob"
+                    }
+                }
+            }
+        }
+    },
+    "kind": "stateful"
+}

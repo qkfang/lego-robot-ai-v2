@@ -40,7 +40,7 @@
                 "type": "ServiceProvider",
                 "inputs": {
                     "parameters": {
-                        "indexName": "@parameters('AISearch_Index_Name')",
+                        "indexName": "legoaibot-ffl2024",
                         "documents": "@body('Select_embeddings_and_map_to_AI_Search_schema')"
                     },
                     "serviceProviderConfiguration": {
@@ -70,7 +70,7 @@
                 "type": "ServiceProvider",
                 "inputs": {
                     "parameters": {
-                        "containerName": "@parameters('Blob_Path')",
+                        "containerName": "legoaibot-ffl2024",
                         "blobName": "@triggerBody()?['name']"
                     },
                     "serviceProviderConfiguration": {
@@ -87,9 +87,9 @@
                     "from": "@range(0, length(body('Chunk_text')['value']))",
                     "select": {
                         "content": "@body('Chunk_text')['value'][item()]",
-                        "title": "@parameters('AISearch_Schema_DocumentName')",
+                        "title": "@triggerBody()?['name']",
                         "content_Vector": "@body('Get_multiple_embeddings')['embeddings'][item()]",
-                        "id": "@concat(parameters('AISearch_Schema_ID'), item())"
+                        "id": "@replace(triggerBody()?['name'] ,'.', '')"
                     }
                 },
                 "runAfter": {
@@ -106,7 +106,7 @@
                 "type": "ServiceProvider",
                 "inputs": {
                     "parameters": {
-                        "path": "legoaibotdoc"
+                        "path": "legoaibot-ffl2024"
                     },
                     "serviceProviderConfiguration": {
                         "connectionName": "AzureBlob",
