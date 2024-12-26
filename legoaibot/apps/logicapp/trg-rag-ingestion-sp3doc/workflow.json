@@ -6,7 +6,7 @@
                 "type": "ServiceProvider",
                 "inputs": {
                     "parameters": {
-                        "containerName": "legoaibot-sp3snippet",
+                        "containerName": "legoaibot-sp3doc",
                         "blobName": "@triggerBody()?['name']"
                     },
                     "serviceProviderConfiguration": {
@@ -40,7 +40,7 @@
                 "type": "ServiceProvider",
                 "inputs": {
                     "parameters": {
-                        "indexName": "legoaibot-sp3snippet",
+                        "indexName": "legoaibot-sp3doc",
                         "document": {
                             "content": "@body('Read_blob_content')?['content']['doc_text']",
                             "title": "@body('Read_blob_content')?['content']['doc_title']",
@@ -68,7 +68,7 @@
                 "type": "ServiceProvider",
                 "inputs": {
                     "parameters": {
-                        "path": "legoaibot-sp3snippet"
+                        "path": "legoaibot-sp3doc"
                     },
                     "serviceProviderConfiguration": {
                         "connectionName": "AzureBlob",

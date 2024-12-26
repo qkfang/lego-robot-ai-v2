@@ -1,0 +1,9 @@
+{
+  "type": "module",
+  "dependencies": {
+    "@langchain/community": "^0.3.20",
+    "@langchain/langgraph": "^0.2.34",
+    "cheerio": "^1.0.0",
+    "dotenv": "^16.4.7"
+  }
+}
