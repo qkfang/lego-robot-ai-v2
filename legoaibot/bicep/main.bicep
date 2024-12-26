@@ -155,14 +155,14 @@ module aiService 'modules/aiService.bicep' = {
 
 
 // deploy APIM instance with legoaibot API
-// module apim 'modules/apim.bicep' = {
-//   name: 'apim'
-//   params: {
-//     location: location
-//     environment: environment
-//     projectName: projectName
-//   }
-// }
+module apim 'modules/apim.bicep' = {
+  name: 'apim'
+  params: {
+    location: location
+    environment: environment
+    projectName: projectName
+  }
+}
 
 
 
@@ -206,7 +206,7 @@ resource appServiceWebSettings 'Microsoft.Web/sites/config@2022-03-01' = {
   kind: 'string'
   properties: {
     APPINSIGHTS_INSTRUMENTATIONKEY: appInsights.properties.InstrumentationKey
-    API_ENDPOINT: 'https://${backendApiContainerApp.properties.configuration.ingress.fqdn}'
+    // API_ENDPOINT: 'https://${backendApiContainerApp.properties.configuration.ingress.fqdn}'
   }
 }
 
@@ -256,7 +256,7 @@ resource containerAppEnvironment 'Microsoft.App/managedEnvironments@2023-05-01' 
 /* Back-end API App Application - Azure Container App */
 /* deploys default hello world */
 /* *************************************************************** */
-resource backendApiContainerApp 'Microsoft.App/containerApps@2023-05-01' = {
+resource backendApiContainerApp 'Microsoft.App/containerApps@2024-10-02-preview' = {
   name: '${projectName}-${environment}-api'
   location: location
   properties: {
@@ -284,8 +284,8 @@ resource backendApiContainerApp 'Microsoft.App/containerApps@2023-05-01' = {
       }
       registries: [
         {
-          server: containerRegistry.name
-          username: containerRegistry.properties.loginServer
+          server: containerRegistry.properties.loginServer
+          username: containerRegistry.name
           passwordSecretRef: 'container-registry-password'
         }
       ]
@@ -300,7 +300,7 @@ resource backendApiContainerApp 'Microsoft.App/containerApps@2023-05-01' = {
       containers: [
         {
           name: '${projectName}-api'
-          image: '${containerRegistry.name}.azurecr.io/legoroboapi:v1'
+          image: '${containerRegistry.name}.azurecr.io/legoaibot:v1'
           resources: {
             cpu: 1
             memory: '2Gi'

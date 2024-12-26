@@ -4,15 +4,7 @@ import Toolbar from '../../components/Toolbar';
 import styles from "./Layout.module.css";
 
 const Layout = () => {
-    useEffect(() => {
-        const script = document.createElement('script');
-        script.src = "/public/app.js";
-        script.async = true;
-        document.body.appendChild(script);
-        return () => {
-            document.body.removeChild(script);
-        };
-    }, []);
+
 
     return (
         <div className={styles.layout}>
@@ -35,13 +27,6 @@ const Layout = () => {
                 </div>
             </header>
             <Outlet />
-            <main className="container">
-                <article>
-                    <button id="toggleButton" className="black-button">Start Conversation</button>
-                    <div id="statusMessage"></div>
-                    <pre id="report"></pre>
-                </article>
-            </main>
         </div>
     );
 };

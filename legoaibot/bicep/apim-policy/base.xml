@@ -7,15 +7,22 @@
 <policies>
     <!-- Throttle, authorize, validate, cache, or transform the requests -->
     <inbound>
+        <cors allow-credentials="true">
+            <allowed-origins>
+                <origin>http://localhost:4000</origin>
+                <origin>https://legoaibot-web.azurewebsites.net</origin>
+            </allowed-origins>
+            <allowed-methods preflight-result-max-age="300">
+                <method>*</method>
+            </allowed-methods>
+            <allowed-headers>
+                <header>*</header>
+            </allowed-headers>
+            <expose-headers>
+                <header>*</header>
+            </expose-headers>
+        </cors>
         <base />
-        <set-backend-service base-url="https://api.cognitive.microsofttranslator.com" />
-        <rewrite-uri template="/translate?api-version=3.0&amp;to=fr&amp;from=en" />
-        <set-header name="Ocp-Apim-Subscription-Region" exists-action="override">
-            <value>eastus</value>
-        </set-header>
-        <set-header name="Ocp-Apim-Subscription-Key" exists-action="override">
-            <value><cognitivekey></value>
-        </set-header>
     </inbound>
     <!-- Control if and how the requests are forwarded to services  -->
     <backend>

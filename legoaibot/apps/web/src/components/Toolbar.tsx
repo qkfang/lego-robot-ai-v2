@@ -29,6 +29,13 @@ export function Toolbar() {
 
   React.useEffect(() => {
     setUserId(crypto.randomUUID().substring(0, 3));
+      const script = document.createElement('script');
+      script.src = "/public/app.js";
+      script.async = true;
+      document.body.appendChild(script);
+      return () => {
+          document.body.removeChild(script);
+      };
   }, []);
 
 
@@ -55,6 +62,7 @@ export function Toolbar() {
   function modalChatClose() {
     setModalChat(false);
   }
+
 
   return (
     <div style={{ display: "flex", alignItems: "center" }}>
@@ -92,9 +100,15 @@ export function Toolbar() {
         contentLabel="Chat"
         ariaHideApp={false}
       >
-        <h2>Chat with other users</h2>
-        <LiveChatList userId={userId} />
-        {/* <button onClick={modalChatClose}>Close</button> */}
+        <h2>Chat</h2>
+
+        <main className="container">
+                <article>
+                    <button id="toggleButton" className="black-button">Start Conversation</button>
+                    <div id="statusMessage"></div>
+                    <pre id="report"></pre>
+                </article>
+            </main>
       </Modal>
       <Modal
         isOpen={modalHelp}

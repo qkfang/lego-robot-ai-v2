@@ -5,7 +5,7 @@ param storageAccountConnectionString string
 param appInsightsId string
 
 resource appServicePlan 'Microsoft.Web/serverfarms@2024-04-01' = {
-  name: '${projectName}-${environment}-aspl'
+  name: '${projectName}-${environment}-win-asp'
   location: location
   sku: {
     name: 'WS1'

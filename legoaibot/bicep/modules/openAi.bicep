@@ -5,7 +5,7 @@ param logicAppPrincipalId string
 
 resource openAiAccount 'Microsoft.CognitiveServices/accounts@2024-10-01' = {
   name: '${projectName}-${environment}-openai'
-  location: location
+  location: 'eastus'
   kind: 'OpenAI'
   sku: {
     name: 'S0'
@@ -15,6 +15,22 @@ resource openAiAccount 'Microsoft.CognitiveServices/accounts@2024-10-01' = {
   }
   properties: {
     customSubDomainName: '${projectName}-${environment}-openai'
+    publicNetworkAccess: 'Enabled'
+  }
+}
+
+resource openAiAccountRT 'Microsoft.CognitiveServices/accounts@2024-10-01' = {
+  name: '${projectName}-${environment}-openai-rt'
+  location: 'eastus2'
+  kind: 'OpenAI'
+  sku: {
+    name: 'S0'
+  }
+  identity: {
+    type: 'SystemAssigned'
+  }
+  properties: {
+    customSubDomainName: '${projectName}-${environment}-openai-rt'
     publicNetworkAccess: 'Enabled'
   }
 }
@@ -64,13 +80,14 @@ resource dalle3 'Microsoft.CognitiveServices/accounts/deployments@2024-10-01' = 
   properties: {
     model: {
       name: 'dall-e-3'
+      version: '3.0'
       format: 'OpenAI' 
     }
   }
 }
 
 resource gpt4oRT 'Microsoft.CognitiveServices/accounts/deployments@2024-10-01' = {
-  parent: openAiAccount
+  parent: openAiAccountRT
   name: 'gpt-4o-rt'
   sku: {
     name: 'GlobalStandard'
@@ -97,6 +114,5 @@ resource openAiContributorRoleAssignment 'Microsoft.Authorization/roleAssignment
     principalId: logicAppPrincipalId
   }
 }
-
 
 output id string = openAiAccount.id
