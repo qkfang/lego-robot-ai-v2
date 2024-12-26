@@ -22,19 +22,52 @@ const endpoint = `https://${process.env.AZURE_AISEARCH_ENDPOINT}.search.windows.
 
 class CosmicWorksAIAgent {
     constructor() {
-        const indexName = "legoaibot-index-v1";
-        this.searchClient = new SearchClient(endpoint, indexName, new AzureKeyCredential(apiKey));
-
-        this.searchStore = new AzureAISearchVectorStore(
+        this.sp3apiClient = new SearchClient(endpoint, "legoaibot-sp3api", new AzureKeyCredential(apiKey));
+        this.sp3apiStore = new AzureAISearchVectorStore(
             new OpenAIEmbeddings(),
             {
-              client: this.searchClient,
-              indexName: indexName,
+              client: this.sp3apiClient,
               search: {
                 type: AzureAISearchQueryType.SimilarityHybrid,
               },
             }
           );
+
+
+          this.sp3codeClient = new SearchClient(endpoint, "legoaibot-sp3code", new AzureKeyCredential(apiKey));
+          this.sp3codeStore = new AzureAISearchVectorStore(
+              new OpenAIEmbeddings(),
+              {
+                  client: this.sp3codeClient,
+                  search: {
+                      type: AzureAISearchQueryType.SimilarityHybrid,
+                  },
+              }
+          );
+
+
+        this.sp3snippetClient = new SearchClient(endpoint, "legoaibot-sp3snippet", new AzureKeyCredential(apiKey));
+        this.sp3snippetStore = new AzureAISearchVectorStore(
+            new OpenAIEmbeddings(),
+            {
+                client: this.sp3snippetClient,
+                search: {
+                    type: AzureAISearchQueryType.SimilarityHybrid,
+                },
+            }
+        );
+
+
+        this.sp3docClient = new SearchClient(endpoint, "legoaibot-sp3doc", new AzureKeyCredential(apiKey));
+        this.sp3docStore = new AzureAISearchVectorStore(
+            new OpenAIEmbeddings(),
+            {
+                client: this.sp3docClient,
+                search: {
+                    type: AzureAISearchQueryType.SimilarityHybrid,
+                },
+            }
+        );
 
         // set up the OpenAI chat model
         // https://js.langchain.com/docs/integrations/chat/azure
@@ -160,23 +193,47 @@ class CosmicWorksAIAgent {
             runloop.until       
         `;
         // Create vector store retriever chain to retrieve documents and formats them as a string for the prompt.
-        const retrieverChain = this.searchStore.asRetriever().pipe(this.formatDocuments);
+        const sp3apiChain = this.sp3apiStore.asRetriever().pipe(this.formatDocuments);
+        const sp3codeChain = this.sp3codeStore.asRetriever().pipe(this.formatDocuments);
+        const sp3snippetChain = this.sp3snippetStore.asRetriever().pipe(this.formatDocuments);
+        const sp3docChain = this.sp3docStore.asRetriever().pipe(this.formatDocuments);
 
         // Define tools for the agent can use, the description is important this is what the AI will 
         // use to decide which tool to use.
 
         // A tool that retrieves product information from Cosmic Works based on the user's question.
-        const searchRetrieverTool = new DynamicTool({
-            name: "info_lookup_tool",
-            description: `Searches information about Lego robot based on the question. Returns general information about Lego related details in JSON format.`,
-            func: async (input) => await retrieverChain.invoke(input),
+        const sp3apiTool = new DynamicTool({
+            name: "sp3apiTool",
+            description: `Searches python code signature functions and parameters about Lego robot based on the coding question. Must use this tool if any code is genearted. Returns python code information about Lego related details in JSON format.`,
+            func: async (input) => await sp3apiChain.invoke(input),
+            verbose: true
+        });
+
+        const sp3codeTool = new DynamicTool({
+            name: "sp3codeTool",
+            description: `Searches python code about Lego robot based on the question. Returns python code information about Lego related details in JSON format.`,
+            func: async (input) => await sp3apiChain.invoke(input),
+            verbose: true
+        });
+
+        const sp3snippetTool = new DynamicTool({
+            name: "sp3snippetTool",
+            description: `Searches python code snippet about Lego robot based on the question. Returns python code information about Lego related details in JSON format.`,
+            func: async (input) => await sp3apiChain.invoke(input),
+            verbose: true
+        });
+
+        const sp3docTool = new DynamicTool({
+            name: "sp3docTool",
+            description: `Searches documentation about Lego robot based on the question. Returns general information about Lego related details in text format.`,
+            func: async (input) => await sp3apiChain.invoke(input),
             verbose: true
         });
 
         // Generate OpenAI function metadata to provide to the LLM
         // The LLM will use this metadata to decide which tool to use based on the description.
         // const tools = [legoApiRetrieverTool, legoSnippetRetrieverTool, legoInfoRetrieverTool, azureSearchTool];
-        const tools = [searchRetrieverTool];
+        const tools = [sp3apiTool, sp3codeTool, sp3snippetTool, sp3docTool];
         
         const modelWithFunctions = this.chatModel.bind({
             functions: tools.map((tool) => convertToOpenAIFunction(tool)),
