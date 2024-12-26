@@ -46,7 +46,7 @@
                             "content": "@decodeBase64(body('Read_blob_content')?['content']['$content'])",
                             "title": "@triggerBody()?['name']",
                             "content_Vector": "@body('Get_an_embedding')['embedding']",
-                            "id": "@replace(triggerBody()?['name'] ,'.', '_')"
+                            "id": "@replace(replace(triggerBody()?['name'] ,'.', '_'),' ', '_')"
                         }
                     },
                     "serviceProviderConfiguration": {
