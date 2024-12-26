@@ -8,12 +8,9 @@
     <!-- Throttle, authorize, validate, cache, or transform the requests -->
     <inbound>
         <base />
-        <set-backend-service base-url="https://api.cognitive.microsofttranslator.com" />
-        <rewrite-uri template="/translate?api-version=3.0&amp;to=fr&amp;from=en" />
-        <set-header name="Ocp-Apim-Subscription-Region" exists-action="override">
-            <value>eastus</value>
-        </set-header>
-        <set-header name="Ocp-Apim-Subscription-Key" exists-action="override">
+        <set-backend-service base-url="https://legoaibot-prd-openai.openai.azure.com" />
+        <rewrite-uri template="/openai/deployments/completions/chat/gpt-4o?api-version=2024-03-01-preview" />
+        <set-header name="api-key" exists-action="override">
             <value>xxxx</value>
         </set-header>
     </inbound>
