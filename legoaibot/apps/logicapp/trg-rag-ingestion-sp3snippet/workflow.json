@@ -7,8 +7,7 @@
                 "inputs": {
                     "parameters": {
                         "containerName": "legoaibot-sp3snippet",
-                        "blobName": "@triggerBody()?['name']",
-                        "inferContentType": false
+                        "blobName": "@triggerBody()?['name']"
                     },
                     "serviceProviderConfiguration": {
                         "connectionName": "AzureBlob",
@@ -43,10 +42,10 @@
                     "parameters": {
                         "indexName": "legoaibot-sp3snippet",
                         "document": {
-                            "content": "@decodeBase64(body('Read_blob_content')?['content']['$content'])",
-                            "title": "@triggerBody()?['name']",
+                            "content": "@body('Read_blob_content')?['content']['Python_Code']",
+                            "title": "@body('Read_blob_content')?['content']['Python_Code_Title']",
                             "content_Vector": "@body('Get_an_embedding')['embedding']",
-                            "id": "@replace(triggerBody()?['name'] ,'.', '_')"
+                            "id": "@body('Read_blob_content')?['content']['Python_Code_Id']"
                         }
                     },
                     "serviceProviderConfiguration": {

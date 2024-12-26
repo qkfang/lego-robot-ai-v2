@@ -77,7 +77,7 @@ resource legoaibot_sp3api 'Microsoft.Storage/storageAccounts/blobServices/contai
 }
 
 resource legoaibot_sp3code 'Microsoft.Storage/storageAccounts/blobServices/containers@2021-04-01' = {
-  name: '${storageAccount.name}/default/legoaibot-sp3doce'
+  name: '${storageAccount.name}/default/legoaibot-sp3code'
   properties: {
     publicAccess: 'None'
   }
