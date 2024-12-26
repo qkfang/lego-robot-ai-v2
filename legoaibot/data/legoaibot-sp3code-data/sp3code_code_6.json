@@ -1,0 +1,5 @@
+{
+  "Python_Code_Id": "code_6",
+  "Python_Code_Title": "LINE FOLLOWER",
+  "Python_Code": "from hub import port\nimport motor, motor_pair, color_sensor, runloop, sys\n# Constants for Drive Base 1\nmotor_pair.pair(motor_pair.PAIR_1, port.A, port.B)\n# Follow the right side of black line (Black-White edge).\n# To follow a White-Black edge, change the error condition to (reflection - 50). \nasync def pid_line_follow_forever():\n    integral = 0\n    lastError = 0\n    while (True):\n        # Compute the error. \n        error = 50 - color_sensor.reflection(port.E)\n        P_fix = error * 0.5\n        integral = integral + error\n        I_fix = integral * 0.001\n        derivative = error - lastError\n        lastError = error\n        D_fix = derivative * 1\n        # clamp the correction from -100 to 100 because SP3 doesn鈥檛 seem to do it internally.\n        correction = min(100, max(-100, int(P_fix + I_fix + D_fix)))\n        # use the correction as the steering\n        motor_pair.move(motor_pair.PAIR_1, correction, velocity = 300)\nasync def main():\n    await pid_line_follow_forever()\nrunloop.run(main())"
+}

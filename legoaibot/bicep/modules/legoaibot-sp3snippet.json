@@ -1,5 +1,5 @@
 {
-    "name": "legoaibot-sp3api",
+    "name": "legoaibot-sp3snippet",
     "fields": [
       {
         "name": "id",
@@ -152,5 +152,5 @@
       "vectorizers": [],
       "compressions": []
     },
-    "@odata.etag": "\"0x8DD24E554E4715A\""
+    "@odata.etag": "\"0x8DD24A57803DD72\""
   }

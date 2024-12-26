@@ -1,0 +1,5 @@
+{
+  "Python_Code_Id": "code_3",
+  "Python_Code_Title": "Move a Motor Pair at a constant speed for a specific number of degrees.When awaited returns a\n                    status of the movement that corresponds to one of the following constants from the motor module:\nmotor.READYmotor.RUNNINGmotor.STALLEDmotor.CANCELEDmotor.ERRORmotor.DISCONNECTED",
+  "Python_Code": "from hub import port\nimport runloop\nimport motor_pair\n\nasync def main():\n    # Pair motors on port A and B \n    motor_pair.pair(motor_pair.PAIR_1, port.A, port.B)\n\n    # Move straight at default velocity for 90 degrees \n    await motor_pair.move_for_degrees(motor_pair.PAIR_1, 90, 0)\n\n    # Move straight at a specific velocity \n    await motor_pair.move_for_degrees(motor_pair.PAIR_1, 360, 0, velocity=280)\n\n    # Move straight at a specific velocity with a slow deceleration \n    await motor_pair.move_for_degrees(motor_pair.PAIR_1, 360, 0, velocity=280, deceleration=10)\n\nrunloop.run(main())"
+}

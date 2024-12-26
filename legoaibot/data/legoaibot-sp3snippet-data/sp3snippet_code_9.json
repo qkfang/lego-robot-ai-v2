@@ -1,0 +1,5 @@
+{
+  "Python_Code_Id": "code_9",
+  "Python_Code_Title": "Returns an awaitable that will return when the condition in the function or lambda passed is\n                    True or when it times out",
+  "Python_Code": "import color_sensor\nimport color\nfrom hub import port\nimport runloop\n\ndef is_color_red():\n    return color_sensor.color(port.A) is color.RED\n\nasync def main():\n    # Wait until Color Sensor sees red \n    await runloop.until(is_color_red)\n    print(\"Red!\")\n\nrunloop.run(main())\n"
+}

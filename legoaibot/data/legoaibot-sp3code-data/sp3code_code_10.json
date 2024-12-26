@@ -1,0 +1,5 @@
+{
+  "Python_Code_Id": "code_10",
+  "Python_Code_Title": "MOVE UNTIL LINE",
+  "Python_Code": "from hub import port\nimport motor, color_sensor, runloop, sys\n\nasync def main():\n    # Start the motors\n    motor.run(port.C, -200)\n    motor.run(port.D, 200)\n    foundC = False\n    foundD = False\n    # wait for color sensors to detect black and stop motors\n    while (not foundC or not foundD):\n        if(color_sensor.reflection(port.A) < 50):\n            motor.stop(port.C)\n            foundC = True\n        if(color_sensor.reflection(port.B) < 50):\n            motor.stop(port.D)\n            foundD = True\n    sys.exit(\"Stopping\")\n    \nrunloop.run(main()) "
+}

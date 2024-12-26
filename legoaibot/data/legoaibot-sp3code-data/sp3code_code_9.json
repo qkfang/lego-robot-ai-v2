@@ -1,0 +1,5 @@
+{
+  "Python_Code_Id": "code_9",
+  "Python_Code_Title": "USING CONCURRENT FUNCTIONS",
+  "Python_Code": "from hub import port\nimport motor, color_sensor, runloop, sys\n\nasync def all_done():\n    return (motor.velocity(port.C) is 0 and motor.velocity(port.D) is 0)\n# Function to move motor until the sensor in front of it senses black\n# Parameters:\n# motor_port: The port of the motor\n# sensor_port: port of the color sensor in front of the motor\n# direction: 1 for clockwise, -1 for counterclockwise\nasync def move_until_black(motor_port, color_port, direction):\n    motor.run(motor_port, 200 * direction)\n    while color_sensor.reflection(color_port) > 50:\n        await runloop.sleep_ms(50)\n    motor.stop(motor_port)\nasync def main():\n    # create two async functions to send to the runloop\n    a = move_until_black(port.C, port.A, -1)\n    b = move_until_black(port.D, port.B, 1)\n    # run both the functions together\n    runloop.run(*[a,b])\n    # wait until both motors have stopped\n    await runloop.until(all_done)\n    sys.exit(\"Stopping\")\nrunloop.run(main())"
+}

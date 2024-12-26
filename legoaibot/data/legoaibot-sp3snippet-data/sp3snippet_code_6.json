@@ -1,0 +1,5 @@
+{
+  "Python_Code_Id": "code_6",
+  "Python_Code_Title": "Perform a tank move on a Motor Pair at a constant speed until a new command is given.When awaited\n                    returns a status of the movement that corresponds to one of the following constants from the motor\n                    module:\nmotor.READYmotor.RUNNINGmotor.STALLEDmotor.CANCELEDmotor.ERRORmotor.DISCONNECTED",
+  "Python_Code": "from hub import port\nimport runloop\nimport motor_pair\n\nasync def main():\n    # Pair motors on port A and B \n    motor_pair.pair(motor_pair.PAIR_1, port.A, port.B)\n\n    # Move straight at default velocity for 360 degrees \n    await motor_pair.move_tank_for_degrees(motor_pair.PAIR_1, 360, 1000, 1000)\n\n    # Turn right for 180 degrees \n    await motor_pair.move_tank_for_degrees(motor_pair.PAIR_1, 180, 0, 1000)\n\n    # Perform tank turn for 720 degrees \n    await motor_pair.move_tank_for_degrees(motor_pair.PAIR_1, 720, 1000, -1000)\n\nrunloop.run(main())"
+}

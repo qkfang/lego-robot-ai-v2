@@ -89,7 +89,7 @@
                         "content": "@body('Chunk_text')['value'][item()]",
                         "title": "@triggerBody()?['name']",
                         "content_Vector": "@body('Get_multiple_embeddings')['embeddings'][item()]",
-                        "id": "@replace(triggerBody()?['name'] ,'.', '_')"
+                        "id": "@replace(triggerBody()?['name'] ,'.', '')"
                     }
                 },
                 "runAfter": {

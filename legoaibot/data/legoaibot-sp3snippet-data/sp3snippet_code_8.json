@@ -1,0 +1,5 @@
+{
+  "Python_Code_Id": "code_8",
+  "Python_Code_Title": "Pause the execution of the application for any amount of milliseconds.",
+  "Python_Code": "from hub import light_matrix\nimport runloop\n\nasync def main():\n    light_matrix.write(\"Hi!\")\n    # Wait for ten seconds \n    await runloop.sleep_ms(10000)\n    light_matrix.write(\"Are you still here?\")\n\nrunloop.run(main())\n"
+}

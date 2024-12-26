@@ -1,0 +1,5 @@
+{
+  "Python_Code_Id": "code_5",
+  "Python_Code_Title": "Move the robot 10 centimeters forward",
+  "Python_Code": "from hub import port\nimport runloop, motor_pair, sys\n\n# cm, this is a constant for your robot\nWHEEL_CIRCUMFERENCE = 17.5\n\n# input must be in the same unit as WHEEL_CIRCUMFERENCE\ndef degreesForDistance(distance_cm):\n    # Add multiplier for gear ratio if needed\n    return int((distance_cm / WHEEL_CIRCUMFERENCE) * 360)\n\nasync def main():\n    # Drive Base 1\n    motor_pair.pair(motor_pair.PAIR_1, port.A, port.B)\n    await motor_pair.move_for_degrees(motor_pair.PAIR_1, degreesForDistance(10), 0)\n    sys.exit(\"Finished\")\n\nrunloop.run(main())"
+}

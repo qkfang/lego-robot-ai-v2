@@ -1,0 +1,5 @@
+{
+  "Python_Code_Id": "code_1",
+  "Python_Code_Title": "Run a Motor for a limited amount of timeWhen awaited returns a status of the movement that\n                    corresponds to one of the following constants:\nmotor.READYmotor.RUNNINGmotor.STALLEDmotor.ERRORmotor.DISCONNECTED",
+  "Python_Code": "from hub import port\nimport runloop\nimport motor\n\nasync def main():\n    # Run at 1000 velocity for 1 second \n    await motor.run_for_time(port.A, 1000, 1000)\n\n    # Run at 280 velocity for 1 second \n    await motor_pair.run_for_time(port.A, 1000, 280)\n\n    # Run at 280 velocity for 10 seconds with a slow deceleration \n    await motor_pair.run_for_time(port.A, 10000, 280, deceleration=10)\n\nrunloop.run(main())"
+}

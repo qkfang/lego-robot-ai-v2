@@ -1,0 +1,5 @@
+{
+  "Python_Code_Id": "code_3",
+  "Python_Code_Title": "read gyro sensor's yaw degree",
+  "Python_Code": "from hub import port\nimport runloop\nimport motor_pair\n\nasync def main():\n    yaw_degree = round(motion_sensor.tilt_angles()[0] / 10, 3) * -1\n    print(\"Yaw Degree:\", yaw_degree)\n\n\nrunloop.run(main())"
+}
