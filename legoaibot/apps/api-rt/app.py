@@ -13,6 +13,8 @@ from backend.rtmt import RTMiddleTier, Tool
 
 from acs.caller import OutboundCall
 from reportstore.cosmosdb import CosmosDBStore
+from aiohttp import web
+import aiohttp_cors
 
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger("voicerag")
@@ -130,10 +132,24 @@ async def create_app():
         
         return web.json_response(acs_status)
 
+    # Configure CORS
+    cors = aiohttp_cors.setup(app, defaults={
+        "*": aiohttp_cors.ResourceOptions(
+            allow_credentials=True,
+            expose_headers="*",
+            allow_headers="*",
+        )
+    })
+
     app.router.add_get('/', index)
     app.router.add_static('/static/', path=str(static_directory), name='static')
     app.router.add_post('/call', call)
     app.router.add_get('/status', acs_status)
+    
+    # Apply CORS to all routes
+    for route in list(app.router.routes()):
+        cors.add(route)
+
 
     return app
 

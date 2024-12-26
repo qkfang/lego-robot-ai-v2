@@ -2,12 +2,28 @@ param location string = resourceGroup().location
 param projectName string = 'legoaibot'
 param environment string = 'dev'
 
+
+/* *************************************************************** */
+/* Logging and instrumentation */
+/* *************************************************************** */
+
+resource logAnalytics 'Microsoft.OperationalInsights/workspaces@2023-09-01' = {
+  name: '${projectName}-${environment}-loganalytics'
+  location: location
+  properties: {
+    sku: {
+      name: 'PerGB2018'
+    }
+  }
+}
+
 resource appInsights 'Microsoft.Insights/components@2020-02-02' = {
   name: '${projectName}-${environment}-appinsights'
   location: location
   kind: 'web'
   properties: {
     Application_Type: 'web'
+    WorkspaceResourceId: logAnalytics.id
   }
 }
 
@@ -134,5 +150,167 @@ module aiService 'modules/aiService.bicep' = {
     location: location
     speechServiceName: '${projectName}-${environment}-speech'
     translatorServiceName: '${projectName}-${environment}-trans'
+  }
+}
+
+
+// deploy APIM instance with legoaibot API
+// module apim 'modules/apim.bicep' = {
+//   name: 'apim'
+//   params: {
+//     location: location
+//     environment: environment
+//     projectName: projectName
+//   }
+// }
+
+
+
+/* *************************************************************** */
+/* App Plan Hosting - Azure App Service Plan */
+/* *************************************************************** */
+resource appServicePlan 'Microsoft.Web/serverfarms@2022-03-01' = {
+  name: '${projectName}-${environment}-linux-asp'
+  location: location
+  sku: {
+    name: 'B1'
+  }
+  kind: 'linux'
+  properties: {
+    reserved: true
+  }
+}
+
+
+/* *************************************************************** */
+/* Front-end Web App Hosting - Azure App Service */
+/* *************************************************************** */
+
+resource appServiceWeb 'Microsoft.Web/sites@2022-03-01' = {
+  name: '${projectName}-${environment}-web'
+  location: location
+  properties: {
+    serverFarmId: appServicePlan.id
+    httpsOnly: true
+    siteConfig: {
+      linuxFxVersion: 'NODE|20-lts'
+      appCommandLine: 'pm2 serve /home/site/wwwroot --no-daemon --spa'
+      alwaysOn: true
+    }
+  }
+}
+
+resource appServiceWebSettings 'Microsoft.Web/sites/config@2022-03-01' = {
+  parent: appServiceWeb
+  name: 'appsettings'
+  kind: 'string'
+  properties: {
+    APPINSIGHTS_INSTRUMENTATIONKEY: appInsights.properties.InstrumentationKey
+    API_ENDPOINT: 'https://${backendApiContainerApp.properties.configuration.ingress.fqdn}'
+  }
+}
+
+
+
+/* *************************************************************** */
+/* Registry for Back-end API Image - Azure Container Registry */
+/* *************************************************************** */
+resource containerRegistry 'Microsoft.ContainerRegistry/registries@2023-01-01-preview' = {
+  name: '${projectName}${environment}acr'
+  location: location
+  sku: {
+    name: 'Basic'
+  }
+  properties: {
+    adminUserEnabled: true
+  }
+}
+
+/* *************************************************************** */
+/* Container environment - Azure Container App Environment  */
+/* *************************************************************** */
+resource containerAppEnvironment 'Microsoft.App/managedEnvironments@2023-05-01' = {
+  name: '${projectName}-${environment}-cae'
+  location: location
+  properties: {
+    appLogsConfiguration: {
+      destination: 'log-analytics'
+      logAnalyticsConfiguration: {
+        customerId: logAnalytics.properties.customerId
+        sharedKey: logAnalytics.listKeys().primarySharedKey
+      }
+    }
+    workloadProfiles: [
+      {
+        name: 'Warm'
+        minimumCount: 1
+        maximumCount: 10
+        workloadProfileType: 'D4'
+      }
+    ]
+    infrastructureResourceGroup: 'ME_${resourceGroup().name}'
+  }
+}
+
+/* *************************************************************** */
+/* Back-end API App Application - Azure Container App */
+/* deploys default hello world */
+/* *************************************************************** */
+resource backendApiContainerApp 'Microsoft.App/containerApps@2023-05-01' = {
+  name: '${projectName}-${environment}-api'
+  location: location
+  properties: {
+    environmentId: containerAppEnvironment.id
+    configuration: {
+      ingress: {
+        external: true
+        targetPort: 80
+        allowInsecure: false
+        traffic: [
+          {
+            latestRevision: true
+            weight: 100
+          }
+        ]   
+        corsPolicy: {
+          allowCredentials: false
+          allowedHeaders: [
+            '*'
+          ]
+          allowedOrigins: [
+            '*'
+          ]
+        }
+      }
+      registries: [
+        {
+          server: containerRegistry.name
+          username: containerRegistry.properties.loginServer
+          passwordSecretRef: 'container-registry-password'
+        }
+      ]
+      secrets: [
+        {
+          name: 'container-registry-password'
+          value: containerRegistry.listCredentials().passwords[0].value
+        }
+      ]
+    }
+    template: {
+      containers: [
+        {
+          name: '${projectName}-api'
+          image: '${containerRegistry.name}.azurecr.io/legoroboapi:v1'
+          resources: {
+            cpu: 1
+            memory: '2Gi'
+          }         
+        }
+      ]
+      scale: {
+        minReplicas: 1
+        maxReplicas: 1
+      }
+    }
   }
 }
