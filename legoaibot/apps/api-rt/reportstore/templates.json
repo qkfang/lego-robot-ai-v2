@@ -5,24 +5,12 @@
         "fields": [
             {
                 "id": "1",
-                "name": "player_name",
-                "type": "string",
-                "description": "Name of the player"
-            },
-            {
-                "id": "2",
-                "name": "player_note",
-                "type": "string",
-                "description": "Note from the player about the game"
-            },
-            {
-                "id": "3",
                 "name": "game_score",
                 "type": "int",
                 "description": "Score of the game"
             },
             {
-                "id": "4",
+                "id": "2",
                 "name": "game_date",
                 "type": "date",
                 "description": "Date of the game"
@@ -35,24 +23,12 @@
         "fields": [
             {
                 "id": "1",
-                "name": "player_name",
-                "type": "string",
-                "description": "Name of the player"
-            },
-            {
-                "id": "2",
-                "name": "player_note",
-                "type": "string",
-                "description": "Note from the player about the game"
-            },
-            {
-                "id": "3",
                 "name": "game_score",
                 "type": "int",
                 "description": "Score of the game"
             },
             {
-                "id": "4",
+                "id": "2",
                 "name": "game_date",
                 "type": "date",
                 "description": "Date of the game"
