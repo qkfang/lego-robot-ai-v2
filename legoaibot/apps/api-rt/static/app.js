@@ -180,10 +180,14 @@ function handleWebSocketMessage(message) {
             break;
         case 'extension.middle_tier_tool_response':
             // Handle tool response
-            if (message.tool_name === 'generate_report') {
+            if (message.tool_name === 'generate_game') {
                 const report = JSON.parse(message.tool_result);
                 displayReport(report);
             }
+            // if (message.tool_name === 'game_game') {
+            //     const report = JSON.parse(message.tool_result);
+            //     displayReport(report);
+            // }
             break;
         case 'error':
             console.error('Error message from server:', JSON.stringify(message, null, 2));

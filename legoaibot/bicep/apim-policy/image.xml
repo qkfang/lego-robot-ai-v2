@@ -8,7 +8,7 @@
     <!-- Throttle, authorize, validate, cache, or transform the requests -->
     <inbound>
         <base />
-        <set-backend-service base-url="https://legorobot-api.orangecliff-0ad42f82.eastus.azurecontainerapps.io" />
+        <set-backend-service base-url="https://legoaibot-prd-api.bluestone-0d32ea35.eastus.azurecontainerapps.io" />
         <rewrite-uri template="/image" />
     </inbound>
     <!-- Control if and how the requests are forwarded to services  -->

@@ -8,7 +8,7 @@ from azure.core.credentials import AzureKeyCredential
 from azure.identity import AzureDeveloperCliCredential, DefaultAzureCredential
 from dotenv import load_dotenv
 
-from backend.tools import _generate_report_tool, _generate_report_tool_schema, _get_report_fields_tool_schema
+from backend.tools import _generate_game_tool_schema, _get_fields_tool_schema, _save_game_tool_schema
 from backend.rtmt import RTMiddleTier, Tool
 
 from acs.caller import OutboundCall
@@ -44,51 +44,54 @@ async def create_app():
     llm_credential = AzureKeyCredential(llm_key) if llm_key else credential
 
     if (os.environ.get("COSMOSDB_ACCOUNT_ENDPOINT") is not None and
-            os.environ.get("COSMOSDB_DATABASE_NAME") is not None and
-            os.environ.get("COSMOSDB_CONTAINER_NAME") is not None):
+            os.environ.get("COSMOSDB_DATABASE_NAME") is not None):
         
         cosmos = CosmosDBStore(
             os.environ.get("COSMOSDB_ACCOUNT_ENDPOINT"),
+            os.environ.get("COSMOSDB_ACCOUNT_KEY"),
             os.environ.get("COSMOSDB_DATABASE_NAME"),
-            os.environ.get("COSMOSDB_CONTAINER_NAME"),
         )    
 
     app = web.Application()
 
     rtmt = RTMiddleTier(llm_endpoint, llm_deployment, llm_credential)
 
-    if (os.environ.get("ACS_CONNECTION_STRING") is not None and 
-        os.environ.get("ACS_SOURCE_NUMBER") is not None):
+    # if (os.environ.get("ACS_CONNECTION_STRING") is not None and 
+    #     os.environ.get("ACS_SOURCE_NUMBER") is not None):
         
-        callback_path = os.environ.get("ACS_CALLBACK_PATH")
+    #     callback_path = os.environ.get("ACS_CALLBACK_PATH")
 
-        if (os.environ.get("ACS_CALLBACK_PATH") is None):
-            callback_path = os.environ.get("CONTAINER_APP_HOSTNAME")
+    #     if (os.environ.get("ACS_CALLBACK_PATH") is None):
+    #         callback_path = os.environ.get("CONTAINER_APP_HOSTNAME")
 
-        caller = OutboundCall(
-            os.environ.get("ACS_CONNECTION_STRING"),
-            os.environ.get("ACS_SOURCE_NUMBER"),
-            callback_path
-        )
-        caller.attach_to_app(app, "/acs")
+    #     caller = OutboundCall(
+    #         os.environ.get("ACS_CONNECTION_STRING"),
+    #         os.environ.get("ACS_SOURCE_NUMBER"),
+    #         callback_path
+    #     )
+    #     caller.attach_to_app(app, "/acs")
 
     rtmt.system_message = (
         "You are a helpful assistant that maintains a conversation with the user, while asking questions according to a specific set of fields.\n"
-        "You MUST start the conversation by asking the play the following questions:\n"
-        "1. What is your team name ?\n"
-        "After that you should use the 'get_report_fields' tool to retrieve the required fields from the database for follow up questions\n"
-        "The response from the 'get_report_fields' tool will give you a set of fields that you should fill by asking the user questions.\n"
-        "After you have gone through all the questions in the schema, output a valid JSON file to the user by calling the 'generate_report' function,\n "
+        "You MUST start the conversation by asking the user this questions: What is your team name ?\n"
+        "After that you should use the 'get_fields' tool to retrieve the required fields from the database for follow up questions\n"
+        "The response from the 'get_fields' tool will give you a set of fields that you should fill by asking the user questions.\n"
+        "After you have gone through all the questions in the schema, output a valid JSON file to the user by calling the 'generate_game' function,\n "
         "with the schema definition being various player and product attributes derived from the conversation.\n "
+        "Finally ask user if the game JSON looks good and save the game by calling the 'save_game' function."
         "You must engage the user in a conversation and ask the questions in the script. The user will provide the answers to the questions."
     )
-    rtmt.tools["get_report_fields"] = Tool(
-        schema=_get_report_fields_tool_schema,
-        target=lambda args: cosmos.get_report_fields(args),
+    rtmt.tools["get_fields"] = Tool(
+        schema=_get_fields_tool_schema,
+        target=lambda args: cosmos.get_fields(args),
     )
-    rtmt.tools["generate_report"] = Tool(
-        schema=_generate_report_tool_schema,
-        target=lambda args: cosmos.write_report(args),
+    rtmt.tools["generate_game"] = Tool(
+        schema=_generate_game_tool_schema,
+        target=lambda args: cosmos.generate_game(args),
+    )
+    rtmt.tools["save_game"] = Tool(
+        schema=_save_game_tool_schema,
+        target=lambda args: cosmos.save_game(args),
     )
 
     rtmt.attach_to_app(app, "/realtime")

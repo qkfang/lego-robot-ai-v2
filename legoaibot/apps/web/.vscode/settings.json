@@ -2,5 +2,7 @@
     "appService.zipIgnorePattern": [
         "node_modules{,/**}",
         ".vscode{,/**}"
-    ]
+    ],
+    "appService.defaultWebAppToDeploy": "/subscriptions/c3a777c7-afcb-4fd8-84f9-096225a00f84/resourceGroups/rg-legoaibot/providers/Microsoft.Web/sites/legoaibot-prd-web",
+    "appService.deploySubpath": "."
 }

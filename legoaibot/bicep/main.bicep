@@ -132,14 +132,12 @@ resource logicAppContributorRoleAssignment 'Microsoft.Authorization/roleAssignme
 
 
 param cosmosDatabaseName string = 'mobile'
-param cosmosContainerName string = 'reports'
 module cosmodDb 'modules/cosmosdb.bicep' = {
   name: 'sql'
   params: {
     location: 'eastus2'
     accountName: '${projectName}-${environment}-cosmos'
     databaseName: cosmosDatabaseName
-    containerName: cosmosContainerName
   }
 }
 

@@ -71,7 +71,7 @@ class RTMiddleTier:
 
     async def _process_message_to_client(self, msg: str, client_ws: web.WebSocketResponse, server_ws: web.WebSocketResponse) -> Optional[str]:
         message = json.loads(msg.data)
-        print(message)
+        # print(message)
 
         updated_message = msg.data
         if message is not None:
@@ -138,6 +138,7 @@ class RTMiddleTier:
                         await server_ws.send_json({
                             "type": "response.create"
                         })
+                    print(message)
                     if "response" in message:
                         replace = False
                         for i, output in enumerate(reversed(message["response"]["output"])):

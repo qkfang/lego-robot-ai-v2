@@ -10,6 +10,7 @@
         <cors allow-credentials="true">
             <allowed-origins>
                 <origin>http://localhost:4000</origin>
+                <origin>http://localhost:4001</origin>
                 <origin>https://legoaibot-web.azurewebsites.net</origin>
             </allowed-origins>
             <allowed-methods preflight-result-max-age="300">

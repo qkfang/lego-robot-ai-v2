@@ -1,6 +1,5 @@
 param accountName string
 param databaseName string
-param containerName string
 
 @description('Location for the Cosmos DB account.')
 param location string = resourceGroup().location
@@ -18,12 +17,18 @@ param enableServerless bool = true
 param enableNoSQLVectorSearch bool = false
 
 @description('Disables key-based authentication. Defaults to false.')
-param disableKeyBasedAuth bool = true
+param disableKeyBasedAuth bool = false
 
 param containers array = [
   {
-    name: containerName
-    id: containerName
+    name: 'fields'
+    id: 'fields'
+    partitionKey: '/id'
+    indexKey: 'id'
+  }
+  {
+    name: 'games'
+    id: 'games'
     partitionKey: '/id'
     indexKey: 'id'
   }
@@ -54,7 +59,7 @@ resource account 'Microsoft.DocumentDB/databaseAccounts@2024-05-15' = {
           serverVersion: '7.0'
         }
       : {}
-    disableLocalAuth: disableKeyBasedAuth
+    disableLocalAuth: false
     capabilities: union(
       (enableServerless)
         ? [
