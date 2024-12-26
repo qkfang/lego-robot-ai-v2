@@ -204,29 +204,29 @@ class CosmicWorksAIAgent {
         // A tool that retrieves product information from Cosmic Works based on the user's question.
         const sp3apiTool = new DynamicTool({
             name: "sp3apiTool",
-            description: `Searches python code signature functions and parameters about Lego robot based on the coding question. Must use this tool if any code is genearted. Returns python code information about Lego related details in JSON format.`,
+            description: `Find python function signature and parameters to control robot. Must use this tool if any code is genearted. Returns python code information about Lego related details in JSON format.`,
             func: async (input) => await sp3apiChain.invoke(input),
             verbose: true
         });
 
         const sp3codeTool = new DynamicTool({
             name: "sp3codeTool",
-            description: `Searches python code about Lego robot based on the question. Returns python code information about Lego related details in JSON format.`,
-            func: async (input) => await sp3apiChain.invoke(input),
+            description: `Searches a library of python code for robot based on the question. these code blocks are useful for code block guidelines. Returns python code information about Lego related details in JSON format.`,
+            func: async (input) => await sp3codeChain.invoke(input),
             verbose: true
         });
 
         const sp3snippetTool = new DynamicTool({
             name: "sp3snippetTool",
-            description: `Searches python code snippet about Lego robot based on the question. Returns python code information about Lego related details in JSON format.`,
-            func: async (input) => await sp3apiChain.invoke(input),
+            description: `Searches a library of python code for robot based on the question. these code blocks are useful for code block guidelines. Returns python code information about Lego related details in JSON format.`,
+            func: async (input) => await sp3snippetChain.invoke(input),
             verbose: true
         });
 
         const sp3docTool = new DynamicTool({
             name: "sp3docTool",
-            description: `Searches documentation about Lego robot based on the question. Returns general information about Lego related details in text format.`,
-            func: async (input) => await sp3apiChain.invoke(input),
+            description: `Searches documentation about Lego robot based on the question, these documents are helpful with general spike prime 3 informations. Returns general information about Lego related details in text format.`,
+            func: async (input) => await sp3docChain.invoke(input),
             verbose: true
         });
 
