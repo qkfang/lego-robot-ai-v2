@@ -1,19 +1,21 @@
-const toggleButton = document.getElementById('toggleButton');
-const callButton = document.getElementById('callButton');
-const statusMessage = document.getElementById('statusMessage');
-const reportDiv = document.getElementById('report');
+toggleButton = document.getElementById('toggleButton');
+callButton = document.getElementById('callButton');
+statusMessage = document.getElementById('statusMessage');
+reportDiv = document.getElementById('report');
+isRecording = false;
+websocket = null;
+audioContext = null;
+mediaStream = null;
+mediaProcessor = null;
+audioQueueTime = 0;
+// let backendHost = "localhost:8765";
+// backendHost = `${window.location.host}`;
+backendHost = `legoaibot-prd-api-rt.bluestone-0d32ea35.eastus.azurecontainerapps.io`;
 
-let isRecording = false;
-let websocket = null;
-let audioContext = null;
-let mediaStream = null;
-let mediaProcessor = null;
-let audioQueueTime = 0;
-let backendHost = "localhost:8765";
 
 // Variables for client-side VAD (optional)
-let speaking = false;
-const VAD_THRESHOLD = 0.01; // Adjust this threshold as needed
+speaking = false;
+VAD_THRESHOLD = 0.01; // Adjust this threshold as needed
 
 async function startRecording() {
     isRecording = true;
@@ -28,7 +30,7 @@ async function startRecording() {
 
     // Open WebSocket connection
     if (window.location.protocol != "https:") {
-        websocket = new WebSocket(`ws://${backendHost}/realtime`);
+        websocket = new WebSocket(`wss://${backendHost}/realtime`);
     }else
     {
         websocket = new WebSocket(`wss://${backendHost}/realtime`);
@@ -163,9 +165,6 @@ function onCallButton() {
     });
 }
 
-toggleButton.addEventListener('click', onToggleListening);
-callButton.addEventListener('click', onCallButton);
-
 function handleWebSocketMessage(message) {
     switch (message.type) {
         case 'response.audio.delta':
@@ -180,10 +179,14 @@ function handleWebSocketMessage(message) {
             break;
         case 'extension.middle_tier_tool_response':
             // Handle tool response
-            if (message.tool_name === 'generate_report') {
+            if (message.tool_name === 'generate_game') {
                 const report = JSON.parse(message.tool_result);
                 displayReport(report);
             }
+            // if (message.tool_name === 'game_game') {
+            //     const report = JSON.parse(message.tool_result);
+            //     displayReport(report);
+            // }
             break;
         case 'error':
             console.error('Error message from server:', JSON.stringify(message, null, 2));
@@ -193,7 +196,7 @@ function handleWebSocketMessage(message) {
     }
 }
 
-let assistantAudioSources = [];
+assistantAudioSources = [];
 
 function playAudio(base64Audio) {
     const binary = atob(base64Audio);
@@ -293,24 +296,27 @@ function detectSpeech(inputData) {
     return rms > VAD_THRESHOLD;
 }
 
-window.onload = function() {
-    fetch(`http://${backendHost}/status`)
+function load() {
+    
+    toggleButton = document.getElementById('toggleButton');
+    statusMessage = document.getElementById('statusMessage');
+    reportDiv = document.getElementById('report');
+    
+    toggleButton.addEventListener('click', onToggleListening);
+
+    fetch(`https://${backendHost}/status`)
         .then(response => response.text())
         .then(data => 
             {
                 json_data = JSON.parse(data)
                 if (json_data.outbound_calling_enabled){
-                    callButton.disabled = false;
                     phonenumber.disabled = false;
-                    callButton.textContent = "Call me from the browser";
                 }
-                else
-                {
-                    callButton.textContent = "Outbound calling not possible";
-                }
-                statusMessage.textContent = json_data.status;
+                // statusMessage.textContent = json_data.status;
                 console.log(json_data);
             }
         )
         .catch(error => console.error('Error:', error));
 };
+
+load();

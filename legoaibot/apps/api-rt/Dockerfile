@@ -16,7 +16,7 @@ RUN pip install --no-cache-dir -r requirements.txt
 
 FROM python:3.12-slim
 ARG FILENAME
-ARG PORT=8000
+ARG PORT=80
 ARG HOST=0.0.0.0
 WORKDIR /app
 COPY --from=builder /opt/venv /opt/venv

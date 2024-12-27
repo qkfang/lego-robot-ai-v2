@@ -298,7 +298,68 @@ resource backendApiContainerApp 'Microsoft.App/containerApps@2024-10-02-preview'
       containers: [
         {
           name: '${projectName}-api'
-          image: '${containerRegistry.name}.azurecr.io/legoaibot:v1'
+          image: '${containerRegistry.name}.azurecr.io/legoaibot-api:v1'
+          resources: {
+            cpu: 1
+            memory: '2Gi'
+          }         
+        }
+      ]
+      scale: {
+        minReplicas: 1
+        maxReplicas: 1
+      }
+    }
+  }
+}
+
+
+
+resource backendApiContainerAppRT 'Microsoft.App/containerApps@2024-10-02-preview' = {
+  name: '${projectName}-${environment}-api-rt'
+  location: location
+  properties: {
+    environmentId: containerAppEnvironment.id
+    configuration: {
+      ingress: {
+        external: true
+        targetPort: 80
+        allowInsecure: false
+        traffic: [
+          {
+            latestRevision: true
+            weight: 100
+          }
+        ]   
+        corsPolicy: {
+          allowCredentials: false
+          allowedHeaders: [
+            '*'
+          ]
+          allowedOrigins: [
+            '*'
+          ]
+        }
+      }
+      registries: [
+        {
+          server: containerRegistry.properties.loginServer
+          username: containerRegistry.name
+          passwordSecretRef: 'container-registry-password'
+        }
+      ]
+      secrets: [
+        {
+          name: 'container-registry-password'
+          value: containerRegistry.listCredentials().passwords[0].value
+        }
+      ]
+    }
+    template: {
+      containers: [
+        {
+          name: '${projectName}-api-rt'
+          image: '${containerRegistry.name}.azurecr.io/legoaibot-api-rt:v1'
           resources: {
             cpu: 1
             memory: '2Gi'

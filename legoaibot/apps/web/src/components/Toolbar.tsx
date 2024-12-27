@@ -29,15 +29,16 @@ export function Toolbar() {
 
   React.useEffect(() => {
     setUserId(crypto.randomUUID().substring(0, 3));
-      const script = document.createElement('script');
-      script.src = "/public/app.js";
-      script.async = true;
-      document.body.appendChild(script);
-      return () => {
-          document.body.removeChild(script);
-      };
   }, []);
 
+  React.useEffect(() => {
+    if (modalChat) {
+      const script = document.createElement('script');
+      script.src = "/realtime.js";
+      script.async = true;
+      document.body.appendChild(script);
+    }
+  }, [modalChat]);
 
   function modalHelpOpen() {
     setModalHelp(true);

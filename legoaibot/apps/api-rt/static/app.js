@@ -9,7 +9,8 @@ let audioContext = null;
 let mediaStream = null;
 let mediaProcessor = null;
 let audioQueueTime = 0;
-let backendHost = "localhost:8765";
+// let backendHost = "localhost:8765";
+let backendHost = `${window.location.host}`;
 
 // Variables for client-side VAD (optional)
 let speaking = false;
