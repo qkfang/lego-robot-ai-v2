@@ -1,0 +1,17 @@
+create bicep folders
+
+add ai service
+add models
+add ai search
+add module folders
+
+
+https://github.com/Azure/logicapps/blob/master/LogicApps-AI-RAG-Demo/SampleAIWorkflows/connections.json
+https://github.com/mcasalaina/QuestionnaireMultiagent/blob/master/SearchFunctionFilter.cs
+
+https://github.com/Azure-Samples/chat-with-your-data-solution-accelerator/blob/main/infra/main.bicep
+
+https://github.com/microsoft/azurechat
+https://github.com/Azure/enterprise-chat
+https://github.com/Azure/contoso-chat/
+https://github.com/Azure/Sample-Chat-Completion-OpenAI-Infra
