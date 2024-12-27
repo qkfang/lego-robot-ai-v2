@@ -27,6 +27,22 @@ resource appInsights 'Microsoft.Insights/components@2020-02-02' = {
   }
 }
 
+
+resource keyVault 'Microsoft.KeyVault/vaults@2024-04-01-preview' = {
+  name: '${projectName}-${environment}-kv'
+  location: location
+  properties: {
+    sku: {
+      family: 'A'
+      name: 'standard'
+    }
+    tenantId: subscription().tenantId
+    accessPolicies: []
+  }
+}
+
+
+
 // deploy azure ai search
 module aiSearch 'modules/aiSearch.bicep' = {
   name: 'aiSearch'
@@ -298,7 +314,7 @@ resource backendApiContainerApp 'Microsoft.App/containerApps@2024-10-02-preview'
       containers: [
         {
           name: '${projectName}-api'
-          image: '${containerRegistry.name}.azurecr.io/legoaibot-api:v1'
+          image: '${containerRegistry.name}.azurecr.io/legoaibot-api:v3'
           resources: {
             cpu: 1
             memory: '2Gi'
@@ -359,7 +375,7 @@ resource backendApiContainerAppRT 'Microsoft.App/containerApps@2024-10-02-previe
       containers: [
         {
           name: '${projectName}-api-rt'
-          image: '${containerRegistry.name}.azurecr.io/legoaibot-api-rt:v1'
+          image: '${containerRegistry.name}.azurecr.io/legoaibot-api-rt:v8'
           resources: {
             cpu: 1
             memory: '2Gi'
@@ -373,3 +389,5 @@ resource backendApiContainerAppRT 'Microsoft.App/containerApps@2024-10-02-previe
     }
   }
 }
+
+

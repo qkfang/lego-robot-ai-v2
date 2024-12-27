@@ -11,7 +11,7 @@
         <set-backend-service base-url="https://legoaibot-prd-openai.openai.azure.com" />
         <rewrite-uri template="/openai/deployments/completions/chat/gpt-4o?api-version=2024-03-01-preview" />
         <set-header name="api-key" exists-action="override">
-            <value>xxxx</value>
+            <value>@{{apikey-openai}}</value>
         </set-header>
     </inbound>
     <!-- Control if and how the requests are forwarded to services  -->
