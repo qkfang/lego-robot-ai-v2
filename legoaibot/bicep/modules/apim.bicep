@@ -29,3 +29,24 @@ resource api 'Microsoft.ApiManagement/service/apis@2023-09-01-preview' = {
     ]
   }
 }
+
+resource namedValueTranslate 'Microsoft.ApiManagement/service/namedValues@2023-09-01-preview' = {
+  parent: apim
+  name: 'apikey-translate'
+  properties: {
+    displayName: 'apikey-translate'
+    value: 'xx'
+    secret: true
+  }
+}
+
+resource namedValueOpenai 'Microsoft.ApiManagement/service/namedValues@2023-09-01-preview' = {
+  parent: apim
+  name: 'apikey-openai'
+  properties: {
+    displayName: 'apikey-openai'
+    value: 'xx'
+    secret: true
+  }
+}
+
