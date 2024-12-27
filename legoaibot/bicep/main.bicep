@@ -123,6 +123,14 @@ resource legoaibot_sp3snippet 'Microsoft.Storage/storageAccounts/blobServices/co
 }
 
 
+// resource legoaibot_images 'Microsoft.Storage/storageAccounts/blobServices/containers@2021-04-01' = {
+//   name: '${storageAccount.name}/default/legoaibot-images'
+//   properties: {
+//     publicAccess: 'None'
+//   }
+// }
+
+
 // deploy azure logic app
 module logicApp 'modules/logicApp.bicep' = {
   name: 'logicApp'
@@ -391,3 +399,15 @@ resource backendApiContainerAppRT 'Microsoft.App/containerApps@2024-10-02-previe
 }
 
 
+resource formRecognizer 'Microsoft.CognitiveServices/accounts@2023-05-01' = {
+  name: '${projectName}-${environment}-form'
+  location: location
+  kind: 'FormRecognizer'
+  properties: {
+    customSubDomainName: '${projectName}-${environment}-form'
+    publicNetworkAccess: 'Enabled'
+  }
+  sku: {
+    name: 'S0'
+  }
+}

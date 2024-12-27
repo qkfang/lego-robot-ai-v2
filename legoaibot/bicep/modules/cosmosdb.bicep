@@ -118,6 +118,51 @@ module databaseAccess './database-access.bicep' = {
 }
 
 
+
+
+resource databaseChat 'Microsoft.DocumentDB/databaseAccounts/sqlDatabases@2022-05-15' = {
+  name: 'chat'
+  parent: account
+  properties: {
+    resource: {
+      id: 'chat'
+    }
+  }
+}
+
+resource historyContainer 'Microsoft.DocumentDB/databaseAccounts/sqlDatabases/containers@2022-05-15' = {
+  name: 'history'
+  parent: databaseChat
+  properties: {
+    resource: {
+      id: 'history'
+      partitionKey: {
+        paths: [
+          '/userId'
+        ]
+        kind: 'Hash'
+      }
+    }
+  }
+}
+
+resource configContainer 'Microsoft.DocumentDB/databaseAccounts/sqlDatabases/containers@2022-05-15' = {
+  name: 'config'
+  parent: databaseChat
+  properties: {
+    resource: {
+      id: 'config'
+      partitionKey: {
+        paths: [
+          '/userId'
+        ]
+        kind: 'Hash'
+      }
+    }
+  }
+}
+
+
 output name string = account.name
 output endpoint string = account.properties.documentEndpoint
 output key string = listKeys(account.id, '2024-05-15').primaryMasterKey
