@@ -5,6 +5,14 @@
     margin-top: 20px;
 }
 
+.toolcontainer {
+    flex: 1;
+    display: flex;
+    justify-content: flex-end;
+    white-space: right;
+    padding-right: 40px;
+}
+
 .chatRoot {
     flex: 1;
     display: flex;

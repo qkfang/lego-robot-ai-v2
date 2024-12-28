@@ -4,19 +4,14 @@
 }
 
 .header {
-    /* background-color: #222222; */
-    background-image: url(../../assets/bg-header.png);
-    height: 120px;
 }
 
 .headerContainer {
     display: flex;
-    align-items: center;
-    justify-content: space-around;
+    justify-content: flex-end;
     margin-right: 12px;
     margin-left: 12px;
-    height: 120px;
-    padding-top: 30px;
+    padding-right: 40px;
 }
 
 .headerTitleContainer {

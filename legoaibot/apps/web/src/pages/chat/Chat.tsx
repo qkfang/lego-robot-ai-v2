@@ -1,7 +1,6 @@
 import { useRef, useState, useEffect } from "react";
 import { Checkbox, Panel, DefaultButton, TextField, SpinButton } from "@fluentui/react";
 import readNDJSONStream from "ndjson-readablestream";
-
 import styles from "./Chat.module.css";
 
 import {
@@ -194,16 +193,13 @@ runloop.run(main())
 
     return (
         <div className={styles.container}>
-            <div className={styles.commandsContainer}>
-                <ClearChatButton className={styles.commandButton} onClick={clearChat} disabled={isLoading} sessionId={sessionId} />
-            </div>
             <div className={styles.chatRoot}>
                 <div className={styles.chatContainer}>
                     {!lastQuestionRef.current ? (
                         <div className={styles.chatEmptyState}>
                             {/* <SparkleFilled fontSize={"120px"} primaryFill={"rgba(115, 118, 225, 1)"}  aria-hidden="true" aria-label="Chat logo" /> */}
                             <img src="../../robot.png"/>
-                            <h1 className={styles.chatEmptyStateTitle}>Lego + Robot + AI = Fun</h1>
+                            <h1 className={styles.chatEmptyStateTitle}>AI + LEGO + Robotics = Fun</h1>
                             <h2 className={styles.chatEmptyStateSubtitle}>Build a Spike Prime 3 Robot and control it by Python</h2>
                             <ExampleList onExampleClicked={onExampleClicked} useGPT4V={useGPT4V} />
                         </div>
@@ -272,9 +268,11 @@ runloop.run(main())
                             clearOnSend
                             placeholder="Type a new question (e.g. how to move robot forward?)"
                             disabled={isLoading}
+                            clearChat={clearChat} 
+                            sessionId={sessionId}
                             onSend={question => makeApiRequest(question)}
                         />
-                    </div>
+                    </div>            
                 </div>
 
                 <Panel
