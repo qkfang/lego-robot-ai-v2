@@ -8,16 +8,19 @@ import * as sdk from 'microsoft-cognitiveservices-speech-sdk';
 const SPEECH_KEY = '44044fcc5f2d44b19c9b97be6161883c';
 const SPEECH_REGION = 'eastus';
 import styles from "./QuestionInput.module.css";
+import { ClearChatButton } from "../ClearChatButton";
 
 interface Props {
     onSend: (question: string) => void;
+    clearChat: () => void;
+    sessionId: string;
     disabled: boolean;
     initQuestion?: string;
     placeholder?: string;
     clearOnSend?: boolean;
 }
 
-export const QuestionInput = ({ onSend, disabled, placeholder, clearOnSend, initQuestion }: Props) => {
+export const QuestionInput = ({ onSend, clearChat, sessionId, disabled, placeholder, clearOnSend, initQuestion }: Props) => {
     const [question, setQuestion] = useState<string>("");
 
     useEffect(() => {
@@ -208,6 +211,9 @@ export const QuestionInput = ({ onSend, disabled, placeholder, clearOnSend, init
                 <Tooltip content="Speech to text" relationship="label">
                     <Button size="large" icon={<PersonVoiceFilled primaryFill="rgba(115, 118, 225, 1)" />} onClick={startListening} />
                 </Tooltip>
+            </div>
+            <div className={styles.questionInputButtonsContainer}>
+                <ClearChatButton onClick={clearChat} sessionId={sessionId} />
             </div>
         </Stack>
     );

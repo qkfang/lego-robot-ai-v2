@@ -14,7 +14,7 @@ export const ClearChatButton = ({ className, disabled, onClick, sessionId }: Pro
     return (
         <div className={`${styles.container} ${className ?? ""}`}>
             <Button icon={<Delete24Regular />} disabled={disabled} onClick={onClick} title={sessionId}>
-                {"Clear chat"}
+               
             </Button>
         </div>
     );

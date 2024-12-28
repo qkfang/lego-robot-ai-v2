@@ -70,28 +70,6 @@ const UploadAndDisplayImage = () => {
         }
     }
 
-
-    async function execImageCreateApi() {
-        if (imageDalleText != null) {
-            trackPromise(
-                dalleApi(imageDalleText)
-            ).then((response) => {
-
-                // console.log(response);
-                setImageDalleUrl(response);
-                // setImageDesc(response);   
-            }
-
-            )
-        }
-    }
-
-
-    const updateText = (e: React.ChangeEvent<HTMLInputElement>) => {
-        setImageDalleText(e.target.value);
-        // console.log('edit->' + task)
-    };
-
     return (
         <div>
             <input
@@ -128,47 +106,26 @@ const UploadAndDisplayImage = () => {
                             </tr>
                         </tbody>
                     </table>
-
-                    <h4>Find Similar Lego Brick</h4>
-                    <table>
-                        <tbody>
-                            <tr>
-                                <td valign="top">
-                                    <img height={"150px"} src={imageUrl} />
-                                </td>
-                                <td style={{ verticalAlign: 'top', width: '300px' }}>
-                                    {imageText}
-                                </td>
-                            </tr>
-                            <tr>
-                                <td style={{ verticalAlign: 'top' }}>
-                                    <button onClick={() => execImageMatchApi()}>Find Similar Block (Image Vector)</button><br />
-                                </td>
-                                <td></td>
-                            </tr>
-                        </tbody>
-                    </table>
-                    <p>Note: Due to time constraints, the Lego library only has 300 block images for now.</p>
                 </div>
             )}
-            <h4>Create Lego Brick By Description</h4>
+
+
+
+            <h4>Find Similar Lego Brick</h4>
             <table>
                 <tbody>
                     <tr>
                         <td style={{ verticalAlign: 'top' }}>
-                            <input type="text" placeholder="describe an image (e.g. lego block in rainbow color)" onChange={updateText} />
-                            <button onClick={() => execImageCreateApi()}>Create Lego Brick Image (Dall-e)</button><br />
-                            {
-                                (promiseInProgress === true) ?
-                                    <span>Loading...</span>
-                                    :
-                                    null
-                            }
+                            <button onClick={() => execImageMatchApi()}>Find Similar Block (Image Vector)</button><br />
                         </td>
+                        <td></td>
                     </tr>
                     <tr>
                         <td valign="top">
-                            <img height={"150px"} src={imageDalleUrl} />
+                            <img height={"150px"} src={imageUrl} />
+                        </td>
+                        <td style={{ verticalAlign: 'top', width: '300px' }}>
+                            {imageText}
                         </td>
                     </tr>
                 </tbody>
