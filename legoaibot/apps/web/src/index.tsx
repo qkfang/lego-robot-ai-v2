@@ -25,7 +25,8 @@ ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
             <Router>
       <Routes>
         <Route path="/" element={<Layout />}>
-          <Route index element={<Home />} />
+          <Route index element={<Chat />} />
+          <Route path="/home" element={<Home />} />
           <Route path="/chat" element={<Chat />} />
           <Route path="/brick" element={<Brick />} />
           <Route path="/image" element={<Image />} />

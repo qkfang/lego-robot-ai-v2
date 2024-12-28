@@ -1,5 +1,5 @@
 import { Delete24Regular } from "@fluentui/react-icons";
-import { Button } from "@fluentui/react-components";
+import { Button, Tooltip } from "@fluentui/react-components";
 
 import styles from "./ClearChatButton.module.css";
 
@@ -12,10 +12,9 @@ interface Props {
 
 export const ClearChatButton = ({ className, disabled, onClick, sessionId }: Props) => {
     return (
-        <div className={`${styles.container} ${className ?? ""}`}>
-            <Button icon={<Delete24Regular />} disabled={disabled} onClick={onClick} title={sessionId}>
-               
+        <Tooltip content="Clear chat history" relationship="label">
+            <Button size="large" icon={<Delete24Regular primaryFill="rgba(115, 118, 225, 1)" />} disabled={disabled} onClick={onClick} title={sessionId}>
             </Button>
-        </div>
+        </Tooltip>
     );
 };

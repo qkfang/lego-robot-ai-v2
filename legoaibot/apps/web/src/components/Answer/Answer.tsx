@@ -156,7 +156,7 @@ export const Answer = ({
                                             theme={dracula}
                                             showLineNumbers={true} />
                                         <div className='pythonCode'></div>
-                                        <div className={styles.pythonCodeDiv} onClick={() => runCode(x.replace("python", ""))} >
+                                        <div className={styles.pythonCodeDiv} onClick={(event) => { event.preventDefault(); runCode(x.replace("python", "")); return;}} >
                                             <img width={30} src='exec.png' />
                                             <span>Run Code Now via Web Serial Port</span>
                                         </div>
