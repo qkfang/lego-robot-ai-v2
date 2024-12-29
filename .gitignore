@@ -4,3 +4,4 @@ node_modules
 __pycache__
 .next
 legoaibot/apps/chat/types/type.ts
+coverage/
