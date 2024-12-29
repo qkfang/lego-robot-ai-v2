@@ -79,48 +79,24 @@ resource storageAccount 'Microsoft.Storage/storageAccounts@2021-04-01' = {
   }
 }
 
-// Create a blob container called legoaibotdoc
-resource legoaibot_flldoc 'Microsoft.Storage/storageAccounts/blobServices/containers@2021-04-01' = {
-  name: '${storageAccount.name}/default/legoaibot-flldoc'
-  properties: {
-    publicAccess: 'None'
-  }
-}
 
-resource legoaibot_ffl2024 'Microsoft.Storage/storageAccounts/blobServices/containers@2021-04-01' = {
-  name: '${storageAccount.name}/default/legoaibot-ffl2024'
-  properties: {
-    publicAccess: 'None'
-  }
-}
+// Define a list of container names
+var containerNames = [
+  'legoaibot-flldoc'
+  'legoaibot-ffl2024'
+  'legoaibot-sp3doc'
+  'legoaibot-sp3api'
+  'legoaibot-sp3code'
+  'legoaibot-sp3snippet'
+]
 
-resource legoaibot_sp3doc 'Microsoft.Storage/storageAccounts/blobServices/containers@2021-04-01' = {
-  name: '${storageAccount.name}/default/legoaibot-sp3doc'
+// Loop through the list to create the containers
+resource containers 'Microsoft.Storage/storageAccounts/blobServices/containers@2021-04-01' = [for name in containerNames: {
+  name: '${storageAccount.name}/default/${name}'
   properties: {
     publicAccess: 'None'
   }
-}
-
-resource legoaibot_sp3api 'Microsoft.Storage/storageAccounts/blobServices/containers@2021-04-01' = {
-  name: '${storageAccount.name}/default/legoaibot-sp3api'
-  properties: {
-    publicAccess: 'None'
-  }
-}
-
-resource legoaibot_sp3code 'Microsoft.Storage/storageAccounts/blobServices/containers@2021-04-01' = {
-  name: '${storageAccount.name}/default/legoaibot-sp3code'
-  properties: {
-    publicAccess: 'None'
-  }
-}
-
-resource legoaibot_sp3snippet 'Microsoft.Storage/storageAccounts/blobServices/containers@2021-04-01' = {
-  name: '${storageAccount.name}/default/legoaibot-sp3snippet'
-  properties: {
-    publicAccess: 'None'
-  }
-}
+}]
 
 
 // resource legoaibot_images 'Microsoft.Storage/storageAccounts/blobServices/containers@2021-04-01' = {
@@ -324,8 +300,8 @@ resource backendApiContainerApp 'Microsoft.App/containerApps@2024-10-02-preview'
           name: '${projectName}-api'
           image: '${containerRegistry.name}.azurecr.io/legoaibot-api:v3'
           resources: {
-            cpu: 1
-            memory: '2Gi'
+            cpu: '0.5'
+            memory: '1Gi'
           }         
         }
       ]
@@ -385,8 +361,8 @@ resource backendApiContainerAppRT 'Microsoft.App/containerApps@2024-10-02-previe
           name: '${projectName}-api-rt'
           image: '${containerRegistry.name}.azurecr.io/legoaibot-api-rt:v8'
           resources: {
-            cpu: 1
-            memory: '2Gi'
+            cpu: '0.5'
+            memory: '1Gi'
           }         
         }
       ]

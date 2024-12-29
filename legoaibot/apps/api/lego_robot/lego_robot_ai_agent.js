@@ -15,7 +15,7 @@ const {
 const {
     SearchClient,
     AzureKeyCredential
-  } = require("@azure/search-documents");
+} = require("@azure/search-documents");
 
 const apiKey = process.env.AZURE_AISEARCH_KEY;
 const endpoint = `https://${process.env.AZURE_AISEARCH_ENDPOINT}.search.windows.net`;
@@ -26,24 +26,24 @@ class CosmicWorksAIAgent {
         this.sp3apiStore = new AzureAISearchVectorStore(
             new OpenAIEmbeddings(),
             {
-              client: this.sp3apiClient,
-              search: {
-                type: AzureAISearchQueryType.SimilarityHybrid,
-              },
+                client: this.sp3apiClient,
+                search: {
+                    type: AzureAISearchQueryType.SimilarityHybrid,
+                },
             }
-          );
+        );
 
-
-          this.sp3codeClient = new SearchClient(endpoint, "legoaibot-sp3code", new AzureKeyCredential(apiKey));
-          this.sp3codeStore = new AzureAISearchVectorStore(
-              new OpenAIEmbeddings(),
-              {
-                  client: this.sp3codeClient,
-                  search: {
-                      type: AzureAISearchQueryType.SimilarityHybrid,
-                  },
-              }
-          );
+        // create a vector store for sp3codeStore
+        this.sp3codeClient = new SearchClient(endpoint, "legoaibot-sp3code", new AzureKeyCredential(apiKey));
+        this.sp3codeStore = new AzureAISearchVectorStore(
+            new OpenAIEmbeddings(),
+            {
+                client: this.sp3codeClient,
+                search: {
+                    type: AzureAISearchQueryType.SimilarityHybrid,
+                },
+            }
+        );
 
 
         this.sp3snippetClient = new SearchClient(endpoint, "legoaibot-sp3snippet", new AzureKeyCredential(apiKey));
@@ -234,7 +234,7 @@ class CosmicWorksAIAgent {
         // The LLM will use this metadata to decide which tool to use based on the description.
         // const tools = [legoApiRetrieverTool, legoSnippetRetrieverTool, legoInfoRetrieverTool, azureSearchTool];
         const tools = [sp3apiTool, sp3codeTool, sp3snippetTool, sp3docTool];
-        
+
         const modelWithFunctions = this.chatModel.bind({
             functions: tools.map((tool) => convertToOpenAIFunction(tool)),
         });
@@ -300,7 +300,7 @@ class CosmicWorksAIAgent {
         return returnValue;
     }
 
-    
+
     async formatDocuments(docs) {
         // Prepares the product list for the system prompt.  
         let strDocs = "";
