@@ -1,13 +1,13 @@
-const Webchat = require('../models/webchat');
+const legowebchat = require('../models/legowebchat');
 const express = require('express');
 const mongoose = require('mongoose');
 const router = express.Router();
 
 /* CREATE */
 router.post('/webchat', (req, res) => {
-  Webchat.create({ webchat: req.body.webchat })
+  legowebchat.create({ message: req.body.message })
     .then((result) => {
-      console.log('CREATED.');
+      console.log('CREATED.' + req.body.message);
       res.status(200).json(result);
     })
     .catch((err) => {

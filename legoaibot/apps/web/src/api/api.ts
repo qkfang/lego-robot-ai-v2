@@ -80,15 +80,15 @@ export async function translateApi(text: string, from: string, to: string): Prom
 }
 
 export async function webchatApi(text: string): Promise<Response> {
-    const newTask = {
-        task: text
+    const newWebChat = {
+        message: text
       };
       return await fetch(`${BACKEND_URI}/webchat`, {
         method: 'post',
         headers: {
           'Content-Type': 'application/json'
         },
-        body: JSON.stringify(newTask)
+        body: JSON.stringify(newWebChat)
       });
 }
 

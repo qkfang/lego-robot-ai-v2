@@ -5,4 +5,4 @@ const webchatSchema = new Schema({
   message:        { type: String },
 });
 
-module.exports = mongoose.model('WebChat', webchatSchema); 
+module.exports = mongoose.model('LegoWebChat', webchatSchema); 

@@ -20,7 +20,7 @@ resource CosmosDbAccount 'Microsoft.DocumentDB/databaseAccounts@2022-05-15' = {
     databaseAccountOfferType: 'Standard'
     isVirtualNetworkFilterEnabled: false
     apiProperties: {
-      serverVersion: '6.0'
+      serverVersion: '7.0'
     }
   }  
   identity: {
@@ -41,11 +41,11 @@ resource database 'Microsoft.DocumentDB/databaseAccounts/mongodbDatabases@2022-0
 
 // Container
 resource container 'Microsoft.DocumentDB/databaseAccounts/mongodbDatabases/collections@2022-05-15-preview' = {
-  name: 'legowebchat'
+  name: 'legowebchats'
   parent: database
   properties: {
     resource: {
-      id: 'legowebchat'
+      id: 'legowebchats'
       indexes: [
         {
           key: {

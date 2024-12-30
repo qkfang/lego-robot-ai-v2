@@ -6,54 +6,37 @@ import Pusher from 'pusher-js';
 const PUSHER_APP_KEY = 'f1586bf9908b2073cda6';
 const PUSHER_APP_CLUSTER = 'us2';
 
+const LiveChatList = () => {
 
-interface liveChatProps {
-  userId: string,
-}
-
-const LiveChatList = (props: liveChatProps) => {
-
-  const [task, setTask] = useState<string>();
+  const [task, setTask] = useState<string>('');
   const [tasks, setTasks] = useState<WebChatModelProps[]>([]);
   const [userId, setUserId] = useState<string>();
 
-  // updateText(e) {
-  //   this.setState({ task: e.target.value });
-  // }
-
-  // postTask(e) {
-  //   e.preventDefault();
-  //   if (!this.state.task.length) {
-  //     return;
-  //   }
-  // }
-
   useEffect(() => {
+    
+    setUserId(crypto.randomUUID().substring(0, 3));
+
     const pusher = new Pusher(PUSHER_APP_KEY, {
       cluster: PUSHER_APP_CLUSTER
     })
-    // console.log('useEffect')
-    const channel = pusher.subscribe('tasks');
-    // You can bind more channels here like this
-    // const channel2 = pusher.subscribe('channel_name2')
+    
+    const channel = pusher.subscribe('legowebchats');
     channel.bind('inserted', addTask);
-    // console.log(props);
-    setUserId(props.userId);
 
     return (() => {
-      pusher.unsubscribe('tasks')
+      pusher.unsubscribe('legowebchats')
     })
   }, []);
 
 
-  const addTask = (newTask: TaskModel) => {
+  const addTask = (newTask: WebChatModel) => {
     console.log('addTask')
     console.log(newTask)
     // setTasks([...tasks, newTask]);
     setTasks(ptasks => ([...ptasks, ...[newTask]]));
   }
 
-  const postTask = (event?: React.SyntheticEvent | Event, reason?: string) => {
+  const postTask = () => {
     if (task != '') {
       webchatApi("User-" + userId + " said : " + task)
       setTask('');

@@ -16,7 +16,7 @@ const pusher = new Pusher({
     cluster: "us2",
     encrypted: true,
 });
-const channel = 'tasks';
+const channel = 'legowebchats';
 
 
 const app = express();
@@ -124,7 +124,7 @@ const db = mongoose.connection;
 db.on('error', console.error.bind(console, 'Connection Error:'));
 db.once('open', () => {
 
-    const webchatCollection = db.collection('legowebchat');
+    const webchatCollection = db.collection('legowebchats');
     const changeStream = webchatCollection.watch(
         [
             {
@@ -150,7 +150,7 @@ db.once('open', () => {
             'inserted',
             {
                 id: webchat._id,
-                task: webchat.message,
+                message: webchat.message,
             }
         );
         // } else if(change.operationType === 'delete') {
@@ -164,5 +164,3 @@ db.once('open', () => {
     });
 })
 
-
-module.exports = app;
