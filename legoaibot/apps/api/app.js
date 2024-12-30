@@ -2,9 +2,7 @@ const express = require('express');
 const cors = require('cors')
 var multer = require('multer');
 const upload = multer({ dest: 'uploads/' })
-const swagger = require('./swagger');
-const legoAgent = require('./lego_robot/lego_robot_ai_agent');
-const taskApi = require('./lego_robot/lego_robot_task_api');
+const legoApi = require('./lego_robot/api');
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
 const Pusher = require('pusher');
@@ -25,78 +23,7 @@ app.use(cors()); // enable all CORS requests
 app.use(multer({ dest: __dirname + '\\uploads\\' }).any());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
-app.use('/', taskApi);
-
-let agentInstancesMap = new Map();
-
-app.get('/', (req, res) => {
-    res.send({ "status": "ready" });
-});
-
-/**
- * @openapi
- * /chat:
- *   post:
- *     summary: Execute a chat command
- *     requestBody:
- *       required: true
- *       content:
- *         application/json:
- *           schema:
- *             type: object
- *             properties:
- *               prompt:
- *                 type: string
- *                 description: The prompt to send to the agent
- *               session_id:
- *                 type: string
- *                 description: The session ID for the agent instance
- *             required:
- *               - prompt
- *               - session_id
- *     responses:
- *       '200':
- *         description: Successful response
- *         content:
- *           application/json:
- *             schema:
- *               type: object
- *               properties:
- *                 message:
- *                   type: string
- *                   description: The result from the agent
- *       '400':
- *         description: Bad request
- *       '500':
- *         description: Internal server error
- * 
- */
-app.post('/chat', async (req, res) => {
-    let agent = {};
-    let prompt = req.body.prompt;
-    let session_id = req.body.session_id;
-
-    if (agentInstancesMap.has(session_id)) {
-        agent = agentInstancesMap.get(session_id);
-    } else {
-        agent = new legoAgent();
-        agentInstancesMap.set(session_id, agent);
-    }
-
-    let result = await agent.executeAgent(prompt);
-    res.send({ message: result });
-});
-
-app.post('/image', async (req, res) => {
-    // console.log(req)
-    let agent = {};
-
-    agent = new legoAgent();
-    let result = await agent.getVector(req.files[0].path);
-    res.send({ message: result });
-});
-
-swagger(app)
+app.use('/', legoApi);
 
 
 // parse out hosting port from cmd arguments if passed in
@@ -163,3 +90,4 @@ db.once('open', () => {
     });
 })
 
+module.exports = app;
