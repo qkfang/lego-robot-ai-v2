@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Row, Col, Drawer } from "antd";
-import Container from "../../common/Container";
+import HeaderContainer from "../../common/HeaderContainer";
 import { SvgIcon } from "../../common/SvgIcon";
 import { Button } from "../../common/Button";
 import Toolbar from '../../components/Toolbar';
@@ -69,7 +69,7 @@ const Header = () => {
 
   return (
     <HeaderSection>
-      <Container>
+      <HeaderContainer>
         <Row justify="space-between">
           <LogoContainer to="/" aria-label="homepage">
             <SvgIcon src="logo.png" height="80px" />
@@ -95,7 +95,7 @@ const Header = () => {
           </Col>
           <MenuItem />
         </Drawer>
-      </Container>
+      </HeaderContainer>
     </HeaderSection>
   );
 };

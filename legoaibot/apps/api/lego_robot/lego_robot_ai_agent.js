@@ -1,4 +1,5 @@
 require('dotenv').config();
+const { MongoClient } = require('mongodb');
 const { AgentExecutor } = require("langchain/agents");
 const { OpenAIFunctionsAgentOutputParser } = require("langchain/agents/openai/output_parser");
 const { formatToOpenAIFunctionMessages } = require("langchain/agents/format_scratchpad");
@@ -16,9 +17,13 @@ const {
     SearchClient,
     AzureKeyCredential
 } = require("@azure/search-documents");
+const fs = require('node:fs');
 
 const apiKey = process.env.AZURE_AISEARCH_KEY;
 const endpoint = `https://${process.env.AZURE_AISEARCH_ENDPOINT}.search.windows.net`;
+
+const cvapiKey = process.env.VISION_KEY;
+const cvendpoint = process.env.VISION_ENDPOINT + process.env.VISION_VERSION;
 
 class CosmicWorksAIAgent {
     constructor() {
@@ -329,6 +334,59 @@ class CosmicWorksAIAgent {
         strDocs += "\n\n";
         return strDocs;
     }
+
+    
+
+    async getVector(file) {
+        // const content = fs.readFileSync('/usr/src/app/cosmic_works/85-6541.png');
+        const content = fs.readFileSync(file);
+        console.log(file);
+
+        console.log(cvendpoint);
+        var vector = '';
+        await fetch(cvendpoint, {
+            method: 'POST',
+            body: content,
+            headers: { 'Content-Type': 'application/octet-stream', "Ocp-Apim-Subscription-Key": cvapiKey }
+        })
+            .then((result) => result.text())
+            .then((data) => {
+                vector = JSON.parse(data)
+                // string `{"text":"hello world"}`
+            })
+        console.log(vector.vector);
+
+        this.client = new MongoClient(process.env.AZURE_COSMOSDB_MONGODB_CONNECTION_STRING);
+        await this.client.connect();
+
+        const db = this.client.db("legoaibot");
+        const collection = db.collection("legoimage");
+
+        // Query for similar documents.
+        // const documents = collection.aggregate([
+        //     { "$group": { "_id": "$image_file", "count": { "$sum": "1" } } }
+        // ]);     
+
+        const documents = collection.aggregate([
+            {
+                "$search": {
+                    "cosmosSearch": { "vector": vector.vector, "path": "vectorContent", "k": 3 },
+                    "returnStoredSource": "true"
+                }
+            }
+            , {
+                "$project": {
+                    'similarityScore':
+                        { '$meta': 'searchScore' }, "_id": 3, "image_file": 3, "author": 3, "title": 3, "type": 3, "description": 3
+                }
+            }])
+
+        var result = []
+        await documents.forEach(doc => result.push(doc));
+        console.log(result)
+        return result;
+    };
+
 };
 
 

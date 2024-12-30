@@ -2,7 +2,6 @@ import React from 'react';
 
 const Page = () => {
 
-
     React.useEffect(() => {
         const script = document.createElement('script');
         script.src = "/realtime.js";

@@ -3,11 +3,7 @@ import styled from "styled-components";
 
 export const ContentSection = styled("section")`
   position: relative;
-  padding: 0.5rem 0 0.5rem;
-
-  @media only screen and (max-width: 1024px) {
-    padding: 0.5rem 0 0.5rem;
-  }
+  padding: 3rem 0 3rem;
 `;
 
 export const Content = styled("p")`

@@ -1,6 +1,13 @@
 param location string = resourceGroup().location
 param projectName string = 'legoaibot'
 param environment string = 'dev'
+param mongoDbUserName string = 'dev'
+param mongoDbPassword string = 'psw'
+
+var rgName = 'rg-${projectName}'
+var subIdShared_Search = '519f48c0-e1f2-4724-92e8-0741c9645315' // biz5/9 
+var subIdShared_Asp = '1b4c524f-bf60-425c-893e-1c969ef3c7c1' // core7
+var subIdShared_MongoDb = 'd1a91831-8178-4e66-8d95-3268758d4d33' // core2
 
 
 /* *************************************************************** */
@@ -46,6 +53,7 @@ resource keyVault 'Microsoft.KeyVault/vaults@2024-04-01-preview' = {
 // deploy azure ai search
 module aiSearch 'modules/aiSearch.bicep' = {
   name: 'aiSearch'
+  scope: resourceGroup(subIdShared_Search, rgName)
   params: {
     location: location
     environment: environment
@@ -76,6 +84,7 @@ resource storageAccount 'Microsoft.Storage/storageAccounts@2021-04-01' = {
   kind: 'StorageV2'
   properties: {
     accessTier: 'Hot'
+    allowBlobPublicAccess: true
   }
 }
 
@@ -98,6 +107,13 @@ resource containers 'Microsoft.Storage/storageAccounts/blobServices/containers@2
   }
 }]
 
+resource containersBrickImg 'Microsoft.Storage/storageAccounts/blobServices/containers@2021-04-01' = {
+  name: '${storageAccount.name}/default/legoaibot-brickimg'
+  properties: {
+    publicAccess: 'Blob'
+  }
+}
+
 
 // resource legoaibot_images 'Microsoft.Storage/storageAccounts/blobServices/containers@2021-04-01' = {
 //   name: '${storageAccount.name}/default/legoaibot-images'
@@ -110,6 +126,7 @@ resource containers 'Microsoft.Storage/storageAccounts/blobServices/containers@2
 // deploy azure logic app
 module logicApp 'modules/logicApp.bicep' = {
   name: 'logicApp'
+  scope: resourceGroup(subIdShared_Asp, rgName)
   params: {
     location: location
     environment: environment
@@ -298,10 +315,10 @@ resource backendApiContainerApp 'Microsoft.App/containerApps@2024-10-02-preview'
       containers: [
         {
           name: '${projectName}-api'
-          image: '${containerRegistry.name}.azurecr.io/legoaibot-api:v3'
+          image: '${containerRegistry.name}.azurecr.io/legoaibot-api:v5'
           resources: {
-            cpu: '0.5'
-            memory: '1Gi'
+            cpu: 1
+            memory: '2Gi'
           }         
         }
       ]
@@ -361,8 +378,8 @@ resource backendApiContainerAppRT 'Microsoft.App/containerApps@2024-10-02-previe
           name: '${projectName}-api-rt'
           image: '${containerRegistry.name}.azurecr.io/legoaibot-api-rt:v8'
           resources: {
-            cpu: '0.5'
-            memory: '1Gi'
+            cpu: 1
+            memory: '2Gi'
           }         
         }
       ]
@@ -385,5 +402,31 @@ resource formRecognizer 'Microsoft.CognitiveServices/accounts@2023-05-01' = {
   }
   sku: {
     name: 'S0'
+  }
+}
+
+resource computerVision 'Microsoft.CognitiveServices/accounts@2023-05-01' = {
+  name: '${projectName}-${environment}-cv'
+  location: location
+  kind: 'ComputerVision'
+  properties: {
+    customSubDomainName: '${projectName}-${environment}-cv'
+    publicNetworkAccess: 'Enabled'
+  }
+  sku: {
+    name: 'S1'
+  }
+}
+
+// deploy azure logic app
+module mongodb 'modules/mongodb.bicep' = {
+  name: 'mongodb'
+  scope: resourceGroup(subIdShared_MongoDb, rgName)
+  params: {
+    location: location
+    environment: environment
+    projectName: projectName
+    mongoDbUserName: mongoDbUserName
+    mongoDbPassword: mongoDbPassword
   }
 }

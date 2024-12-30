@@ -37,29 +37,20 @@ const Page = () => {
     return (
         <div style={{ margin: "15px 50px 50px 50px", padding: "20px", backgroundColor: "white" }}>
             <h2>Creative Images</h2>
-
-            <h4>Create Lego Brick By Description</h4>
-            <table>
-                <tbody>
-                    <tr>
-                        <td style={{ verticalAlign: 'top' }}>
-                            <input type="text" placeholder="describe an image (e.g. lego block in rainbow color)" onChange={updateText} />
-                            <button onClick={() => execImageCreateApi()}>Create Lego Brick Image (Dall-e)</button><br />
-                            {
-                                (promiseInProgress === true) ?
-                                    <span>Loading...</span>
-                                    :
-                                    null
-                            }
-                        </td>
-                    </tr>
-                    <tr>
-                        <td valign="top">
-                            <img height={"150px"} src={imageDalleUrl} />
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
+            <p>Use your imagination to create an image by description</p>
+            <p>
+                <input type="text" placeholder="describe an image (e.g. lego block in rainbow color)" onChange={updateText} />
+                <button onClick={() => execImageCreateApi()}>Create Lego Brick Image (Dall-e)</button><br />
+                {
+                    (promiseInProgress === true) ?
+                        <span>Loading...</span>
+                        :
+                        null
+                }
+            </p>
+            <p>
+                <img height={"550px"} src={imageDalleUrl} />
+            </p>
         </div>
     );
 };

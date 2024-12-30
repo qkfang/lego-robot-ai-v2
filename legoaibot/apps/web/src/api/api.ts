@@ -27,7 +27,7 @@ export async function imageApi(file: File): Promise<Response> {
 
 export async function visionApi(prompt: string[]): Promise<Completions> {
     const options = {
-        api_version: "2023-12-01-preview"
+        api_version: "2024-08-01-preview"
       };
 
     const client = new OpenAIClient(

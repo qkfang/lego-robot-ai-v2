@@ -10,6 +10,12 @@
     },
     "environment": {
       "value": "prd"
-    }
+    },
+    "mongoDbUserName": {
+        "value": "legoaibot"
+    },
+    "mongoDbPassword": {
+        "value": "Legoaibot12345"
+    }   
   }
 }
