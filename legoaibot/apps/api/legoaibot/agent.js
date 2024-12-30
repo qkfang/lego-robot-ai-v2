@@ -25,7 +25,7 @@ const endpoint = `https://${process.env.AZURE_AISEARCH_ENDPOINT}.search.windows.
 const cvapiKey = process.env.VISION_KEY;
 const cvendpoint = process.env.VISION_ENDPOINT + process.env.VISION_VERSION;
 
-class CosmicWorksAIAgent {
+class LegoAgent {
     constructor() {
         this.sp3apiClient = new SearchClient(endpoint, "legoaibot-sp3api", new AzureKeyCredential(apiKey));
         this.sp3apiStore = new AzureAISearchVectorStore(
@@ -390,4 +390,4 @@ class CosmicWorksAIAgent {
 };
 
 
-module.exports = CosmicWorksAIAgent;
+module.exports = LegoAgent;
