@@ -7,7 +7,7 @@ const router = express.Router();
 router.post('/webchat', (req, res) => {
   legowebchat.create({ message: req.body.message })
     .then((result) => {
-      console.log('CREATED.' + req.body.message);
+      console.log('CREATED. ' + req.body.message);
       res.status(200).json(result);
     })
     .catch((err) => {

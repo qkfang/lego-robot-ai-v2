@@ -8,20 +8,20 @@ const PUSHER_APP_CLUSTER = 'us2';
 
 const LiveChatList = () => {
 
-  const [task, setTask] = useState<string>('');
-  const [tasks, setTasks] = useState<WebChatModelProps[]>([]);
+  const [task, setWebchat] = useState<string>('');
+  const [tasks, setWebchats] = useState<WebChatModelProps[]>([]);
   const [userId, setUserId] = useState<string>();
 
   useEffect(() => {
     
-    setUserId(crypto.randomUUID().substring(0, 3));
+    setUserId('User-' + crypto.randomUUID().substring(0, 3));
 
     const pusher = new Pusher(PUSHER_APP_KEY, {
       cluster: PUSHER_APP_CLUSTER
     })
     
     const channel = pusher.subscribe('legowebchats');
-    channel.bind('inserted', addTask);
+    channel.bind('inserted', addWebchat);
 
     return (() => {
       pusher.unsubscribe('legowebchats')
@@ -29,34 +29,35 @@ const LiveChatList = () => {
   }, []);
 
 
-  const addTask = (newTask: WebChatModel) => {
-    console.log('addTask')
+  const addWebchat = (newTask: WebChatModel) => {
     console.log(newTask)
-    // setTasks([...tasks, newTask]);
-    setTasks(ptasks => ([...ptasks, ...[newTask]]));
+    setWebchats(ptasks => ([...ptasks, ...[newTask]]));
   }
 
-  const postTask = () => {
+  const postWebchat = () => {
     if (task != '') {
-      webchatApi("User-" + userId + " said : " + task)
-      setTask('');
+      webchatApi(userId + " said : " + task)
+      setWebchat('');
     }
   };
 
   const updateText = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setTask(e.target.value);
+    setWebchat(e.target.value);
     // console.log('edit->' + task)
   };
-
-
+  const updateUserId = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setUserId(e.target.value);
+  };
 
   return (
     <div className={styles.todowrapper}>
-      <b>Your name is [User-{userId}]</b>
-      <p>Open 2 windows to simulate a chat using mongodb change stream.</p>
+      <b>Your name</b>
+      <input type="text" className={styles['input-todo']} placeholder="Enter your user ID" onChange={updateUserId} value={userId} />
+        
+      <p>Open 2 windows to simulate a chat</p>
       <form>
         <input type="text" className={styles['input-todo']} placeholder="Say something." onChange={updateText} value={task} />
-        <div className={styles['btn-add']} onClick={postTask}>Send</div>
+        <div className={styles['btn-add']} onClick={postWebchat}>Send</div>
       </form>
 
       <ul className="ultask">

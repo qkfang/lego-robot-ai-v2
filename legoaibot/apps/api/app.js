@@ -140,8 +140,7 @@ db.once('open', () => {
 
 
     changeStream.on('change', (change) => {
-        console.log(change);
-
+        // console.log(change);
         // if(change.operationType === 'insert') {
         console.log('push insert');
         const webchat = change.fullDocument;
