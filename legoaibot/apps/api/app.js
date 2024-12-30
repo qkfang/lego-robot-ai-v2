@@ -9,14 +9,14 @@ const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
 const Pusher = require('pusher');
 
-// const pusher = new Pusher({
-//     appId: "1821462",
-//     key: "f1586bf9908b2073cda6",
-//     secret: "a3d4276606cc1d157ce8",
-//     cluster: "us2",
-//     encrypted: true,
-// });
-// const channel = 'tasks';
+const pusher = new Pusher({
+    appId: "1821462",
+    key: "f1586bf9908b2073cda6",
+    secret: "a3d4276606cc1d157ce8",
+    cluster: "us2",
+    encrypted: true,
+});
+const channel = 'tasks';
 
 
 const app = express();
@@ -74,15 +74,15 @@ app.get('/', (req, res) => {
 app.post('/chat', async (req, res) => {
     let agent = {};
     let prompt = req.body.prompt;
+    let session_id = req.body.session_id;
 
-    // if (agentInstancesMap.has(session_id)) {
-    //     agent = agentInstancesMap.get(session_id);
-    // } else {
-    agent = new legoAgent();
-    //    agentInstancesMap.set(session_id, agent);
-    //}
-    console.log('prompt:', prompt);
-    await agent.setup();
+    if (agentInstancesMap.has(session_id)) {
+        agent = agentInstancesMap.get(session_id);
+    } else {
+        agent = new legoAgent();
+        agentInstancesMap.set(session_id, agent);
+    }
+
     let result = await agent.executeAgent(prompt);
     res.send({ message: result });
 });
@@ -119,50 +119,50 @@ app.listen(port, () => {
 });
 
 
-// mongoose.connect(process.env.AZURE_COSMOSDB_RU_CONNECTION_STRING);
-// const db = mongoose.connection;
-// db.on('error', console.error.bind(console, 'Connection Error:'));
-// db.once('open', () => {
+mongoose.connect(process.env.AZURE_COSMOSDB_RU_CONNECTION_STRING);
+const db = mongoose.connection;
+db.on('error', console.error.bind(console, 'Connection Error:'));
+db.once('open', () => {
 
-//     const taskCollection = db.collection('tasks');
-//     const changeStream = taskCollection.watch(
-//         [
-//             {
-//                 $match: {
-//                     $and: [
-//                         { "operationType": { $in: ["insert", "update", "replace"] } }
-//                     ]
-//                 }
-//             },
-//             { $project: { "_id": 1, "fullDocument": 1, "ns": 1, "documentKey": 1 } }
-//         ],
-//         { fullDocument: "updateLookup" });
+    const webchatCollection = db.collection('legowebchat');
+    const changeStream = webchatCollection.watch(
+        [
+            {
+                $match: {
+                    $and: [
+                        { "operationType": { $in: ["insert", "update", "replace"] } }
+                    ]
+                }
+            },
+            { $project: { "_id": 1, "fullDocument": 1, "ns": 1, "documentKey": 1 } }
+        ],
+        { fullDocument: "updateLookup" });
 
 
-//     changeStream.on('change', (change) => {
-//         console.log(change);
+    changeStream.on('change', (change) => {
+        console.log(change);
 
-//         // if(change.operationType === 'insert') {
-//         console.log('push insert');
-//         const task = change.fullDocument;
-//         pusher.trigger(
-//             channel,
-//             'inserted',
-//             {
-//                 id: task._id,
-//                 task: task.task,
-//             }
-//         );
-//         // } else if(change.operationType === 'delete') {
-//         //   console.log('push change');
-//         //   pusher.trigger(
-//         //     channel,
-//         //     'deleted', 
-//         //     change.documentKey._id
-//         //   );
-//         // }
-//     });
-// })
+        // if(change.operationType === 'insert') {
+        console.log('push insert');
+        const webchat = change.fullDocument;
+        pusher.trigger(
+            channel,
+            'inserted',
+            {
+                id: webchat._id,
+                task: webchat.message,
+            }
+        );
+        // } else if(change.operationType === 'delete') {
+        //   console.log('push change');
+        //   pusher.trigger(
+        //     channel,
+        //     'deleted', 
+        //     change.documentKey._id
+        //   );
+        // }
+    });
+})
 
 
 module.exports = app;

@@ -117,9 +117,6 @@ module databaseAccess './database-access.bicep' = {
   }
 }
 
-
-
-
 resource databaseChat 'Microsoft.DocumentDB/databaseAccounts/sqlDatabases@2022-05-15' = {
   name: 'chat'
   parent: account

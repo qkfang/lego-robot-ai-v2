@@ -1,18 +1,18 @@
-const Task = require('../models/task');
+const Webchat = require('../models/webchat');
 const express = require('express');
 const mongoose = require('mongoose');
 const router = express.Router();
 
 /* CREATE */
-router.post('/livechat', (req, res) => {
-  Task.create({ task: req.body.task })
+router.post('/webchat', (req, res) => {
+  Webchat.create({ webchat: req.body.webchat })
     .then((result) => {
       console.log('CREATED.');
       res.status(200).json(result);
     })
     .catch((err) => {
       console.log('CREATE Error: ' + err);
-      res.status(500).send('Error');
+      res.status(400).send('Error');
     })
 });
 

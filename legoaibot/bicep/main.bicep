@@ -430,3 +430,14 @@ module mongodb 'modules/mongodb.bicep' = {
     mongoDbPassword: mongoDbPassword
   }
 }
+
+
+module mongodbru 'modules/mongodbru.bicep' = {
+  name: 'mongodbru'
+  scope: resourceGroup(subIdShared_MongoDb, rgName)
+  params: {
+    location: location
+    environment: environment
+    projectName: projectName
+  }
+}

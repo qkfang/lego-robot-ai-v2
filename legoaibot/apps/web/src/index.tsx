@@ -11,6 +11,7 @@ import Brick from "./pages/brick/Brick";
 import Image from "./pages/image/Image";
 import About from "./pages/about/About";
 import Home from "./pages/home/Home";
+import WebChat from "./pages/webchat/WebChat";
 
 var layout = <Layout />;
 
@@ -31,6 +32,7 @@ ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
           <Route path="/brick" element={<Brick />} />
           <Route path="/image" element={<Image />} />
           <Route path="/voice" element={<Voice />} />
+          <Route path="/webchat" element={<WebChat />} />
           <Route path="/about" element={<About />} />
         </Route>
       </Routes>

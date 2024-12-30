@@ -60,6 +60,12 @@ const Header = () => {
         <CustomNavLinkSmall
           style={{ width: "80px" }}>
           <Span>
+            <Button bgcolor="#fff" color="#000" onClick={() => window.location.href = '/webchat' }>{("WebChat")}</Button>
+          </Span>
+        </CustomNavLinkSmall>
+        <CustomNavLinkSmall
+          style={{ width: "80px" }}>
+          <Span>
             <Button bgcolor="#fff" color="#000" onClick={() => window.location.href = '/about' }>{("About")}</Button>
           </Span>
         </CustomNavLinkSmall>

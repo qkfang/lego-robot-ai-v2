@@ -7,6 +7,8 @@ import {
     dalleApi
 } from "../api";
 
+const bloburl = process.env.BLOB_STORAGE_URL;
+
 const UploadAndDisplayImage = () => {
     const [selectedImage, setSelectedImage] = useState<File | null>(null);
     const [imageUrl, setImageUrl] = useState<string>("");
@@ -23,8 +25,8 @@ const UploadAndDisplayImage = () => {
         if (selectedImage != null) {
             const response = await imageApi(selectedImage);
             const json = await response.json()
-            // console.log(json);
-            setImageUrl("https://legorobotsa.blob.core.windows.net/legoimage/" + json.message[0].image_file);
+            console.log(bloburl);
+            setImageUrl(bloburl + json.message[0].image_file);
             setImageText(json.message[0].description);
         }
     }
@@ -85,51 +87,36 @@ const UploadAndDisplayImage = () => {
             {selectedImage && (
                 <div>
                     <h4>Your Lego Brick</h4>
-                    <table>
-                        <tbody>
-                            <tr>
-                                <td style={{ verticalAlign: 'top' }}>
-                                    <img
-                                        height={"150px"}
-                                        src={URL.createObjectURL(selectedImage)}
-                                    />
-                                </td>
-                                <td style={{ verticalAlign: 'top', width: '300px' }}>
-                                    {imageDesc}
-                                </td>
-                            </tr>
-                            <tr>
-                                <td style={{ verticalAlign: 'top', width: '250px' }}>
-                                    <button onClick={() => execImageDescApi()}>Describe The Block (GPT-4o Vision)</button><br />
-                                </td>
-                                <td></td>
-                            </tr>
-                        </tbody>
-                    </table>
+                    <p>
+                        <img
+                            width={"400px"}
+                            src={URL.createObjectURL(selectedImage)}
+                        />
+                    </p>
+
+                    <h4>Describe The Block</h4>
+                    <p>
+                        <button onClick={() => execImageDescApi()}>Describe The Block (GPT-4o Vision)</button><br />
+                    </p>
+                    <p>
+                        {imageDesc}
+                    </p>
+
+                    <h4>Find Similar Lego Brick</h4>
+                    <p>
+                        <button onClick={() => execImageMatchApi()}>Find Similar Block (Image Vector)</button><br />
+                    </p>
+                    <p>
+                        <img height={"400px"} src={imageUrl} />
+                    </p>
+                    <p>
+                        {imageText}
+                    </p>
                 </div>
             )}
 
 
 
-            <h4>Find Similar Lego Brick</h4>
-            <table>
-                <tbody>
-                    <tr>
-                        <td style={{ verticalAlign: 'top' }}>
-                            <button onClick={() => execImageMatchApi()}>Find Similar Block (Image Vector)</button><br />
-                        </td>
-                        <td></td>
-                    </tr>
-                    <tr>
-                        <td valign="top">
-                            <img height={"150px"} src={imageUrl} />
-                        </td>
-                        <td style={{ verticalAlign: 'top', width: '300px' }}>
-                            {imageText}
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
         </div>
     );
 };

@@ -37,6 +37,7 @@ export default defineConfig(({ command, mode }) => {
         },
         define: {
             'process.env.BACKEND_URI': JSON.stringify(env.BACKEND_URI),
+            'process.env.BLOB_STORAGE_URL': JSON.stringify(env.BLOB_STORAGE_URL),
         },
     };
 });

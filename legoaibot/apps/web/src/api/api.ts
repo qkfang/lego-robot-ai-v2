@@ -79,11 +79,11 @@ export async function translateApi(text: string, from: string, to: string): Prom
     });
 }
 
-export async function livechatApi(text: string): Promise<Response> {
+export async function webchatApi(text: string): Promise<Response> {
     const newTask = {
         task: text
       };
-      return await fetch(`${BACKEND_URI}/livechat`, {
+      return await fetch(`${BACKEND_URI}/webchat`, {
         method: 'post',
         headers: {
           'Content-Type': 'application/json'

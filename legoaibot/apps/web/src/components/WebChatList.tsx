@@ -1,9 +1,8 @@
 import React, { useState, useEffect } from "react";
-import styles from "./LiveChatList.module.css";
-import LiveChatModel, { TaskModelProps } from './LiveChatModel';
-import { livechatApi } from "../api";
+import styles from "./WebChatList.module.css";
+import WebChatModel, { WebChatModelProps } from './WebChatModel';
+import { webchatApi } from "../api";
 import Pusher from 'pusher-js';
-import { BACKEND_URI } from "../api/BACKEND_URI";
 const PUSHER_APP_KEY = 'f1586bf9908b2073cda6';
 const PUSHER_APP_CLUSTER = 'us2';
 
@@ -15,7 +14,7 @@ interface liveChatProps {
 const LiveChatList = (props: liveChatProps) => {
 
   const [task, setTask] = useState<string>();
-  const [tasks, setTasks] = useState<TaskModelProps[]>([]);
+  const [tasks, setTasks] = useState<WebChatModelProps[]>([]);
   const [userId, setUserId] = useState<string>();
 
   // updateText(e) {
@@ -56,7 +55,7 @@ const LiveChatList = (props: liveChatProps) => {
 
   const postTask = (event?: React.SyntheticEvent | Event, reason?: string) => {
     if (task != '') {
-      livechatApi("User-" + userId + " said : " + task)
+      webchatApi("User-" + userId + " said : " + task)
       setTask('');
     }
   };
@@ -81,7 +80,7 @@ const LiveChatList = (props: liveChatProps) => {
         {tasks.map((x, i) => {
           return (
             <li className="litask" key={x.id}>
-              <div className="text">{x.task}</div>
+              <div className="text">{x.message}</div>
               {/* <div className="delete" onClick={this._onClick}>-</div> */}
             </li>
           )
