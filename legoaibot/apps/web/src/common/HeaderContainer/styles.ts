@@ -11,7 +11,7 @@ export const StyledContainer = styled("div")<{
   padding: 0 60px;
   -webkit-backdrop-filter: blur(1px);
   backdrop-filter: blur(1px);
-  background-color:rgba(169, 205, 237, 0.34);
+  background-color:rgba(212, 212, 212, 0.34);
   border-top: ${(p) => (p.border ? "1px solid #CDD1D4" : "")};
   border-radius: 1rem;
 

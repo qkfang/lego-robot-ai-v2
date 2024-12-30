@@ -239,9 +239,12 @@ runloop.run(main())
                                 dotListClass="custom-dot-list-style"
                                 itemClass="carousel-item-padding-40-px"
                             >
-                                <div style={{ width: "100%", height: "300px", backgroundImage: "url(robot.png)", backgroundPosition: "center", backgroundSize: "contain", backgroundRepeat: "no-repeat" }} />
+                                <div style={{ width: "100%", height: "300px", backgroundImage: "url(sp-img-6.webp)", backgroundPosition: "center", backgroundSize: "contain", backgroundRepeat: "no-repeat" }} />
+                                <div style={{ width: "100%", height: "300px", backgroundImage: "url(sp-img-5.jpg)", backgroundPosition: "center", backgroundSize: "contain", backgroundRepeat: "no-repeat" }} />
                                 <div style={{ width: "100%", height: "300px", backgroundImage: "url(sp-img-1.webp)", backgroundPosition: "center", backgroundSize: "contain", backgroundRepeat: "no-repeat" }} />
                                 <div style={{ width: "100%", height: "300px", backgroundImage: "url(sp-img-2.webp)", backgroundPosition: "center", backgroundSize: "contain", backgroundRepeat: "no-repeat" }} />
+                                <div style={{ width: "100%", height: "300px", backgroundImage: "url(sp-img-4.webp)", backgroundPosition: "center", backgroundSize: "contain", backgroundRepeat: "no-repeat" }} />
+                                <div style={{ width: "100%", height: "300px", backgroundImage: "url(sp-img-3.png)", backgroundPosition: "center", backgroundSize: "contain", backgroundRepeat: "no-repeat" }} />
                             </Carousel>
                             <div className={styles.chatEmptyState}>
                                 <h1 className={styles.chatEmptyStateTitle}>LEGO + AI + Robotics = Fun</h1>

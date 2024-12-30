@@ -1,53 +1,37 @@
 
 
 const Page = () => {
-    return (
-      <div style={{ margin: "15px 50px 50px 50px", padding: "20px", backgroundColor: "white" }}>
-          <h2>Help</h2>
-          <p>
-            Our girls' First Lego League team (Year 6 girls) started to write Python code for <a target='_blank' href='https://spike.legoeducation.com'>Spike Prime 3</a> Lego Robot last year in preparation of <a target='_blank' href='https://www.firstlegoleague.org/'>First Lego League</a> competition but struggled to get the program running. One of them turned to ChatGPT for help. These young learners need an innovative approach to support their coding education.
-          </p>
-          <p>
-            The LEGO AI BOT can write Python code using the Spike Prime 3 API, with the generated code executed directly in the browser via a web serial port. This seamless experience helps young kids learn coding while watching their robots in action.
-          </p>
-          <p>
-            Check out this <a target='_blank' href='https://youtu.be/1URVErLXnMk'>video tutorial</a> for the app.
-          </p>
-          <p>
-            <b>Note:</b>
-            <ul>
-              <li>Spike Prime robot required to see Python code running. Above video demo (second half) includes robot in action.</li>
-              <li>Chat response might take time as all SKU has been reduced to reduce spend.</li>
-            </ul>
-          </p>
-          <p>
-            <b>Features:</b>
-            <ul>
-              <li>ChatBot with Knowledge of Lego Spike Prime</li>
-              <li>ChatBot with Knowledge of Spike Prime 3 Python API / Function / Execution</li>
-              <li>Translate chat response to French</li>
-              <li>Search similar Lego brick via Image Vector Search</li>
-              <li>Describe Lego brick image in text</li>
-              <li>Generate Lego brick image by description</li>
-              <li>Receive Chat prompt via voice</li>
-              <li>Read Chat responses by voice</li>
-              <li>Python code chat response syntax highlighting</li>
-              <li>Live chat with other users via browse</li>
-              <li>Lego Spike Prime Web Serial Port integration in browser</li>
-              <li>Execute python code directly from Browser</li>
-            </ul>
-          </p>
-          <p>
-            <b>Disclaimer:</b>
-            <ul>
-              <li>LEGO®, SPIKE™, and Minifigure are trademarks of ©The LEGO® Group.</li>
-              <li>Web serial port function is created by <a href="https://github.com/edanahy/WebSPIKE/">edanahy's WebSPIKE</a></li>
-            </ul>
-          </p>
-          <br />
-        </div>
-    );
-  };
-  
-  export default Page;
-  
+  return (
+    <div style={{ margin: "15px 50px 50px 50px", padding: "50px", backgroundColor: "white" }}>
+      <h2>About us</h2>
+      <p>Lego Robot AI is your gateway to a cutting-edge educational journey that merges creativity, coding, and robotics. Designed to make Python programming engaging and interactive, this innovative app empowers young learners by providing them with tools to control Lego Spike Prime robots while mastering essential coding skills.</p>
+      <br />
+      <h2>Key Features:</h2>
+      <p>
+        <ul>
+          <li>Code Generation and Execution: Create and execute Python code directly in a web browser with seamless integration using Spike Prime 3 API specifications.</li>
+          <li>Interactive Learning: Features like real-time chat, speech-to-text, and voice-assisted responses enhance user interaction.</li>
+          <li>Lego Brick Image Library: Identify and discover Lego pieces using image search and text-based descriptions.</li>
+          <li>AI-Powered Creativity: Generate unique Lego designs with AI-based image creation tools.</li>
+        </ul>
+      </p>
+      <br />
+      <h2>Built for Young Innovators:</h2>
+      <p>Lego Robot AI bridges the gap between block coding and Python programming, making the transition smooth and intuitive for students. The platform emphasizes hands-on learning, helping kids visualize their coding impact in real-time as they bring their robotic creations to life.</p>
+      <br />
+      <h2>Why Choose Lego Robot AI?</h2>
+      <p>
+        <ul>
+          <li>Seamless Integration: Uses Azure OpenAI services, Cosmos DB, and other advanced Azure resources for a robust backend.</li>
+          <li>Fun Meets Functionality: Designed with young learners in mind, offering an engaging, setup-free coding experience.</li>
+          <li>Global Accessibility: Multi-language support with translation and voice capabilities ensures a broad reach.</li>
+          <li>Family and Team Activities: Encourage collaborative learning for families and robotics teams alike.</li>
+        </ul>
+      </p>
+      <br />
+      <p>Join the movement to redefine STEM education. With Lego Robot AI, students aren't just learning—they're building the future one brick at a time.</p>
+    </div>
+  );
+};
+
+export default Page;

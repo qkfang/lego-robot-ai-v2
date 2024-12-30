@@ -1,14 +1,13 @@
 import { lazy } from "react";
 
-import IntroContent from "../../content/IntroContent.json";
-import MiddleBlockContent from "../../content/MiddleBlockContent.json";
-import AboutContent from "../../content/AboutContent.json";
-import MissionContent from "../../content/MissionContent.json";
-import ProductContent from "../../content/ProductContent.json";
+import chatbotContent from "../../content/ChatbotContent.json";
+import conversationContent from "../../content/ConversationContent.json";
+import brickContent from "../../content/BrickContent.json";
+import imageContent from "../../content/ImageContent.json";
+import webchatContent from "../../content/WebchatContent.json";
 
 const MiddleBlock = lazy(() => import("../../components/MiddleBlock"));
 const Container = lazy(() => import("../../common/Container"));
-const ScrollToTop = lazy(() => import("../../common/ScrollToTop"));
 const ContentBlock = lazy(() => import("../../components/ContentBlock"));
 
 const Home = () => {
@@ -17,37 +16,37 @@ const Home = () => {
             <Container>
                 <ContentBlock
                     direction="right"
-                    title={IntroContent.title}
-                    content={IntroContent.text}
-                    button={IntroContent.button}
-                    icon="developer.svg"
+                    title={chatbotContent.title}
+                    content={chatbotContent.text}
+                    button={chatbotContent.button}
+                    icon="banner-chatbot.png"
                     id="intro"
                 />
                 <MiddleBlock
-                    title={MiddleBlockContent.title}
-                    content={MiddleBlockContent.text}
-                    button={MiddleBlockContent.button}
+                    title={conversationContent.title}
+                    content={conversationContent.text}
+                    button={conversationContent.button}
                 />
                 <ContentBlock
                     direction="left"
-                    title={AboutContent.title}
-                    content={AboutContent.text}
-                    section={AboutContent.section}
-                    icon="graphs.svg"
+                    title={brickContent.title}
+                    content={brickContent.text}
+                    section={brickContent.section}
+                    icon="banner-brick.png"
                     id="about"
                 />
                 <ContentBlock
                     direction="right"
-                    title={MissionContent.title}
-                    content={MissionContent.text}
-                    icon="product-launch.svg"
+                    title={imageContent.title}
+                    content={imageContent.text}
+                    icon="banner-image.png"
                     id="mission"
                 />
                 <ContentBlock
                     direction="left"
-                    title={ProductContent.title}
-                    content={ProductContent.text}
-                    icon="waving.svg"
+                    title={webchatContent.title}
+                    content={webchatContent.text}
+                    icon="banner-webchat.png"
                     id="product"
                 />
             </Container>
