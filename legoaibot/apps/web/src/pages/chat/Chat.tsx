@@ -2,6 +2,29 @@ import { useRef, useState, useEffect } from "react";
 import { Checkbox, Panel, DefaultButton, TextField, SpinButton } from "@fluentui/react";
 import readNDJSONStream from "ndjson-readablestream";
 import styles from "./Chat.module.css";
+import Carousel from "react-multi-carousel";
+import "react-multi-carousel/lib/styles.css";
+
+const responsive = {
+    superLargeDesktop: {
+        // the naming can be any, depends on you.
+        breakpoint: { max: 4000, min: 3000 },
+        items: 1
+    },
+    desktop: {
+        breakpoint: { max: 3000, min: 1024 },
+        items: 1
+    },
+    tablet: {
+        breakpoint: { max: 1024, min: 464 },
+        items: 1
+    },
+    mobile: {
+        breakpoint: { max: 464, min: 0 },
+        items: 1
+    }
+};
+
 
 import {
     chatApi,
@@ -19,6 +42,7 @@ import { ExampleList } from "../../components/Example";
 import { UserChatMessage } from "../../components/UserChatMessage";
 import { ClearChatButton } from "../../components/ClearChatButton";
 import { VectorSettings } from "../../components/VectorSettings";
+import { Padding } from "@mui/icons-material";
 //import { useMsal } from "@azure/msal-react";
 
 const Chat = () => {
@@ -58,7 +82,7 @@ const Chat = () => {
         setIsLoading(true);
         setActiveCitation(undefined);
 
-        if(sessionId==""){
+        if (sessionId == "") {
             setSessionId(crypto.randomUUID());
         }
         // console.log('sessionId='+ sessionId);
@@ -101,10 +125,10 @@ const Chat = () => {
         }
     };
 
-    
+
     const robotRequest = async (code: string) => {
         try {
-            var codeSession =  `
+            var codeSession = `
 from hub import light_matrix
 import runloop
 
@@ -114,7 +138,7 @@ async def main():
 
 runloop.run(main())
             `
-			window.pyrepl.write = codeSession;
+            window.pyrepl.write = codeSession;
         } catch (e) {
             console.error(`Chat Error: ${e}`);
             setError(e);
@@ -184,7 +208,7 @@ runloop.run(main())
         // if (activeCitation === citation && activeAnalysisPanelTab === AnalysisPanelTabs.CitationTab && selectedAnswer === index) {
         //     setActiveAnalysisPanelTab(undefined);
         // } else {
-            setActiveCitation(citation);
+        setActiveCitation(citation);
         //    setActiveAnalysisPanelTab(AnalysisPanelTabs.CitationTab);
         //}
 
@@ -193,15 +217,38 @@ runloop.run(main())
 
     return (
         <div className={styles.container}>
+
             <div className={styles.chatRoot}>
                 <div className={styles.chatContainer}>
                     {!lastQuestionRef.current ? (
-                        <div className={styles.chatEmptyState}>
-                            {/* <SparkleFilled fontSize={"120px"} primaryFill={"rgba(115, 118, 225, 1)"}  aria-hidden="true" aria-label="Chat logo" /> */}
-                            <img src="../../robot.png"/>
-                            <h1 className={styles.chatEmptyStateTitle}>AI + LEGO + Robotics = Fun</h1>
-                            <h2 className={styles.chatEmptyStateSubtitle}>Build a Spike Prime 3 Robot and control it by Python</h2>
-                            <ExampleList onExampleClicked={onExampleClicked} useGPT4V={useGPT4V} />
+                        <div>
+                            <Carousel
+                                swipeable={false}
+                                draggable={false}
+                                showDots={true}
+                                centerMode={false}
+                                responsive={responsive}
+                                ssr={false} // means to render carousel on server-side.
+                                infinite={true}
+                                autoPlay={true}
+                                autoPlaySpeed={3000}
+                                keyBoardControl={true}
+                                customTransition="all .5"
+                                containerClass="carousel-container"
+                                // deviceType={"desktop"}
+                                dotListClass="custom-dot-list-style"
+                                itemClass="carousel-item-padding-40-px"
+                            >
+                                <div style={{ width: "100%", height: "300px", backgroundImage: "url(robot.png)", backgroundPosition: "center", backgroundSize: "contain", backgroundRepeat: "no-repeat" }} />
+                                <div style={{ width: "100%", height: "300px", backgroundImage: "url(sp-img-1.webp)", backgroundPosition: "center", backgroundSize: "contain", backgroundRepeat: "no-repeat" }} />
+                                <div style={{ width: "100%", height: "300px", backgroundImage: "url(sp-img-2.webp)", backgroundPosition: "center", backgroundSize: "contain", backgroundRepeat: "no-repeat" }} />
+                            </Carousel>
+                            <div className={styles.chatEmptyState}>
+                                <h1 className={styles.chatEmptyStateTitle}>LEGO + AI + Robotics = Fun</h1>
+                                {/* <img style={{ padding: "15px" }} src="../../robot.png" /> */}
+                                <h2 className={styles.chatEmptyStateSubtitle}>Build a Spike Prime 3 Robot and control it by Python</h2>
+                                <ExampleList onExampleClicked={onExampleClicked} useGPT4V={useGPT4V} />
+                            </div>
                         </div>
                     ) : (
                         <div className={styles.chatMessageStream}>
@@ -235,8 +282,8 @@ runloop.run(main())
                                                 answer={answer[1]}
                                                 isSelected={selectedAnswer === index}
                                                 onCitationClicked={c => onShowCitation(c, index)}
-                                                onThoughtProcessClicked={() => {}} // {() => onToggleTab(AnalysisPanelTabs.ThoughtProcessTab, index)}
-                                                onSupportingContentClicked={() => {}} // {() => onToggleTab(AnalysisPanelTabs.SupportingContentTab, index)}
+                                                onThoughtProcessClicked={() => { }} // {() => onToggleTab(AnalysisPanelTabs.ThoughtProcessTab, index)}
+                                                onSupportingContentClicked={() => { }} // {() => onToggleTab(AnalysisPanelTabs.SupportingContentTab, index)}
                                                 onFollowupQuestionClicked={q => makeApiRequest(q)}
                                                 showFollowupQuestions={useSuggestFollowupQuestions && answers.length - 1 === index}
                                             />
@@ -268,11 +315,11 @@ runloop.run(main())
                             clearOnSend
                             placeholder="Type a new question (e.g. how to move robot forward?)"
                             disabled={isLoading}
-                            clearChat={clearChat} 
+                            clearChat={clearChat}
                             sessionId={sessionId}
                             onSend={question => makeApiRequest(question)}
                         />
-                    </div>            
+                    </div>
                 </div>
 
                 <Panel
@@ -336,7 +383,7 @@ runloop.run(main())
                     />
                 </Panel>
             </div>
-        </div>
+        </div >
     );
 };
 

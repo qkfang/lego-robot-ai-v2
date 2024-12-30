@@ -19,6 +19,18 @@ export const Styles = createGlobalStyle`
         color: #18216d;
     }
 
+    .carousel-container {
+        margin: 1rem auto 4rem auto;
+        max-width: 700px;
+    }
+
+    .carousel-item-padding-40-px {
+        text-align: center;
+        padding: 40px;
+        overflow: hidden;
+        width: 100%;
+    }
+
     input,
     textarea {
         border-radius: 4px;
