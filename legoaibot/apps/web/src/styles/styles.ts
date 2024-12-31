@@ -22,7 +22,21 @@ export const Styles = createGlobalStyle`
     .carousel-container {
         margin: 1rem auto 4rem auto;
         max-width: 700px;
+
+        @media only screen and (max-width: 1024px) {
+            max-width: 650px;
+        }
+
+        @media only screen and (max-width: 768px) {
+            max-width: 500px;
+        }
+
+        @media only screen and (max-width: 414px) {
+            max-width: 250px;
+        }
     }
+
+
 
     .carousel-item-padding-40-px {
         text-align: center;
