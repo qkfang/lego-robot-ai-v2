@@ -37,11 +37,14 @@ export const Styles = createGlobalStyle`
     }
 
     .pageContainer{
-        padding: 50px;
+        padding: 50px 50px 100px 50px;
         background-color: white;
         max-width: 1200px;
         border-radius: 1rem;
         margin: 15px auto;
+        background-image: url(bg-footer.png);
+        background-repeat: no-repeat;
+        background-position: bottom;
     }
 
     .carousel-item-padding-40-px {

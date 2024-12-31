@@ -188,7 +188,7 @@ resource appServicePlan 'Microsoft.Web/serverfarms@2022-03-01' = {
   name: '${projectName}-${environment}-linux-asp'
   location: location
   sku: {
-    name: 'B1'
+    name: 'B2'
   }
   kind: 'linux'
   properties: {
@@ -376,7 +376,7 @@ resource backendApiContainerAppRT 'Microsoft.App/containerApps@2024-10-02-previe
       containers: [
         {
           name: '${projectName}-${environment}-api-rt'
-          image: '${containerRegistry.name}.azurecr.io/legoaibot-api-rt:v8'
+          image: '${containerRegistry.name}.azurecr.io/legoaibot-api-rt:v10'
           resources: {
             cpu: 1
             memory: '2Gi'

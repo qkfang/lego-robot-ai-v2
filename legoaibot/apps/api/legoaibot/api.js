@@ -71,6 +71,7 @@ router.post('/chat', async (req, res) => {
         agent = agentInstancesMap.get(session_id);
     } else {
         agent = new legoAgent();
+        await agent.setup();
         agentInstancesMap.set(session_id, agent);
     }
 
