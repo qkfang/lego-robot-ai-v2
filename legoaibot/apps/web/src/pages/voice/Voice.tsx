@@ -10,9 +10,9 @@ const Page = () => {
     });
 
     return (
-        <div style={{ margin: "15px 50px 50px 50px", padding: "20px", backgroundColor: "white" }}>
+        <div className="pageContainer">
             <h2>Realtime Voice Conversation</h2>
-            <p>Engage in real-time conversations with AI to streamline tasks and automate actions effortlessly.</p>
+            <p>Engage in real-time conversations with AI to streamline tasks and automate actions effortlessly. From recording practice game scores to generating on-the-spot insights.</p>
 
             <main className="container">
                 <article>

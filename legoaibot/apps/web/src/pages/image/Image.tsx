@@ -35,9 +35,9 @@ const Page = () => {
 
 
     return (
-        <div style={{ margin: "15px 50px 50px 50px", padding: "20px", backgroundColor: "white" }}>
+        <div className="pageContainer">
             <h2>Creative Images</h2>
-            <p>Use your imagination to create an image by description</p>
+            <p>Enhance your LEGO building experience with AI-powered tools that enable you to search for bricks using images and receive detailed descriptions, helping you identify, learn, and create with ease.</p>
             <p>
                 <input type="text" placeholder="describe an image (e.g. lego block in rainbow color)" onChange={updateText} />
                 <button onClick={() => execImageCreateApi()}>Start Imagine</button><br />

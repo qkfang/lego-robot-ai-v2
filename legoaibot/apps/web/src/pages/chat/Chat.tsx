@@ -217,7 +217,6 @@ runloop.run(main())
 
     return (
         <div className={styles.container}>
-
             <div className={styles.chatRoot}>
                 <div className={styles.chatContainer}>
                     {!lastQuestionRef.current ? (

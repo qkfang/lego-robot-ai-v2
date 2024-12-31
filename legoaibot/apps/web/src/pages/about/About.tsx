@@ -2,7 +2,7 @@
 
 const Page = () => {
   return (
-    <div style={{ margin: "15px 50px 50px 50px", padding: "50px", backgroundColor: "white" }}>
+    <div className="pageContainer">
       <h2>About us</h2>
       <p>LEGO AI BOT is your gateway to a cutting-edge educational journey that merges creativity, coding, and robotics. Designed to make Python programming engaging and interactive, this innovative app empowers young learners by providing them with tools to control Lego Spike Prime robots while mastering essential coding skills.</p>
       <br />

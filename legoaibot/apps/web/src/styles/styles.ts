@@ -36,7 +36,13 @@ export const Styles = createGlobalStyle`
         }
     }
 
-
+    .pageContainer{
+        padding: 50px;
+        background-color: white;
+        max-width: 1200px;
+        border-radius: 1rem;
+        margin: 15px auto;
+    }
 
     .carousel-item-padding-40-px {
         text-align: center;

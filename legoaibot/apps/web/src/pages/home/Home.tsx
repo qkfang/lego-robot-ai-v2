@@ -12,7 +12,7 @@ const ContentBlock = lazy(() => import("../../components/ContentBlock"));
 
 const Home = () => {
     return (
-        <div style={{ margin: "15px 50px 50px 50px", padding: "10px", backgroundColor: "white" }}>
+        <div className="pageContainer">
             <Container>
                 <ContentBlock
                     direction="right"

@@ -4,8 +4,9 @@ import WebChatList from '../../components/WebChatList';
 const Page = () => {
 
     return (
-        <div style={{ margin: "15px 50px 50px 50px", padding: "20px", backgroundColor: "white" }}>
+        <div className="pageContainer">
              <h2>Chat with other users</h2>
+             <p>Collaborate seamlessly with fellow students and teachers through an interactive webchat platform. Share engineering challenges, brainstorm solutions, and exchange creative ideas in real time.</p>
              <WebChatList  />
         </div>
     );
