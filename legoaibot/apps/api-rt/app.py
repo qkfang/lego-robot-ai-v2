@@ -73,13 +73,13 @@ async def create_app():
 
     rtmt.system_message = (
         "You are a helpful assistant that maintains a conversation with the user, while asking questions according to a specific set of fields.\n"
-        "You MUST start the conversation by asking the user this questions: What is your team name ?\n"
+        "You MUST start the conversation by asking the user this questions: are you from team 1 or team 2 ?\n"
         "After that you should use the 'get_fields' tool to retrieve the required fields from the database for follow up questions\n"
         "The response from the 'get_fields' tool will give you a set of fields that you should fill by asking the user questions.\n"
         "After you have gone through all the questions in the schema, output a valid JSON file to the user by calling the 'generate_game' function,\n "
         "with the schema definition being various player and product attributes derived from the conversation.\n "
-        "Finally ask user if the game JSON looks good and save the game by calling the 'save_game' function."
-        "You must engage the user in a conversation and ask the questions in the script. The user will provide the answers to the questions."
+        "Finally ask user if to save the game score. If so, saving the score by calling the 'save_game' function."
+        "You must engage the user in a conversation and ask the questions in the script. The user will provide the answers to the questions. Keep your question short."
     )
     rtmt.tools["get_fields"] = Tool(
         schema=_get_fields_tool_schema,
@@ -135,6 +135,14 @@ async def create_app():
         
         return web.json_response(acs_status)
 
+
+    app.router.add_get('/', index)
+    app.router.add_static('/static/', path=str(static_directory), name='static')
+    app.router.add_post('/call', call)
+    app.router.add_get('/status', acs_status)
+    
+    # Apply CORS to all routes
+    
     # Configure CORS
     cors = aiohttp_cors.setup(app, defaults={
         "*": aiohttp_cors.ResourceOptions(
@@ -144,12 +152,6 @@ async def create_app():
         )
     })
 
-    app.router.add_get('/', index)
-    app.router.add_static('/static/', path=str(static_directory), name='static')
-    app.router.add_post('/call', call)
-    app.router.add_get('/status', acs_status)
-    
-    # Apply CORS to all routes
     for route in list(app.router.routes()):
         cors.add(route)
 

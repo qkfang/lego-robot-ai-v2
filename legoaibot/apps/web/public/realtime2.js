@@ -1,36 +1,28 @@
-// secure = false;
+toggleButton = document.getElementById('toggleButton');
+callButton = document.getElementById('callButton');
+statusMessage = document.getElementById('statusMessage');
+reportDiv = document.getElementById('report');
+isRecording = false;
+websocket = null;
+audioContext = null;
+mediaStream = null;
+mediaProcessor = null;
+audioQueueTime = 0;
 // backendHost = "localhost:8765";
-secure = true;
+// backendHost = `${window.location.host}`;
 backendHost = `legoaibot-prd-api-rt.bluestone-0d32ea35.eastus.azurecontainerapps.io`;
+// https://legoaibot-prd-api-rt.bluestone-0d32ea35.eastus.azurecontainerapps.io/
 
-function load() {
-    toggleButton = document.getElementById('toggleButton');
-    callButton = document.getElementById('callButton');
-    statusMessage = document.getElementById('statusMessage');
-    reportDiv = document.getElementById('report');
+//  websocket = new WebSocket('ws://localhost:8765/realtime') 
 
-    isRecording = false;
-    websocket = null;
-    audioContext = null;
-    mediaStream = null;
-    mediaProcessor = null;
-    audioQueueTime = 0;
-
-    // Variables for client-side VAD (optional)
-    speaking = false;
-    VAD_THRESHOLD = 0.01; // Adjust this threshold as needed
-    
-    toggleButton.addEventListener('click', onToggleListening);
-    // callButton.addEventListener('click', onCallButton);
-    
-    assistantAudioSources = [];
-
-}
+// Variables for client-side VAD (optional)
+speaking = false;
+VAD_THRESHOLD = 0.01; // Adjust this threshold as needed
 
 async function startRecording() {
     isRecording = true;
     toggleButton.textContent = 'Stop Conversation';
-    statusMessage.textContent = 'Listening...';
+    statusMessage.textContent = 'Recording...';
 
     // Initialize AudioContext if not already done
     if (!audioContext) {
@@ -39,12 +31,14 @@ async function startRecording() {
     }
 
     // Open WebSocket connection
-    if (secure) {
-        websocket = new WebSocket(`wss://${backendHost}/realtime`);
-    } else
-    {
-        websocket = new WebSocket(`ws://${backendHost}/realtime`);
-    }    
+    wsUrl = `wss://${backendHost}/realtime`;
+    console.log(wsUrl);
+    // if (window.location.protocol != "https:") {
+        websocket = new WebSocket(wsUrl);
+    // }else
+    // {
+    //     websocket = new WebSocket(`wss://${backendHost}/realtime`);
+    // }    
 
     websocket.onopen = () => {
         console.log('WebSocket connection opened');
@@ -206,6 +200,8 @@ function handleWebSocketMessage(message) {
     }
 }
 
+assistantAudioSources = [];
+
 function playAudio(base64Audio) {
     const binary = atob(base64Audio);
     const len = binary.length;
@@ -304,30 +300,27 @@ function detectSpeech(inputData) {
     return rms > VAD_THRESHOLD;
 }
 
-window.onload = function() {
-    load();
+function load() {
+    
+    toggleButton = document.getElementById('toggleButton');
+    statusMessage = document.getElementById('statusMessage');
+    reportDiv = document.getElementById('report');
+    
+    toggleButton.addEventListener('click', onToggleListening);
 
-    statusUrl = `http://${backendHost}/status`;
-    if (secure) {
-        statusUrl = `https://${backendHost}/status`;
-    }
-    fetch(statusUrl)
+    fetch(`https://${backendHost}/status`)
         .then(response => response.text())
         .then(data => 
             {
                 json_data = JSON.parse(data)
-                // if (json_data.outbound_calling_enabled){
-                //     callButton.disabled = false;
-                //     phonenumber.disabled = false;
-                //     callButton.textContent = "Call me from the browser";
-                // }
-                // else
-                // {
-                //     callButton.textContent = "Outbound calling not possible";
-                // }
+                if (json_data.outbound_calling_enabled){
+                    phonenumber.disabled = false;
+                }
                 // statusMessage.textContent = json_data.status;
                 console.log(json_data);
             }
         )
         .catch(error => console.error('Error:', error));
 };
+
+load();
