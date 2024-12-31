@@ -4,7 +4,7 @@ const Page = () => {
   return (
     <div style={{ margin: "15px 50px 50px 50px", padding: "50px", backgroundColor: "white" }}>
       <h2>About us</h2>
-      <p>Lego Robot AI is your gateway to a cutting-edge educational journey that merges creativity, coding, and robotics. Designed to make Python programming engaging and interactive, this innovative app empowers young learners by providing them with tools to control Lego Spike Prime robots while mastering essential coding skills.</p>
+      <p>LEGO AI BOT is your gateway to a cutting-edge educational journey that merges creativity, coding, and robotics. Designed to make Python programming engaging and interactive, this innovative app empowers young learners by providing them with tools to control Lego Spike Prime robots while mastering essential coding skills.</p>
       <br />
       <h2>Key Features:</h2>
       <p>
@@ -17,9 +17,9 @@ const Page = () => {
       </p>
       <br />
       <h2>Built for Young Innovators:</h2>
-      <p>Lego Robot AI bridges the gap between block coding and Python programming, making the transition smooth and intuitive for students. The platform emphasizes hands-on learning, helping kids visualize their coding impact in real-time as they bring their robotic creations to life.</p>
+      <p>LEGO AI BOT bridges the gap between block coding and Python programming, making the transition smooth and intuitive for students. The platform emphasizes hands-on learning, helping kids visualize their coding impact in real-time as they bring their robotic creations to life.</p>
       <br />
-      <h2>Why Choose Lego Robot AI?</h2>
+      <h2>Why Choose LEGO AI BOT?</h2>
       <p>
         <ul>
           <li>Seamless Integration: Uses Azure OpenAI services, Cosmos DB, and other advanced Azure resources for a robust backend.</li>
@@ -29,7 +29,7 @@ const Page = () => {
         </ul>
       </p>
       <br />
-      <p>Join the movement to redefine STEM education. With Lego Robot AI, students aren't just learning—they're building the future one brick at a time.</p>
+      <p>Join the movement to redefine STEM education. With LEGO AI BOT, students aren't just learning—they're building the future one brick at a time.</p>
     </div>
   );
 };

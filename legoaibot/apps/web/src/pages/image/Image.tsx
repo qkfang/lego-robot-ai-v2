@@ -40,7 +40,7 @@ const Page = () => {
             <p>Use your imagination to create an image by description</p>
             <p>
                 <input type="text" placeholder="describe an image (e.g. lego block in rainbow color)" onChange={updateText} />
-                <button onClick={() => execImageCreateApi()}>Create Lego Brick Image (Dall-e)</button><br />
+                <button onClick={() => execImageCreateApi()}>Start Imagine</button><br />
                 {
                     (promiseInProgress === true) ?
                         <span>Loading...</span>

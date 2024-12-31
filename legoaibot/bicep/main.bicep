@@ -315,7 +315,7 @@ resource backendApiContainerApp 'Microsoft.App/containerApps@2024-10-02-preview'
       containers: [
         {
           name: '${projectName}-api'
-          image: '${containerRegistry.name}.azurecr.io/legoaibot-api:v5'
+          image: '${containerRegistry.name}.azurecr.io/legoaibot-api:v6'
           resources: {
             cpu: 1
             memory: '2Gi'

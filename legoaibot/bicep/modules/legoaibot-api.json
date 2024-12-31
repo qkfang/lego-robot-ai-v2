@@ -65,6 +65,17 @@
                     }
                 }
             }
+        },
+        "/webchat": {
+            "post": {
+                "summary": "webchat",
+                "operationId": "667bdfea4ba23e89dcc71f20",
+                "responses": {
+                    "200": {
+                        "description": null
+                    }
+                }
+            }
         }
     },
     "components": {
