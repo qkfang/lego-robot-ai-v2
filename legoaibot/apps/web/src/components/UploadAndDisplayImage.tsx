@@ -94,9 +94,9 @@ const UploadAndDisplayImage = () => {
                         />
                     </p>
 
-                    <h4>Describe The Block</h4>
+                    <h4>Describe The Brick</h4>
                     <p>
-                        <button onClick={() => execImageDescApi()}>Describe The Block (GPT-4o Vision)</button><br />
+                        <button onClick={() => execImageDescApi()}>Describe This Brick</button><br />
                     </p>
                     <p>
                         {imageDesc}
@@ -104,7 +104,7 @@ const UploadAndDisplayImage = () => {
 
                     <h4>Find Similar Lego Brick</h4>
                     <p>
-                        <button onClick={() => execImageMatchApi()}>Find Similar Block (Image Vector)</button><br />
+                        <button onClick={() => execImageMatchApi()}>Find Similar Brick</button><br />
                     </p>
                     <p>
                         <img height={"400px"} src={imageUrl} />

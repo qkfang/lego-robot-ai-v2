@@ -23,8 +23,8 @@ const Page = () => {
             <h3>Practise Game Score Assistent</h3>
             <main className="container">
                 <article>
+                    <div>Click the start button, once voice conversation is started, you can say "Hi"  to start.</div>
                     <button id="toggleButton" className="black-button">Start Conversation</button>
-                    Click the start button, once voice conversation is started, you can say "Hi"  to start.
                     <div id="statusMessage"></div>
                     <pre id="report"></pre>
                 </article>

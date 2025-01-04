@@ -209,7 +209,7 @@ resource appServiceWeb 'Microsoft.Web/sites@2022-03-01' = {
     httpsOnly: true
     siteConfig: {
       linuxFxVersion: 'NODE|20-lts'
-      appCommandLine: 'pm2 serve /home/site/wwwroot --no-daemon --spa'
+      appCommandLine: 'pm2 serve /home/site/wwwroot/dist --no-daemon --spa'
       alwaysOn: true
     }
   }
@@ -315,7 +315,7 @@ resource backendApiContainerApp 'Microsoft.App/containerApps@2024-10-02-preview'
       containers: [
         {
           name: '${projectName}-${environment}-api'
-          image: '${containerRegistry.name}.azurecr.io/legoaibot-api:v6'
+          image: '${containerRegistry.name}.azurecr.io/legoaibot-api:v7'
           resources: {
             cpu: 1
             memory: '2Gi'
@@ -432,12 +432,12 @@ module mongodb 'modules/mongodb.bicep' = {
 }
 
 
-module mongodbru 'modules/mongodbru.bicep' = {
-  name: 'mongodbru'
-  scope: resourceGroup(subIdShared_MongoDb, rgName)
-  params: {
-    location: location
-    environment: environment
-    projectName: projectName
-  }
-}
+// module mongodbru 'modules/mongodbru.bicep' = {
+//   name: 'mongodbru'
+//   scope: resourceGroup(subIdShared_MongoDb, rgName)
+//   params: {
+//     location: location
+//     environment: environment
+//     projectName: projectName
+//   }
+// }

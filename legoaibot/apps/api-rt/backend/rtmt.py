@@ -143,7 +143,8 @@ class RTMiddleTier:
                         replace = False
                         for i, output in enumerate(reversed(message["response"]["output"])):
                             if output["type"] == "function_call":
-                                message["response"]["output"].pop(i)
+                                if 0 <= i < len(message["response"]["output"]):
+                                    message["response"]["output"].pop(i)
                                 replace = True
                         if replace:
                             updated_message = json.dumps(message)
