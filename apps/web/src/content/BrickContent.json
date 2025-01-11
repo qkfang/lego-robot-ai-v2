@@ -4,13 +4,16 @@
   "section": [
     {
       "title": "Brick Search",
-      "content": "Find matching bricks using a photo or image",
-      "icon": "notes.svg"
+      "content": "Find bricks using a photo",
+      "icon": "notes.svg",
+      "url": "/Brick"
+
     },
     {
       "title": "Brick Description",
       "content": "Describe bricks in text",
-      "icon": "notes.svg"
+      "icon": "notes.svg",
+      "url": "/Image"
     }
   ]
 }

@@ -3,10 +3,12 @@
   "text": "Kickstart students' journey into text-based coding to learn, debug, and execute Python for LEGO Spike Prime robots, seamlessly blending AI support with hands-on robotics exploration and creativity.",
   "button": [
     {
-      "title": "Explore"
+      "title": "ChatBot",
+      "url": "/Chat"
     },
     {
-      "title": "Learn more"
+      "title": "About Us",
+      "url": "/About"
     }
   ]
 }

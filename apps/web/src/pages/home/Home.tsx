@@ -22,11 +22,6 @@ const Home = () => {
                     icon="banner-chatbot.png"
                     id="intro"
                 />
-                <MiddleBlock
-                    title={conversationContent.title}
-                    content={conversationContent.text}
-                    button={conversationContent.button}
-                />
                 <ContentBlock
                     direction="left"
                     title={brickContent.title}
@@ -34,6 +29,12 @@ const Home = () => {
                     section={brickContent.section}
                     icon="banner-brick.png"
                     id="about"
+                />
+                <MiddleBlock
+                    title={conversationContent.title}
+                    content={conversationContent.text}
+                    button={conversationContent.button}
+                    url={conversationContent.url}
                 />
                 <ContentBlock
                     direction="right"

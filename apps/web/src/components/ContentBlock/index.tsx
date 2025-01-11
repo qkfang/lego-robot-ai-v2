@@ -1,5 +1,6 @@
 import { Row, Col } from "antd";
 import { Fade } from "react-awesome-reveal";
+import { useNavigate } from 'react-router-dom';
 
 import { ContentBlockProps } from "./types";
 import { Button } from "../../common/Button";
@@ -25,11 +26,17 @@ const ContentBlock = ({
   id,
   direction,
 }: ContentBlockProps) => {
+  const navigate = useNavigate();
+
   const scrollTo = (id: string) => {
     const element = document.getElementById(id) as HTMLDivElement;
     element.scrollIntoView({
       behavior: "smooth",
     });
+  };
+
+  const goToPage = (page: string) => {
+    navigate(page);
   };
 
   return (
@@ -63,7 +70,7 @@ const ContentBlock = ({
                           <Button
                             key={id}
                             color={item.color}
-                            onClick={() => scrollTo("about")}
+                            onClick={() => goToPage(item.url)}
                           >
                             {(item.title)}
                           </Button>
@@ -85,13 +92,19 @@ const ContentBlock = ({
                           id: number
                         ) => {
                           return (
-                            <Col key={id} span={11}>
+                            <Col key={id} span={11} style={{ textAlign: "center" }}>
                               <SvgIcon
                                 src={item.icon}
                                 width="60px"
                                 height="60px"
                               />
-                              <MinTitle>{(item.title)}</MinTitle>
+                              <Button
+                                key={id}
+                                color={item.color}
+                                onClick={() => goToPage(item.url)}
+                              >
+                                {(item.title)}
+                              </Button>
                               <MinPara>{(item.content)}</MinPara>
                             </Col>
                           );
