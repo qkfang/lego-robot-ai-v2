@@ -52,9 +52,7 @@ const LiveChatList = () => {
   return (
     <div className={styles.todowrapper}>
       <b>Your name</b>
-      <input type="text" className={styles['input-todo']} placeholder="Enter your user ID" onChange={updateUserId} value={userId} />
-        
-      <p>Open 2 windows to simulate a chat</p>
+      <input type="text" className={styles['input-todo']} placeholder="Enter your user ID" onChange={updateUserId} value={userId} />        
       <form>
         <input type="text" className={styles['input-todo']} placeholder="Say something." onChange={updateText} value={task} />
         <div className={styles['btn-add']} onClick={postWebchat}>Send</div>

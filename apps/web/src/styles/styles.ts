@@ -37,7 +37,7 @@ export const Styles = createGlobalStyle`
     }
 
     .pageContainer{
-        padding: 50px 50px 100px 50px;
+        padding: 50px 50px 150px 50px;
         background-color: white;
         max-width: 1200px;
         border-radius: 1rem;
