@@ -5,8 +5,9 @@ param mongoDbUserName string = 'dev'
 param mongoDbPassword string = 'psw'
 
 var rgName = 'rg-${projectName}'
-var subIdShared_Search = '519f48c0-e1f2-4724-92e8-0741c9645315' // biz5/9 
-var subIdShared_Asp = '1b4c524f-bf60-425c-893e-1c969ef3c7c1' // core7
+// all apps: biz5: c3a777c7-afcb-4fd8-84f9-096225a00f84
+var subIdShared_Search = '5ff87fda-45e2-47f9-9f18-5236e418f292' // beta2
+var subIdShared_Asp = '1b4c524f-bf60-425c-893e-1c969ef3c7c1' // core6
 var subIdShared_MongoDb = 'd1a91831-8178-4e66-8d95-3268758d4d33' // core2
 
 
@@ -257,10 +258,8 @@ resource containerAppEnvironment 'Microsoft.App/managedEnvironments@2023-05-01' 
     }
     workloadProfiles: [
       {
-        name: 'Warm'
-        minimumCount: 1
-        maximumCount: 10
-        workloadProfileType: 'D4'
+        name: 'Consumption'
+        workloadProfileType: 'Consumption'
       }
     ]
     infrastructureResourceGroup: 'ME_${resourceGroup().name}'

@@ -9,6 +9,7 @@ docker tag legoaibot:latest legoaibotprdacr.azurecr.io/legoaibot:v2
 docker login legoaibotprdacr.azurecr.io -u legoaibotprdacr -p xxxx
 docker push legoaibotprdacr.azurecr.io/legoaibot:v2
 
-az containerapp up --name legoaibot-prd-api --image legoaibotprdacr.azurecr.io/legoaibot:v2 --resource-group rg-legoaibot --environment legorobot-containerappenv --ingress external
-az containerapp update --name legoaibot-prd-api --image legoaibotprdacr.azurecr.io/legoaibot:v2 --resource-group rg-legoaibot 
+az containerapp up --name legoaibot-prd-api --image legoaibotprdacr.azurecr.io/legoaibot-api:v7 --resource-group rg-legoaibot --environment legorobot-containerappenv --ingress external
+az containerapp update --name legoaibot-prd-api --image legoaibotprdacr.azurecr.io/legoaibot:v7 --resource-group rg-legoaibot 
 
+az containerapp up --name legoaibot-prd-api-rt --image legoaibotprdacr.azurecr.io/legoaibot-api-rt:v10 --resource-group rg-legoaibot --environment legorobot-containerappenv --ingress external
